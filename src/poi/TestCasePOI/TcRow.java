@@ -2,6 +2,7 @@ package poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
+import poi.Constant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class TcRow {
      * @return cell
      */
     Cell getCell(String columnAlphabet){
-        if(columnAlphabet.compareTo("XFD") > 0){
+        if(columnAlphabet.compareTo(Constant.MAX_COLUMN_STRING) > 0){
             System.err.println("Getting cell Error - The columnAlphabet is too big. Please input a columnAlphabet less than \"XFD\".");
             return null;
         } else if (isInteger(columnAlphabet)){
@@ -79,6 +80,28 @@ public class TcRow {
     Cell getCell(int columnIndex){
         String columnAlphabet = convertColumnIndexToAlphabet(columnIndex);
         return getCell(columnAlphabet);
+    }
+
+    /**
+     * Get cell apart column offset
+     *
+     * @param columnAlphabet base column alphabet
+     * @param offset distance
+     * @return cell
+     */
+    Cell getOffsetCell(String columnAlphabet, int offset){
+        return getCell(convertColumnAlphabetToIndex(columnAlphabet) + offset);
+    }
+
+    /**
+     * Get column alphabet apart column offset
+     *
+     * @param columnAlphabet base column alphabet
+     * @param offset distance
+     * @return column alphabet
+     */
+    String getOffsetColumnAlphabet(String columnAlphabet, int offset){
+        return convertColumnIndexToAlphabet(convertColumnAlphabetToIndex(columnAlphabet) + offset);
     }
 
     /**

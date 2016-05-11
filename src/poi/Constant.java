@@ -9,6 +9,9 @@ public class Constant {
 
     public static final String FILE_EXTENSION = ".xlsx";
 
+    public static final String MAX_COLUMN_STRING = "XFD";
+    public static final int MAX_ROW = 1048576;
+
     public enum BenchmarkSheets{
         total               ("Total"),
         cmdi                ("Command Injection"),

@@ -18,7 +18,7 @@ public class BenchmarkTemplate {
     }
 
     /**
-     *
+     * Set Benchmark workbook templates.
      */
     private void init(){
         for(Constant.BenchmarkSheets benchmarkSheets : Constant.BenchmarkSheets.values()){
@@ -42,14 +42,73 @@ public class BenchmarkTemplate {
 //        cell.setCellValue(vulnerabilitySheetName);
         cell.setCellValue(tempTcSheet.getSheet().getSheetName());
 
+        cell = tempTcSheet.mergeCellRegion(3,5,'b','b');
+        cell.setCellValue("Test Cases");
+
+        cell = tempTcSheet.mergeCellRegion(3,4,'c','d');
+        cell.setCellValue("Real Vulnerability");
+
+        cell = tempTcSheet.mergeCellRegion(3,4,'e','f');
+        cell.setCellValue("URL Crawl");
+
+        cell = tempTcSheet.mergeCellRegion(3,3,'g','j');
+        cell.setCellValue("Detected");
+
+        cell = tempTcSheet.mergeCellRegion(4,4,'g','h');
+        cell.setCellValue("TRUE Vulnerability");
+
+        cell = tempTcSheet.mergeCellRegion(4,4,'i','j');
+        cell.setCellValue("FALSE Vulnerability");
+
+        cell = tempTcSheet.mergeCellRegion(3,5,'k','k');
+        cell.setCellValue("Description");
+
+        cell = tempTcSheet.mergeCellRegion(1,Constant.MAX_ROW, 'l','l');
+
+        cell = tempTcSheet.mergeCellRegion(3,5,'m','m');
+        cell.setCellValue("Failed TP");
+
+        cell = tempTcSheet.mergeCellRegion(3,5,'n','n');
+        cell.setCellValue("Failed TN");
+
         cell = tempTcSheet.getCell(6,'a');
         cell.setCellValue("합계");
 
-//        cell = tempTcSheet.getCell(3,'b');
-//        tempTcSheet.getSheet().addMergedRegion(CellRangeAddress);
-//
-//        CellRangeAddress cra = new CellRangeAddress();
+        cell = tempTcSheet.getCell(5,'c');
+        cell.setCellValue("TRUE");
+
+        cell = tempTcSheet.getCell(5,'d');
+        cell.setCellValue("FALSE");
+
+        cell = tempTcSheet.getCell(5,'e');
+        cell.setCellValue("TRUE");
+
+        cell = tempTcSheet.getCell(5,'f');
+        cell.setCellValue("FALSE");
+
+        cell = tempTcSheet.getCell(5,'g');
+        cell.setCellValue("TRUE");
+
+        cell = tempTcSheet.getCell(5,'h');
+        cell.setCellValue("FALSE");
+
+        cell = tempTcSheet.getCell(5,'i');
+        cell.setCellValue("TRUE");
+
+        cell = tempTcSheet.getCell(5,'j');
+        cell.setCellValue("FALSE");
+
+        cell = tempTcSheet.getCell(6,'b');
+        cell.setCellValue("=COUNTA(B:B)-3");
+
+        cell = tempTcSheet.getCell(6, 'c');
+        cell.setCellValue("=COUNTIF(C:C,TRUE)-1");
+
+        cell = tempTcSheet.getCell(6,'d');
+        cell.setCellValue("=COUNTIF(D:D,\"FALSE\")-1");
     }
+
+    //todo define default XSSFCEllStyle
 
     /**
      * write current state in excel file - ZAP_OWASPBenchmark_Results_[time].xlsx

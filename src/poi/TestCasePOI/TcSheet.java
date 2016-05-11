@@ -126,15 +126,20 @@ public class TcSheet {
     public Cell mergeCellRegion(int firstRow, int lastRow, String firstColumn, String lastColumn){
 
         // Error check -  Must be lastRow > firstRow
-        if(!(lastRow > firstRow)){
+        if(firstRow > lastRow){
             System.err.println("Merge row data Error - Last row data must be bigger than first row data.");
             return null;
         }
 
         // Error check - Must be lastColumn > firstColumn
-        if(!(lastColumn.compareTo(firstColumn) > 0)){
+        if(firstColumn.compareTo(lastColumn) > 0){
             System.err.println("Merge column data Error - Last Column data must be bigger than first column data.");
             return null;
+        }
+
+        if((firstRow == lastRow) && (firstColumn.compareTo(lastColumn) == 0)){
+            System.out.println("First row data = Last row data, and first column data = last column data - It is a only one cell.");
+            return getCell(firstRow, firstColumn);
         }
 
         Cell firstCell = getCell(firstRow, firstColumn);
@@ -163,6 +168,22 @@ public class TcSheet {
     }
 
     /**
+     * merge cells and get a first cell
+     *
+     * @param firstRow row containing first cell
+     * @param lastRow row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn a single column alphabet containing a last cell
+     * @return first cell in merged cell region
+     */
+    public Cell mergeCellRegion(int firstRow, int lastRow, char firstColumn, char lastColumn){
+        String firstColumnString = String.valueOf(firstColumn);
+        String lastColumnString = String.valueOf(lastColumn);
+
+        return mergeCellRegion(firstRow, lastRow, firstColumnString, lastColumnString);
+    }
+
+    /**
      * Get a first cell in merged region containing this cell.
      *
      * @param cell a cell contained merged region
@@ -180,7 +201,38 @@ public class TcSheet {
         return null;
     }
 
+    /**
+     * Multi cells set to be same value.
+     * ! caution : value must be String or Integer.
+     *
+     * @param firstRow row containing first cell
+     * @param lastRow row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn a single column alphabet containing a last cell
+     * @param value value (It must be String or Integer)
+     */
+    public void setSameValueMultiCells(int firstRow, int lastRow, String firstColumn, String lastColumn, Object value){
+        for(int i = firstRow; i <= lastRow; i++){
+            TcRow tcRow = getTcRow(i);
 
+            String tempColumn = firstColumn;
+            while(!(tempColumn.compareTo(lastColumn)>0)){
+
+                Cell tempCell = getCell(i, tempColumn);
+
+                if(value instanceof String){
+                    tempCell.setCellValue(value.toString());
+                } else if(value instanceof Integer){
+                    tempCell.setCellValue((int) value);
+                } else {
+                    System.err.println("Set value Error - Setting multi cells to be same value is failed. Value must be String or Integer.");
+                    return;
+                }
+
+                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn,1);
+            }
+        }
+    }
 
     public XSSFSheet getSheet() {
         return sheet;
