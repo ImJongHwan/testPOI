@@ -71,6 +71,38 @@ public class TcRow {
     }
 
     /**
+     * Get cell in parentRow by columnIndex
+     *
+     * @param columnIndex XSSFCell ColumnIndex
+     * @return cell
+     */
+    Cell getCell(int columnIndex){
+        String columnAlphabet = convertColumnIndexToAlphabet(columnIndex);
+        return getCell(columnAlphabet);
+    }
+
+    /**
+     * Convert to column index to column alphabet
+     *
+     * @param columnIndex XSSFCell column index
+     * @return columnAlphabet
+     */
+    private String convertColumnIndexToAlphabet(int columnIndex){
+        String columnAlphabet = null;
+
+        int tempIndex = 0;
+        int resIndex = columnIndex;
+
+        while(resIndex > 0){
+            tempIndex = (resIndex % ALPHABET_SIZE) + 'A';
+            columnAlphabet = String.valueOf(Character.toChars(tempIndex)) + columnAlphabet;
+            resIndex = resIndex/ALPHABET_SIZE;
+        }
+
+        return columnAlphabet;
+    }
+
+    /**
      * convert ColumnAlphabet in real excel to Cell Index
      *
      * @param columnAlphabet columnAlphabet in real excel

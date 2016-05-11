@@ -3,6 +3,7 @@ package poi.BenchmarkPOI;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -33,9 +34,8 @@ public class BenchmarkTemplate {
 
     private void initVulnerabilitySheet(TcSheet tempTcSheet){
 //        TcSheet tempTcSheet = this.tcWorkbook.getTcSheet(vulnerabilitySheetName);
-        XSSFCellStyle cs = tcWorkbook.getWorkbook().createCellStyle();
-
-        cs.setAlignment(HorizontalAlignment.CENTER);
+//        XSSFCellStyle cs = tcWorkbook.getWorkbook().createCellStyle();
+//        cs.setAlignment(HorizontalAlignment.CENTER);
 
         Cell cell = tempTcSheet.getCell(1,'A');
         cell.setCellValue("검사날짜");
@@ -50,9 +50,16 @@ public class BenchmarkTemplate {
 
         cell = tempTcSheet.getCell(6,'a');
         cell.setCellValue("합계");
-        cell.setCellStyle(cs);
+
+//        cell = tempTcSheet.getCell(3,'b');
+//        tempTcSheet.getSheet().addMergedRegion(CellRangeAddress);
+//
+//        CellRangeAddress cra = new CellRangeAddress();
     }
 
+    /**
+     * write current state in excel file - ZAP_OWASPBenchmark_Results_[time].xlsx
+     */
     public void writeBenchmark(){
         if(tcWorkbook != null){
             tcWorkbook.writeWorkbook(Constant.BENCHMARK_NAME);
