@@ -19,7 +19,7 @@ public class TcWorkbook {
     private XSSFWorkbook workbook = null;
     private int newFileNum = 1;
 
-    private String workbookCreatedTime = null;
+    private Date workbookCreatedTime = null;
 
     private Map<String, TcSheet> benchmarkSheetMap = new HashMap<>();
 
@@ -37,8 +37,8 @@ public class TcWorkbook {
      * Set created workbook time.
      */
     private void init(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmm");
-        this.workbookCreatedTime = sdf.format(new Date());
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmm");
+        this.workbookCreatedTime = new Date();
     }
 
     /**
@@ -50,11 +50,14 @@ public class TcWorkbook {
     public String writeWorkbook(String tcName){
         try {
 
-            String workbookFileName = tcName + this.workbookCreatedTime + Constant.FILE_EXTENSION;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmm");
+            String createdTime = sdf.format(workbookCreatedTime);
+
+            String workbookFileName = tcName + createdTime + Constant.FILE_EXTENSION;
             File workbookFile = new File(workbookFileName);
 
             while(workbookFile.exists()) {
-                workbookFileName = tcName + this.workbookCreatedTime +" (" + this.newFileNum + ")" + Constant.FILE_EXTENSION;
+                workbookFileName = tcName + createdTime +" (" + this.newFileNum + ")" + Constant.FILE_EXTENSION;
                 workbookFile = new File(workbookFileName);
                 this.newFileNum++;
             }
@@ -111,7 +114,7 @@ public class TcWorkbook {
      *
      * @return workbook createdTime
      */
-    public String getWorkbookCreatedTime() {
+    public Date getWorkbookCreatedTime() {
         return workbookCreatedTime;
     }
 

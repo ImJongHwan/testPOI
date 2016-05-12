@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        XSSFWorkbook workbook = new XSSFWorkbook();
+//        XSSFWorkbook workbook = new XSSFWorkbook();
 //        try {
 //            FileOutputStream out = new FileOutputStream(new File("./createworkbook.xlsx"));
 //            XSSFSheet xs = workbook.createSheet();
@@ -30,7 +30,7 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        System.out.println("createworkbool.xlsx written successfully");
+//        System.out.println("createworkbool.xlsx written successfully");
         BenchmarkTemplate bt = new BenchmarkTemplate();
         bt.writeBenchmark();
     }
