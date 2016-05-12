@@ -22,7 +22,9 @@ public class BenchmarkTemplate {
      */
     private void init(){
         for(Constant.BenchmarkSheets benchmarkSheets : Constant.BenchmarkSheets.values()){
-            initVulnerabilitySheet(this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName()));
+            if(!benchmarkSheets.getSheetName().equals(Constant.BenchmarkSheets.total)) {
+                initVulnerabilitySheet(this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName()));
+            }
         }
     }
 
@@ -106,6 +108,33 @@ public class BenchmarkTemplate {
 
         cell = tempTcSheet.getCell(6,'d');
         cell.setCellValue("=COUNTIF(D:D,\"FALSE\")-1");
+
+        cell = tempTcSheet.getCell(6, 'e');
+        cell.setCellValue("=COUNTIF(E:E,TRUE)-1");
+
+        cell = tempTcSheet.getCell(6, 'f');
+        cell.setCellValue("=COUNTIF(F:F,\"FALSE\")-1");
+
+        cell = tempTcSheet.getCell(6,'g');
+        cell.setCellValue("=COUNTIF(G:G,\"*TRUE*\")-1");
+
+        cell = tempTcSheet.getCell(6,'h');
+        cell.setCellValue("=COUNTIF(H:H,\"*FALSE*\")");
+
+        cell = tempTcSheet.getCell(6,'i');
+        cell.setCellValue("=COUNTIF(I:I,\"*TRUE*\")");
+
+        cell = tempTcSheet.getCell(6,'j');
+        cell.setCellValue("=COUNTIF(J:J,\"*FALSE*\")");
+
+        cell = tempTcSheet.getCell(6,'k');
+        cell.setCellValue("=COUNTA(K:K)-2");
+
+        cell = tempTcSheet.getCell(6, 'm');
+        cell.setCellValue("=COUNTA(M:M)-2");
+
+        cell = tempTcSheet.getCell(6, 'n');
+        cell.setCellValue("=COUNTA(N:N)-2");
     }
 
     //todo define default XSSFCEllStyle
