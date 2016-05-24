@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<option>
+    <category name="SQL_INJECTION.JS">
+        <item name="taint_source" type="string" required="true" variable="true" regexp="true">
+            <!--<value>document\.\(URL|documentURI|URLUnencoded|baseURI|cookie|referrer\)$variable</value>-->
+            <!--<value>document\.\(URL|documentURI|URLUnencoded|baseURI|cookie|referrer\)\..+$return</value>-->
+            <value>document\.URL$variable</value>
+            <value>document\.URL\..+$return</value>
+            <value>document\.documentURI$variable</value>
+            <value>document\.documentURI\..+$return</value>
+            <value>document\.URLUnencoded$variable</value>
+            <value>document\.URLUnencoded\..+$return</value>
+            <value>document\.baseURI$variable</value>
+            <value>document\.baseURI\..+$return</value>
+            <value>document\.cookie$variable</value>
+            <value>document\.cookie\..+$return</value>
+            <value>document\.referrer$variable</value>
+            <value>document\.referrer\..+$return</value>
+            <value>location\.hash$variable</value>
+            <value>location\.hash\..+$return</value>
+            <value>.+\.location\.hash$variable</value>
+            <value>.+\.location\.hash\..+$return</value>
+            <value>location\.href$variable</value>
+            <value>location\.href\..+$return</value>
+            <value>.+\.location\.href$variable</value>
+            <value>.+\.location\.href\..+$return</value>
+            <value>taint_.*SQL_INJECTION\.JS.*P_A_[0-9]+$variable</value>
+            <!-- NODEJS Source -->
+            <value>__sparrow_node_js_request__\.url$variable</value>
+            <value>__sparrow_node_js_url_request__\.query\.url$variable</value>
+            <value>__sparrow_node_js_url_request__\.url$variable</value>
+        </item>
+        <item name="taint_sink" type="string" required="true" variable="true" regexp="true">
+            <value>.+\.executeSql$param(1)</value>
+            <value>.+\.query$param(1)</value> <!-- Query function of mysql in nodejs-->
+            <!-- Indexed DB sink-->
+            <value>.+\.transaction$param(1)</value>
+        </item>
+        <item name="taint_propagator" type="string" required="false" variable="true" regexp="true">
+            <value>\+$operand(*)->return</value>
+        </item>
+        <item name="taint_filter" type="string" required="false" variable="true" regexp="true">
+        </item>
+    </category>
+</option>

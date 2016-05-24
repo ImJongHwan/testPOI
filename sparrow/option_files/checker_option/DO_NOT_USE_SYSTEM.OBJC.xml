@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<option>
+    <category name="DO_NOT_USE_SYSTEM.OBJC">
+        <item name="system_function" type="string" required="false" variable="true" regexp="true">
+            <value>system</value>
+            <value>popen</value>
+        </item>
+    </category>
+</option>

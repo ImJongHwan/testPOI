@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<option>
+    <category name="HTML5.CROSS_DOCUMENT_MESSAGING.JS">
+        <item name="forbidden_pattern" type="string" required="false" variable="true" regexp="true">
+            <value>\*</value>
+        </item>
+    </category>
+</option>

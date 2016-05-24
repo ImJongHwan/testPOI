@@ -1,7 +1,9 @@
 package poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
+import poi.CellStyles;
 import poi.Constant;
 
 import java.util.HashMap;
@@ -16,7 +18,7 @@ public class TcRow {
     private Map<String, Cell> cellMap = new HashMap<>();
     private static final int ALPHABET_SIZE = 26;
 
-    TcRow(XSSFRow parentRow){
+    TcRow(XSSFRow parentRow) {
         this.parentRow = parentRow;
     }
 
@@ -26,20 +28,21 @@ public class TcRow {
      * @param columnAlphabet columnAlphabet in real excel.
      * @return cell
      */
-    Cell getCell(String columnAlphabet){
-        if(columnAlphabet.compareTo(Constant.MAX_COLUMN_STRING) > 0){
+    Cell getCell(String columnAlphabet) {
+        if (columnAlphabet.compareTo(Constant.MAX_COLUMN_STRING) > 0) {
             System.err.println("Getting cell Error - The columnAlphabet is too big. Please input a columnAlphabet less than \"XFD\".");
             return null;
-        } else if (isInteger(columnAlphabet)){
+        } else if (isInteger(columnAlphabet)) {
             System.err.println("ColumnAlphabet Error - The ColumnAlphabet is contained number. Please check columnAlphabet.");
             return null;
         }
 
-        if(cellMap.containsKey(columnAlphabet)){
+        if (cellMap.containsKey(columnAlphabet)) {
             return cellMap.get(columnAlphabet);
         }
 
         Cell cell = parentRow.createCell(convertColumnAlphabetToIndex(columnAlphabet));
+        cell.setCellStyle(CellStyles.getDefaultStyle(parentRow.getSheet().getWorkbook()));
 
         cellMap.put(columnAlphabet, cell);
 
@@ -52,15 +55,15 @@ public class TcRow {
      * @param columnAlphabet A single columnAlphabet in real excel.
      * @return cell
      */
-    Cell getCell(char columnAlphabet){
-        if(!Character.isAlphabetic(columnAlphabet)){
+    Cell getCell(char columnAlphabet) {
+        if (!Character.isAlphabetic(columnAlphabet)) {
             System.err.println("Getting cell Error - The Single columnAlphabet is number. Please input a alphabet.");
             return null;
         }
 
         String charToString = String.valueOf(columnAlphabet);
 
-        if(cellMap.containsKey(charToString)){
+        if (cellMap.containsKey(charToString)) {
             return cellMap.get(charToString);
         }
 
@@ -77,7 +80,7 @@ public class TcRow {
      * @param columnIndex XSSFCell ColumnIndex
      * @return cell
      */
-    Cell getCell(int columnIndex){
+    Cell getCell(int columnIndex) {
         String columnAlphabet = convertColumnIndexToAlphabet(columnIndex);
         return getCell(columnAlphabet);
     }
@@ -86,10 +89,10 @@ public class TcRow {
      * Get cell apart column offset
      *
      * @param columnAlphabet base column alphabet
-     * @param offset distance
+     * @param offset         distance
      * @return cell
      */
-    Cell getOffsetCell(String columnAlphabet, int offset){
+    Cell getOffsetCell(String columnAlphabet, int offset) {
         return getCell(convertColumnAlphabetToIndex(columnAlphabet) + offset);
     }
 
@@ -97,10 +100,10 @@ public class TcRow {
      * Get column alphabet apart column offset
      *
      * @param columnAlphabet base column alphabet
-     * @param offset distance
+     * @param offset         distance
      * @return column alphabet
      */
-    String getOffsetColumnAlphabet(String columnAlphabet, int offset){
+    String getOffsetColumnAlphabet(String columnAlphabet, int offset) {
         return convertColumnIndexToAlphabet(convertColumnAlphabetToIndex(columnAlphabet) + offset);
     }
 
@@ -110,16 +113,16 @@ public class TcRow {
      * @param columnIndex XSSFCell column index
      * @return columnAlphabet
      */
-    private String convertColumnIndexToAlphabet(int columnIndex){
-        String columnAlphabet = null;
+    private String convertColumnIndexToAlphabet(int columnIndex) {
+        String columnAlphabet = "";
 
         int tempIndex = 0;
         int resIndex = columnIndex;
 
-        while(resIndex > 0){
+        while (resIndex > 0) {
             tempIndex = (resIndex % ALPHABET_SIZE) + 'A';
             columnAlphabet = String.valueOf(Character.toChars(tempIndex)) + columnAlphabet;
-            resIndex = resIndex/ALPHABET_SIZE;
+            resIndex = resIndex / ALPHABET_SIZE;
         }
 
         return columnAlphabet;
@@ -131,13 +134,13 @@ public class TcRow {
      * @param columnAlphabet columnAlphabet in real excel
      * @return cell index
      */
-    private int convertColumnAlphabetToIndex(String columnAlphabet){
+    private int convertColumnAlphabetToIndex(String columnAlphabet) {
 //        columnAlphabet = columnAlphabet.toUpperCase();
 
         int cellIndex = 0;
 
-        for(int i = 0; i < columnAlphabet.length(); i++){
-            cellIndex += (columnAlphabet.charAt(i)  -'A') *  Math.pow( ALPHABET_SIZE ,columnAlphabet.length() - i - 1);
+        for (int i = 0; i < columnAlphabet.length(); i++) {
+            cellIndex += (columnAlphabet.charAt(i) - 'A') * Math.pow(ALPHABET_SIZE, columnAlphabet.length() - i - 1);
         }
 
         return cellIndex;
@@ -149,12 +152,12 @@ public class TcRow {
      * @param s string
      * @return is contained integer
      */
-    private static boolean isInteger(String s){
+    private static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
         } catch (NumberFormatException e) {
             return false;
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return false;
         }
         return true;

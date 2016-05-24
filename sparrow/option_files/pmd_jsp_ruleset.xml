@@ -1,0 +1,12 @@
+<ruleset name="All Jsp Rules"
+    xmlns='http://pmd.sf.net/ruleset/1.0.0'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd'
+    xsi:noNamespaceSchemaLocation='http://pmd.sf.net/ruleset_xml_schema.xsd'>
+    <description>Every Jsp Rule in PMD</description>
+
+    <rule ref='rulesets/ecmascript/basic.xml/ConsistentReturn'/>
+    <rule ref='rulesets/ecmascript/basic.xml/GlobalVariable'/>
+    <rule ref='rulesets/ecmascript/basic.xml/InnaccurateNumericLiteral'/>
+    <rule ref='rulesets/ecmascript/basic.xml/ScopeForInVariable'/>
+</ruleset>

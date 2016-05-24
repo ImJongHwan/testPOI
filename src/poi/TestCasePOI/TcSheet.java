@@ -1,10 +1,12 @@
 package poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import poi.Constant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -184,6 +186,58 @@ public class TcSheet {
     }
 
     /**
+     * get cell range address to use real row int, column characters
+     *
+     * @param firstRow row containing first cell
+     * @param lastRow row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn a single column alphabet containing a last cell
+     * @return CellRangeAddress
+     */
+    public CellRangeAddress getCellRange(int firstRow, int lastRow, String firstColumn, String lastColumn){
+        // Error check -  Must be lastRow > firstRow
+        if(firstRow > lastRow){
+            System.err.println("Merge row data Error - Last row data must be bigger than first row data.");
+            return null;
+        }
+
+        // Error check - Must be lastColumn > firstColumn
+        if(firstColumn.compareTo(lastColumn) > 0){
+            System.err.println("Merge column data Error - Last Column data must be bigger than first column data.");
+            return null;
+        }
+
+        if((firstRow == lastRow) && (firstColumn.compareTo(lastColumn) == 0)){
+            System.out.println("First row data = Last row data, and first column data = last column data - It is a only one cell.");
+            return null;
+        }
+
+        Cell firstCell = getCell(firstRow, firstColumn);
+        Cell lastCell = getCell(lastRow, lastColumn);
+
+        CellRangeAddress cellRange = new CellRangeAddress(firstCell.getRowIndex(), lastCell.getRowIndex(),
+                firstCell.getColumnIndex(), lastCell.getColumnIndex());
+
+        return cellRange;
+    }
+
+    /**
+     * get cell range address to use real row int, column characters
+     *
+     * @param firstRow row containing first cell
+     * @param lastRow row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn a single column alphabet containing a last cell
+     * @return CellRangeAddress
+     */
+    public CellRangeAddress getCellRange(int firstRow, int lastRow, char firstColumn, char lastColumn){
+        String firstColumnString = String.valueOf(firstColumn);
+        String lastColumnString = String.valueOf(lastColumn);
+
+        return getCellRange(firstRow, lastRow, firstColumnString, lastColumnString);
+    }
+
+    /**
      * Get a first cell in merged region containing this cell.
      *
      * @param cell a cell contained merged region
@@ -212,10 +266,14 @@ public class TcSheet {
      * @param value value (It must be String or Integer)
      */
     public void setSameValueMultiCells(int firstRow, int lastRow, String firstColumn, String lastColumn, Object value){
+
+        String upperFirst = firstColumn.toUpperCase();
+        String upperLast = lastColumn.toUpperCase();
+
         for(int i = firstRow; i <= lastRow; i++){
             TcRow tcRow = getTcRow(i);
 
-            String tempColumn = firstColumn;
+            String tempColumn = upperFirst;
             while(!(tempColumn.compareTo(lastColumn)>0)){
 
                 Cell tempCell = getCell(i, tempColumn);
@@ -240,5 +298,77 @@ public class TcSheet {
 
     public String getSheetName() {
         return sheetName;
+    }
+
+    /**
+     * set column width to use real column alphabet
+     * !caution : setColumnWidth API has a error - you must multiply a Constant.COLUMN_SIZE_CONSTANT(256)
+     *
+     * @param columnIndex column alphabet
+     * @param width column width
+     */
+    public void setColumnWidth(String columnIndex, int width){
+        this.sheet.setColumnWidth(Constant.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
+    }
+
+    /**
+     * set column width to use real column alphabet
+     * !caution : setColumnWidth API has a error - you must multiply a Constant.COLUMN_SIZE_CONSTANT(256)
+     *
+     * @param columnIndex single column alphabet
+     * @param width column width
+     */
+    public void setColumnWidth(char columnIndex, int width){
+        this.sheet.setColumnWidth(Constant.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
+    }
+
+    /**
+     * set style to multi cells
+     *
+     * @param firstRow row containing first cell
+     * @param lastRow row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn a single column alphabet containing a last cell
+     * @param style cell style
+     */
+    public void setSameCellStyle(int firstRow, int lastRow, String firstColumn, String lastColumn, CellStyle style){
+
+        String upperFirst = firstColumn.toUpperCase();
+        String upperLast = lastColumn.toUpperCase();
+
+        if(style == null){
+            System.out.println("Set style error - style is a null character : TcSheet");
+            return;
+        }
+
+        for(int i = firstRow; i <= lastRow; i++){
+            TcRow tcRow = getTcRow(i);
+
+            String tempColumn = upperFirst;
+            while(!(tempColumn.compareTo(upperLast)>0)){
+
+                Cell tempCell = getCell(i, tempColumn);
+
+                tempCell.setCellStyle(style);
+
+                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn,1);
+            }
+        }
+    }
+
+    /**
+     * set style to multi cells
+     *
+     * @param firstRow row containing first cell
+     * @param lastRow row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn a single column alphabet containing a last cell
+     * @param style cell style
+     */
+    public void setSameCellStyle(int firstRow, int lastRow, char firstColumn, char lastColumn, CellStyle style){
+        String firstColumnString = String.valueOf(firstColumn);
+        String lastColumnString = String.valueOf(lastColumn);
+
+        setSameCellStyle(firstRow, lastRow, firstColumnString, lastColumnString, style);
     }
 }

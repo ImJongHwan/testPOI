@@ -1,0 +1,79 @@
+### SPARROW ANALYSIS SUMMARY ###
+
+PROJECT PATH       : C:\scalaProjects\testPOI
+SPARROW HOME       : C:\Sparrow\sparrow4\
+SPARROW VERSRION   : 4.6_r46
+SPARROW BUILD ID   : aaa1ca5c1c62e4b682f6faaf305547e5994c7c34
+SPARROW BUILD DATE : 2016-04-06
+REMOTE ENGINE      : false
+REMOTE ENGINE JAVA : false
+COMMAND ARGS : -U admin1 -P admin1_0_WMjava_10853 -SD C:\scalaProjects\testPOI
+==========================================================
++ Analysis summary
+==========================================================
+  Project Name              : admin1_0_WMjava_10853
+  Checker Group             : Default (206/976)
+  Elapsed time              : 0:0:18
+  Files                     : 6
+  Build lines               : 434
+  Total defects             : 61
+==========================================================
+ Risk  Checker               Numbers
+----------------------------------------------------------
+   4   LEFTOVER_DEBUG_CODE      1
+   1   NULL_RETURN             52
+   4   UNUSED_IMPORT            8
+==========================================================
+
+
+### SPARROW ANALYSIS TIME ###
+
+== Build (BuildJava) ==
+START TIME   : 2016-05-12 13:29:12
+END TIME     : 2016-05-12 13:29:12
+ELAPSED TIME : 17ms (0h 0m 0s)
+
+== CTAGS Make ==
+START TIME   : 2016-05-12 13:29:12
+END TIME     : 2016-05-12 13:29:12
+ELAPSED TIME : 77ms (0h 0m 0s)
+
+== Engine(JEM) ==
+VERSION      : v1.6.0
+START TIME   : 2016-05-12 13:29:12
+END TIME     : 2016-05-12 13:29:29
+ELAPSED TIME : 16516ms (0h 0m 16s)
+EXIT VALUE   : [0]
+
+== INSERT Project File ==
+START TIME   : 2016-05-12 13:29:29
+END TIME     : 2016-05-12 13:29:29
+ELAPSED TIME : 62ms (0h 0m 0s)
+COUNT        : 6
+
+== CTAGS divide ==
+START TIME   : 2016-05-12 13:29:29
+END TIME     : 2016-05-12 13:29:29
+ELAPSED TIME : 39ms (0h 0m 0s)
+
+== DB DEFECT INSERT, PARSING, CALCULATE ==
+START TIME   : 2016-05-12 13:29:29
+END TIME     : 2016-05-12 13:29:29
+ELAPSED TIME : 546ms (0h 0m 0s)
+COUNT        : 61
+
+== DB UPDATE SCAN ==
+START TIME   : 2016-05-12 13:29:29
+END TIME     : 2016-05-12 13:29:29
+ELAPSED TIME : 2ms (0h 0m 0s)
+
+== DB SELECT RESULT ==
+VERSION      : ProjectId : 3, CheckerGroupId : 0
+START TIME   : 2016-05-12 13:29:29
+END TIME     : 2016-05-12 13:29:30
+ELAPSED TIME : 22ms (0h 0m 0s)
+
+== TOTAL ==
+START TIME   : 2016-05-12 13:29:11
+END TIME     : 2016-05-12 13:29:30
+ELAPSED TIME : 18244ms (0h 0m 18s)

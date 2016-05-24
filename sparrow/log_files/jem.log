@@ -1,0 +1,193 @@
+[2016-05-12 13:29:12] [INFO ] JEM Version         + JEM Version : v1.6.0
+[2016-05-12 13:29:12] [INFO ] JEM COMMAND         + ==== JEM Execute commnad option ====
+[2016-05-12 13:29:12] [INFO ] JEM COMMAND         + Command Option : -build_path C:\scalaProjects\testPOI\sparrow -sparrow_installed_path C:\Sparrow\sparrow4\ -prj_name admin1_0_WMjava_10853 -scan_id 2 -xss_opt 8m -xmx_opt 2048m -xml_threshold 100 -encoding EUC-KR 
+[2016-05-12 13:29:12] [INFO ] EngineList          + ==== Engine setting ====
+[2016-05-12 13:29:12] [INFO ] EngineList          + FINCH_SYN : true
+[2016-05-12 13:29:12] [INFO ] EngineList          + FINCH_SEM : true
+[2016-05-12 13:29:12] [INFO ] EngineList          + PMD       : true
+[2016-05-12 13:29:12] [INFO ] EngineList          + Comchk    : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + HTML      : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + PHP       : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + OBJC      : false
+[2016-05-12 13:29:12] [INFO ] RunEngine           + C#        : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + SQLCHK    : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + JSCHK     : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + STRCHK    : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + CSREX   : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + VBSCHK   : false
+[2016-05-12 13:29:12] [INFO ] EngineList          + ABAPCHK   : false
+[2016-05-12 13:29:12] [INFO ] RunEngine           + Start java source extracting ..
+[2016-05-12 13:29:12] [INFO ] Command             + Executing non-blocking job for : [SRCINFO]
+[2016-05-12 13:29:12] [INFO ] Command             + The job has finished : [SRCINFO]
+[2016-05-12 13:29:13] [INFO ] ResultHandler       + successfully.
+[2016-05-12 13:29:13] [INFO ] Command             + Executing non-blocking job for : [WEBINFO]
+[2016-05-12 13:29:13] [INFO ] Command             + The job has finished : [WEBINFO]
+[2016-05-12 13:29:14] [INFO ] ResultHandler       + successfully.
+[2016-05-12 13:29:14] [INFO ] RunEngine           + End java source extracting ..
+[2016-05-12 13:29:14] [INFO ] RunEngine           + Engine Analyze MULTI-THREAD
+[2016-05-12 13:29:14] [INFO ] START ENGINE THREAD |  + PMD
+[2016-05-12 13:29:14] [INFO ] START ENGINE THREAD |  + FINCH_SEM
+[2016-05-12 13:29:14] [INFO ] START ENGINE THREAD |  + FINCH_SYN
+[2016-05-12 13:29:14] [INFO ] Command             |  + Executing non-blocking job for : [PMD]
+[2016-05-12 13:29:14] [INFO ] Command             |  + The job has finished : [PMD]
+[2016-05-12 13:29:14] [INFO ] JFSem               |  + Counting files in map file : finch_sem_map.txt : 6 files
+[2016-05-12 13:29:14] [INFO ] Command             |  + Executing non-blocking job for : [FINCH_SYN]
+[2016-05-12 13:29:14] [INFO ] Command             |  + The job has finished : [FINCH_SYN]
+[2016-05-12 13:29:14] [INFO ] Command             |  + Executing non-blocking job for : [FINCH_SEM]
+[2016-05-12 13:29:14] [INFO ] Command             |  + The job has finished : [FINCH_SEM]
+[2016-05-12 13:29:15] [INFO ] ResultHandler       |  + successfully.
+[2016-05-12 13:29:15] [INFO ] END ENGINE THREAD   |  + PMD
+[2016-05-12 13:29:15] [INFO ] TimeManager         |  + TIME for PMD
+[2016-05-12 13:29:15] [INFO ] TimeManager         |  |  + VERSION      : 5.0.5a
+[2016-05-12 13:29:15] [INFO ] TimeManager         |  |  + START TIME   : 2016-05-12 13:29:14
+[2016-05-12 13:29:15] [INFO ] TimeManager         |  |  + END TIME     : 2016-05-12 13:29:15
+[2016-05-12 13:29:15] [INFO ] TimeManager         |  |  + ELAPSED TIME : 1508ms (0h 0m 1s)
+[2016-05-12 13:29:15] [INFO ] TimeManager         |  |  + EXIT VALUE   : [0]
+[2016-05-12 13:29:16] [INFO ] ResultHandler       |  + successfully.
+[2016-05-12 13:29:16] [INFO ] END ENGINE THREAD   |  + FINCH_SYN
+[2016-05-12 13:29:16] [INFO ] TimeManager         |  + TIME for FINCH_SYN
+[2016-05-12 13:29:16] [INFO ] TimeManager         |  |  + VERSION      : v2.2.9
+[2016-05-12 13:29:16] [INFO ] TimeManager         |  |  + START TIME   : 2016-05-12 13:29:14
+[2016-05-12 13:29:16] [INFO ] TimeManager         |  |  + END TIME     : 2016-05-12 13:29:16
+[2016-05-12 13:29:16] [INFO ] TimeManager         |  |  + ELAPSED TIME : 2513ms (0h 0m 2s)
+[2016-05-12 13:29:16] [INFO ] TimeManager         |  |  + EXIT VALUE   : [0]
+[2016-05-12 13:29:28] [INFO ] ResultHandler       |  + successfully.
+[2016-05-12 13:29:28] [INFO ] END ENGINE THREAD   |  + FINCH_SEM
+[2016-05-12 13:29:28] [INFO ] TimeManager         |  + TIME for FINCH_SEM
+[2016-05-12 13:29:28] [INFO ] TimeManager         |  |  + VERSION      : v5.1.4
+[2016-05-12 13:29:28] [INFO ] TimeManager         |  |  + START TIME   : 2016-05-12 13:29:14
+[2016-05-12 13:29:28] [INFO ] TimeManager         |  |  + END TIME     : 2016-05-12 13:29:28
+[2016-05-12 13:29:28] [INFO ] TimeManager         |  |  + ELAPSED TIME : 14535ms (0h 0m 14s)
+[2016-05-12 13:29:28] [INFO ] TimeManager         |  |  + EXIT VALUE   : [0]
+[2016-05-12 13:29:28] [INFO ]                     + ------------------------------------------------Engine Command Line Summary---------------------------------------------------
+[2016-05-12 13:29:28] [INFO ]                     |  + Target Engine : PMD
+[2016-05-12 13:29:28] [INFO ]                     |  + One line command : C:\Program Files\Java\jdk1.7.0_79\jre\bin\java -Xss8m -Xmx2048m -jar C:\Sparrow\sparrow4\whistle\engine\lib\sparrow-pmd-5.0.5a.jar -prj_name admin1_0_WMjava_10853 -src_mapping_list C:\scalaProjects\testPOI\sparrow\map_files\pmd_map.1.txt -encoding EUC-KR -xml_dir C:\scalaProjects\testPOI\sparrow\xml_files -log_dir C:\scalaProjects\testPOI\sparrow\log_files\pmd.admin1_0_WMjava_10853_1.log -rule_file C:\scalaProjects\testPOI\sparrow\option_files\pmd_java_ruleset.xml
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -Xss8m
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -Xmx2048m
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -jar
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\Sparrow\sparrow4\whistle\engine\lib\sparrow-pmd-5.0.5a.jar
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -prj_name
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + admin1_0_WMjava_10853
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -src_mapping_list
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\map_files\pmd_map.1.txt
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -encoding
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + EUC-KR
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -xml_dir
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\xml_files
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -log_dir
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\log_files\pmd.admin1_0_WMjava_10853_1.log
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -rule_file
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\option_files\pmd_java_ruleset.xml
+[2016-05-12 13:29:28] [INFO ]                     |  +  
+[2016-05-12 13:29:28] [INFO ]                     |  + Map file : C:\scalaProjects\testPOI\sparrow\map_files\pmd_map.1.txt
+[2016-05-12 13:29:28] [INFO ]                     |  |  + The number of files in a map file : 6
+[2016-05-12 13:29:28] [INFO ]                     |  + --------------------------------------------------------------------------------------------------------------------------------
+[2016-05-12 13:29:28] [INFO ]                     |  + Target Engine : SRCINFO
+[2016-05-12 13:29:28] [INFO ]                     |  + One line command : C:\Program Files\Java\jdk1.7.0_79\jre\bin\java -Xss8m -Xmx2048m -jar C:\Sparrow\sparrow4\whistle\engine\lib\sourceinfo-extractor-1.0.2.jar -target_list C:\scalaProjects\testPOI\sparrow\map_files\src_info_map.txt -result_directory C:\scalaProjects\testPOI\sparrow\resource_files\sourceinfo -result_file sourceinfo.dat -log_directory C:\scalaProjects\testPOI\sparrow\log_files -log_file source_info.admin1_0_WMjava_10853.1.log
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -Xss8m
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -Xmx2048m
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -jar
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\Sparrow\sparrow4\whistle\engine\lib\sourceinfo-extractor-1.0.2.jar
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -target_list
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\map_files\src_info_map.txt
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -result_directory
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\resource_files\sourceinfo
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -result_file
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + sourceinfo.dat
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -log_directory
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\log_files
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -log_file
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + source_info.admin1_0_WMjava_10853.1.log
+[2016-05-12 13:29:28] [INFO ]                     |  +  
+[2016-05-12 13:29:28] [INFO ]                     |  + Map file : C:\scalaProjects\testPOI\sparrow\map_files\src_info_map.txt
+[2016-05-12 13:29:28] [INFO ]                     |  |  + The number of files in a map file : 6
+[2016-05-12 13:29:28] [INFO ]                     |  + --------------------------------------------------------------------------------------------------------------------------------
+[2016-05-12 13:29:28] [INFO ]                     |  + Target Engine : FINCH_SEM
+[2016-05-12 13:29:28] [INFO ]                     |  + One line command : C:\Program Files\Java\jdk1.7.0_79\jre\bin\java -Xss8m -Xmx2048m -cp C:\Sparrow\sparrow4\whistle\engine\lib\jspconv-tools-2.1.1.jar;C:\Sparrow\sparrow4\whistle\engine\lib\sourceinfo-common-1.0.2.jar;C:\Sparrow\sparrow4\whistle\engine\lib\weblink-1.4.0.jar;C:\Sparrow\sparrow4\whistle\engine\lib\webinfo-extractor-1.3.0.jar;C:\Sparrow\sparrow4\whistle\engine\lib\jf_sem-v5.1.4.jar com.fasoo.javafinch.core.SemanticEngine -cp C:\scalaProjects\testPOI\sparrow\source_files\testPOI -repo_dir C:\scalaProjects\testPOI\sparrow\prep_jars\repo_dir\admin1_0_WMjava_10853 -taint_rule_propagate_all -taint_rule_class_only -show_followers -analyze_spring -prj_name admin1_0_WMjava_10853 -rule_file C:\scalaProjects\testPOI\sparrow\option_files\checkers_finch_sem.txt -taint_rule C:\scalaProjects\testPOI\sparrow\option_files\checker_option\taint.rule -output_dir C:\scalaProjects\testPOI\sparrow\xml_files -scaffold_file C:\scalaProjects\testPOI\sparrow\option_files\scaffold -src -target_list C:\scalaProjects\testPOI\sparrow\map_files\finch_sem_map.txt -global -weblink_properties C:\scalaProjects\testPOI\sparrow\resource_files\weblink.properties -framework_repository C:\scalaProjects\testPOI\sparrow\source_files\framework_src -intermediate_dir C:\scalaProjects\testPOI\sparrow\intermediate_dir -log_file C:\scalaProjects\testPOI\sparrow\log_files\finch_sem.log
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -Xss8m
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -Xmx2048m
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -cp
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\Sparrow\sparrow4\whistle\engine\lib\jspconv-tools-2.1.1.jar;C:\Sparrow\sparrow4\whistle\engine\lib\sourceinfo-common-1.0.2.jar;C:\Sparrow\sparrow4\whistle\engine\lib\weblink-1.4.0.jar;C:\Sparrow\sparrow4\whistle\engine\lib\webinfo-extractor-1.3.0.jar;C:\Sparrow\sparrow4\whistle\engine\lib\jf_sem-v5.1.4.jar
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + com.fasoo.javafinch.core.SemanticEngine
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -cp
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\source_files\testPOI
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -repo_dir
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\prep_jars\repo_dir\admin1_0_WMjava_10853
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -taint_rule_propagate_all
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -taint_rule_class_only
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -show_followers
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -analyze_spring
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -prj_name
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + admin1_0_WMjava_10853
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -rule_file
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\option_files\checkers_finch_sem.txt
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -taint_rule
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\option_files\checker_option\taint.rule
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -output_dir
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\xml_files
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -scaffold_file
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\option_files\scaffold
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -src
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -target_list
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\map_files\finch_sem_map.txt
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -global
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -weblink_properties
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\resource_files\weblink.properties
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -framework_repository
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\source_files\framework_src
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -intermediate_dir
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\intermediate_dir
+[2016-05-12 13:29:28] [INFO ]                     |  |  + -log_file
+[2016-05-12 13:29:28] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\log_files\finch_sem.log
+[2016-05-12 13:29:29] [INFO ]                     |  +  
+[2016-05-12 13:29:29] [INFO ]                     |  + Map file : C:\scalaProjects\testPOI\sparrow\map_files\finch_sem_map.txt
+[2016-05-12 13:29:29] [INFO ]                     |  |  + The number of files in a map file : 6
+[2016-05-12 13:29:29] [INFO ]                     |  + --------------------------------------------------------------------------------------------------------------------------------
+[2016-05-12 13:29:29] [INFO ]                     |  + Target Engine : WEBINFO
+[2016-05-12 13:29:29] [INFO ]                     |  + One line command : C:\Program Files\Java\jdk1.7.0_79\jre\bin\java -Xss8m -Xmx2048m -jar C:\Sparrow\sparrow4\whistle\engine\lib\webinfo-extractor-1.3.0.jar -build_path C:\scalaProjects\testPOI\sparrow -resource_path C:\scalaProjects\testPOI\sparrow\resource_files -debug_level info
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -Xss8m
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -Xmx2048m
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -jar
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\Sparrow\sparrow4\whistle\engine\lib\webinfo-extractor-1.3.0.jar
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -build_path
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -resource_path
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\resource_files
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -debug_level
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + info
+[2016-05-12 13:29:29] [INFO ]                     |  + --------------------------------------------------------------------------------------------------------------------------------
+[2016-05-12 13:29:29] [INFO ]                     |  + Target Engine : FINCH_SYN
+[2016-05-12 13:29:29] [INFO ]                     |  + One line command : C:\Program Files\Java\jdk1.7.0_79\jre\bin\java -Xss8m -Xmx2048m -jar C:\Sparrow\sparrow4\whistle\engine\lib\jf_syn-v2.2.9.jar -prj_name admin1_0_WMjava_10853 -rule_file C:\scalaProjects\testPOI\sparrow\option_files\checkers_finch_syn.txt -xml_threshold 100 -target_list_file C:\scalaProjects\testPOI\sparrow\map_files\finch_syn_map.1.txt -xml_header 1 -checker_config_dir C:\scalaProjects\testPOI\sparrow\option_files\checker_option -log_file C:\scalaProjects\testPOI\sparrow\log_files\finch_syn.admin1_0_WMjava_10853_1.log -output_dir C:\scalaProjects\testPOI\sparrow\xml_files -debug_level 5 -workspace_dir C:\scalaProjects\testPOI\sparrow\workspace_dir\admin1_0_WMjava_10853_1 -type java -hsrc_dir C:\scalaProjects\testPOI\sparrow\source_files
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -Xss8m
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -Xmx2048m
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -jar
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\Sparrow\sparrow4\whistle\engine\lib\jf_syn-v2.2.9.jar
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -prj_name
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + admin1_0_WMjava_10853
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -rule_file
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\option_files\checkers_finch_syn.txt
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -xml_threshold
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + 100
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -target_list_file
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\map_files\finch_syn_map.1.txt
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -xml_header
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + 1
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -checker_config_dir
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\option_files\checker_option
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -log_file
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\log_files\finch_syn.admin1_0_WMjava_10853_1.log
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -output_dir
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\xml_files
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -debug_level
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + 5
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -workspace_dir
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\workspace_dir\admin1_0_WMjava_10853_1
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -type
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + java
+[2016-05-12 13:29:29] [INFO ]                     |  |  + -hsrc_dir
+[2016-05-12 13:29:29] [INFO ]                     |  |  |  + C:\scalaProjects\testPOI\sparrow\source_files
+[2016-05-12 13:29:29] [INFO ]                     |  +  
+[2016-05-12 13:29:29] [INFO ]                     |  + Map file : C:\scalaProjects\testPOI\sparrow\map_files\finch_syn_map.1.txt
+[2016-05-12 13:29:29] [INFO ]                     |  |  + The number of files in a map file : 6
+[2016-05-12 13:29:29] [INFO ]                     |  + --------------------------------------------------------------------------------------------------------------------------------
+[2016-05-12 13:29:29] [INFO ] JEM                 + Running java / other engines are finished.

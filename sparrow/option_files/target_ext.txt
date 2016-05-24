@@ -1,0 +1,25 @@
+# C / C++
+C=c, cc, cpp, i, ii, ipp, pc, sc, ec, cxx, cc, tbc, cp
+HEADER=h, hpp, inl
+YAK=c, cpp, h, hpp
+
+# Java / Others
+JAVA=java
+JSP=jsp, jspx, jspf, js, xfdl, xadl, xjs, xhtml
+SQL=pc, sql, xml, sh, sqx, pl
+HTML=htm, html
+OBJC=m, mm, c, h
+PHP=php, ini, inc
+CS=cs
+ASP=asp, aspx, ascx, vbs, cshtml, map
+ABAP=abap
+
+# JEM only
+VBS=vbs, asp, map
+ASPCONV=aspx, ascx
+
+# Exclude Ctags (in Java/Others)
+EXCLUDE_CTAGS=class, i, ii, xml, sql, m, mm, jsp, jspx, jspf, js, ini, vbs, abap
+
+# Prep files (in Prebuilder)
+PREP=i, ii, ipp, pre, pp, mi, mii

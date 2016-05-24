@@ -1,0 +1,10 @@
+[2016-05-12 13:29:14] [INFO ] XmlLoader           + Web Application component extracting starting
+[2016-05-12 13:29:14] [INFO ] XmlLoader           + ----------------------------------------------------------
+[2016-05-12 13:29:14] [INFO ] XmlLoader           + Result of extracting
+[2016-05-12 13:29:14] [INFO ] XmlLoader           |  + web.xml files : 0
+[2016-05-12 13:29:14] [INFO ] XmlLoader           |  + beans files : 0
+[2016-05-12 13:29:14] [INFO ] XmlLoader           |  + struts.xml file : 0
+[2016-05-12 13:29:14] [INFO ] XmlLoader           |  + struts-config.xml file : 0
+[2016-05-12 13:29:14] [INFO ] XmlLoader           + ----------------------------------------------------------
+[2016-05-12 13:29:14] [INFO ] WebInfoExtractor    + Loading time : 0.05 seconds
+[2016-05-12 13:29:14] [INFO ] WebInfoExtractor    + Running web info gathering is finished.

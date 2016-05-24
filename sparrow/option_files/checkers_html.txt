@@ -1,0 +1,6 @@
+#########################################################
+### HTML_CHECKER checker list.
+#########################################################
+AUTOCOMPLETE_PASSWORD
+HARD_CODED_DOMAIN_IN_HTML
+PASSWORD_INSECURE_SUBMISSION

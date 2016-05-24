@@ -50,14 +50,17 @@ public class TcWorkbook {
     public String writeWorkbook(String tcName){
         try {
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmm");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmm");
             String createdTime = sdf.format(workbookCreatedTime);
 
-            String workbookFileName = tcName + createdTime + Constant.FILE_EXTENSION;
+            File outputDir = new File(Constant.RES_OUTPUT_PATH);
+            outputDir.mkdir();
+
+            String workbookFileName = Constant.RES_OUTPUT_PATH + tcName + createdTime + Constant.FILE_EXTENSION;
             File workbookFile = new File(workbookFileName);
 
             while(workbookFile.exists()) {
-                workbookFileName = tcName + createdTime +" (" + this.newFileNum + ")" + Constant.FILE_EXTENSION;
+                workbookFileName = Constant.RES_OUTPUT_PATH + tcName + createdTime +" (" + this.newFileNum + ")" + Constant.FILE_EXTENSION;
                 workbookFile = new File(workbookFileName);
                 this.newFileNum++;
             }
@@ -66,6 +69,8 @@ public class TcWorkbook {
             this.workbook.write(out);
 
             out.close();
+
+            System.out.println("Generating file is success - " + workbookFileName);
 
             return workbookFile.getAbsolutePath();
         } catch (FileNotFoundException e) {

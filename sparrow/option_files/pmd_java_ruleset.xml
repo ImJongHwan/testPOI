@@ -1,0 +1,32 @@
+<ruleset name="All Java Rules"
+
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd"
+    xsi:noNamespaceSchemaLocation="http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>Every Java Rule in PMD</description>
+
+    <rule ref='rulesets/java/design.xml/AbstractClassWithoutAnyMethod'/>
+    <rule ref='rulesets/java/basic.xml/AvoidBranchingStatementAsLastInLoop'/>
+    <rule ref='rulesets/java/finalizers.xml/AvoidCallingFinalize'/>
+    <rule ref='rulesets/java/strictexception.xml/AvoidLosingExceptionInformation'/>
+    <rule ref='rulesets/java/basic.xml/AvoidMultipleUnaryOperators'/>
+    <rule ref='rulesets/java/design.xml/AvoidReassigningParameters'/>
+    <rule ref='rulesets/java/strictexception.xml/AvoidThrowingNullPointerException'/>
+    <rule ref='rulesets/java/strictexception.xml/AvoidThrowingRawExceptionTypes'/>
+    <rule ref='rulesets/java/basic.xml/BooleanInstantiation'/>
+    <rule ref='rulesets/java/basic.xml/BrokenNullCheck'/>
+    <rule ref='rulesets/java/basic.xml/ClassCastExceptionWithToArray'/>
+    <rule ref='rulesets/java/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal'/>
+    <rule ref='rulesets/java/design.xml/ConstructorCallsOverridableMethod'/>
+    <rule ref='rulesets/java/basic.xml/DoubleCheckedLocking'/>
+    <rule ref='rulesets/java/design.xml/EmptyMethodInAbstractClassShouldBeAbstract'/>
+    <rule ref='rulesets/java/design.xml/EqualsNull'/>
+    <rule ref='rulesets/java/finalizers.xml/FinalizeShouldBeProtected'/>
+    <rule ref='rulesets/java/basic.xml/JumbledIncrementer'/>
+    <rule ref='rulesets/java/clone.xml/ProperCloneImplementation'/>
+    <rule ref='rulesets/java/design.xml/ReturnEmptyArrayRatherThanNull'/>
+    <rule ref='rulesets/java/basic.xml/ReturnFromFinallyBlock'/>
+    <rule ref='rulesets/java/strings.xml/StringInstantiation'/>
+    <rule ref='rulesets/java/design.xml/TooFewBranchesForASwitchStatement'/>
+</ruleset>

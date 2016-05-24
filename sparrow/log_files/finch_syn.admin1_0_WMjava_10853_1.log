@@ -1,0 +1,378 @@
+[2016-05-12 13:29:14] [INFO ]  
+[2016-05-12 13:29:14] [INFO ] FINCH               + [!] Java Finch Syntactic Engine
+[2016-05-12 13:29:14] [INFO ] FINCH               |  + Java-type analysis activated
+[2016-05-12 13:29:14] [INFO ]  
+[2016-05-12 13:29:14] [INFO ] CHECKER_LOADER      + [C] Initialize checkers ===>>>
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.AvoidFinalizersChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.AvoidUsingPublicStaticFinalArrayChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadCollectionRemovalIntegerTypeChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadCompareClassNameChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadEqChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadEqualityExpressionFloatChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadExceptionalConditionChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_EXCEPTIONAL_CONDITION.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadMethodInnerClassChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadMethodProtectedChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.BadOverrideChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.CallingSystemGCChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.CallSuperChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ClassCastChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.CriticalPublicVariableWithoutFinalModifierChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.CrossSiteRequestForgeryChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DataLeakBetweenSessionsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DeclareLoopVariableFinalChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotAccessPrivateMemberOfOuterClassChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotCallExecChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotCallRunFinalizersOnExitChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotCastGenericIteratorChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotNotifyInSynchronizedChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotReturnPrivateFieldOfOuterClassChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotSleepOrYieldWithoutControlChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotUseNestedTryChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotUseNotifyChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoNotWaitInSynchronizedWithoutControlChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.DoubleCheckedLockingChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.EmptyCatchBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\EMPTY_CATCH_BLOCK.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.EqualsMethodIsOverloadedChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ImplicitCastingAssignmentChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ImplicitCastingCallChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ImplicitCastingReturnChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ImpossibleDownCastOfToarrayChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ImproperAuthorizationChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\IMPROPER_AUTHORIZATION.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ImproperCheckForUnusualOrExceptionalConditionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.IncorrectPermissionAssignmentForCriticalResourceChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\INCORRECT_PERMISSION_ASSIGNMENT_FOR_CRITICAL_RESOURCE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.IncorrectSerialPersistentFieldsModifierChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.InvocationOfEqualsOnArrayChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.IteratorChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.LeftoverDebugCodeChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.MethodIgnoresReturnValueChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.MethodNameIsNotIntendedChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.MissingDefaultInSwitchBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.MissingSynchronizedForOverridingChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.MultipleBindsToTheSamePortChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.MutableComparisonChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.MutableHashCodeChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.NeverUseRawTypeChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.NonSynchronizedMethodOverridesSynchronizedMethodChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.OverrideHashCodeAndEqualsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.PasswordManagementHeapInspectionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.PasswordManagementPasswordInRedirectChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.PASSWORD_IN_SERVLET_COMMENT_Checker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\PASSWORD_IN_SERVLET_COMMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.PrivateCollectionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.PublicDataAssignedToPrivateArrayChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\PUBLIC_DATA_ASSIGNED_TO_PRIVATE_ARRAY.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.RelianceOnDnsLookupsInASecurityDecisionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.ReturnStatementInAFinallyBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.SensitiveCookieInHttpsSessionWithoutSecureAttributeChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\SENSITIVE_COOKIE_IN_HTTPS_SESSION_WITHOUT_SECURE_ATTRIBUTE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.SetStaticInNonStaticChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.StringConversionWithConstructorChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UnnotifiedObjectChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UnreasedLockChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UseOfHardcodedCryptographicKeyChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\USE_OF_HARDCODED_CRYPTOGRAPHIC_KEY.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UseOfInnerClassContainingSensitiveDataChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UseOfInsufficientRandomValuesChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\USE_OF_INSUFFICIENT_RANDOM_VALUES.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UseOfSocketsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UseOnceSameVariableWithinExpressionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UseStrictfpClassWithMaxValueChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UseStrictfpForDivisionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.UsingMessedLoopIncrementersChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.VirtualInCtorChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.WeakCryptographicHashHardcodedSaltChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.WeakEncryptionInadequateRsaPaddingChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.WeakEncryptionInsufficientKeySizeChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\WEAK_ENCRYPTION_INSUFFICIENT_KEY_SIZE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.basic.WeakPasswordRequirementsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadArrayDeclarationChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCallForbiddenChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_CALL.FORBIDDEN.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCommentModChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCommentPositionBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCommentPositionEndOfLineChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCommentPositionSingleChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCommentPositionTrailingChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCompoundStatementCurlyBraceChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_COMPOUND_STATEMENT.CURLY_BRACE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadCurlybraceDeclarationChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadEmptyForStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.BLOCK.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationCaseLabelsChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.CASE_LABELS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationClassChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.CLASS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationDoStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.DO_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationFieldChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.FIELD.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationForStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationIfStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.IF_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationImproperLengthChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.IMPROPER_LENGTH.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationMethodChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.METHOD.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationPackageChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.PACKAGE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationSourceCodeChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationSwitchStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.SWITCH_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadIndentationTryStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INDENTATION.TRY_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadInitInitAfterFieldDeclarationChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INIT.INIT_AFTER_FIELD_DECLARATION.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadInitMissingAfterLocalDeclarationChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_INIT.MISSING_AFTER_LOCAL_DECLARATION.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadLineWrappingChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_LINE_WRAPPING.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadMethodDeclarationChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameBatchHana] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameClassOrInterfaceChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.CLASS_OR_INTERFACE.xml
+[2016-05-12 13:29:15] [ERROR] CHECKER_LOADER      |  + Custom setting for the checker [com.fasoo.javafinch.syn.checker.cc.BadNameClassOrInterfaceChecker] has been omitted
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameCoHanaChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameConstantChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.CONSTANT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameDoHana] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameDuplicatedChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameMethodChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.METHOD.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameOnlineHanaChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNamePackageChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.PACKAGE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameParameterChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.PARAMETER.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameSpecialCharacterChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.SPECIAL_CHARACTER.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameTooLongChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.TOO_LONG.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameVariableChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_NAME.VARIABLE.xml
+[2016-05-12 13:29:15] [ERROR] CHECKER_LOADER      |  + Custom setting for the checker [com.fasoo.javafinch.syn.checker.cc.BadNameVariableChecker] has been omitted
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadNameVariableHanaChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadOperatorAssignmentInCondChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadOperatorMultipleVariableAssignmentChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadOperatorTooManyLogicalOperationsChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_OPERATOR.TOO_MANY_LOGICAL_OPERATIONS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadOrganizationClassChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_ORGANIZATION.CLASS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadParenthesisChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_PARENTHESIS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadTypeFloatChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_TYPE.FLOAT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadTypeIntegerChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_TYPE.INTEGER.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadVariableDeclarationChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadVariableDeclarationFieldChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_VARIABLE_DECLARATION.FIELD.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadVariableDeclarationLoopChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_VARIABLE_DECLARATION.LOOP.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceAccessingChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.ACCESSING.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceCallChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.CALL.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceCastingChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.CASTING.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceCatchStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.CATCH_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceCommaChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.COMMA.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceEndLineChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceForStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceIfStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.IF_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceKeywordChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceSemicolonChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceSwitchStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.SWITCH_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.BadWhitespaceWhileStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\BAD_WHITESPACE.WHILE_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.CombinedIncrementAndDecrementOperatorChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.ConditionalOperationWithoutParenthesisChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DeclareAtTheBeginningOfBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DECLARE_AT_THE_BEGINNING_OF_BLOCK.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotAccessToArrayInLoopChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotAppendStringsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotCallSynchronizedMethodInLoopChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotCreateInstanceInLoopChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DO_NOT_CREATE_INSTANCE_IN_LOOP.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotImportOnDemandChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotLockOrUnlockInLoopChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DO_NOT_LOCK_OR_UNLOCK_IN_LOOP.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotReadStreamInLoopChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DO_NOT_READ_STREAM_IN_LOOP.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseAdjacentBinaryOperatorChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DO_NOT_USE_ADJACENT_BINARY_OPERATOR.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseBreakWithLabelChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseConstantOfInnerClassChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseDeprecatedAPIChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DO_NOT_USE_DEPRECATED_API.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseDoWhileChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseHardCodingNumberChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DO_NOT_USE_HARD_CODING.NUMBER.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUsePublicFieldChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\DO_NOT_USE_PUBLIC_FIELD.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseShiftOnSignedValueChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseShortChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseSynchronizedStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.DoNotUseVolatileChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.EmptyBranchChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\EMPTY_BRANCH.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.ForbiddenInstanceAccessingChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\FORBIDDEN.INSTANCE_ACCESSING.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.HardCodingStringComparisonChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.ImproperReturnStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.LoggerErrorInCatchChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingBlankLineChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingBlankLineFieldChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingBlankLineImportChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_BLANK_LINE.IMPORT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingBlankLineSectionChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_BLANK_LINE.SECTION.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingBraceInIfStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingBreakInCaseChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingClassInSourceFileChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingCompoundStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingFinallyInTryCatchChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingPackageDeclarationChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.MissingParenthesisInExpressionChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_PARENTHESIS_IN_EXPRESSION.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.OctalValueUsedChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.PackagePathNiceChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\PACKAGE_PATH.NICE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.PublicFieldShouldBeUsedWithoutMethodChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.RedundantNameChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.TooComplexForStatementChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\TOO_COMPLEX_FOR_STATEMENT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.TooLongColumnChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\TOO_LONG_COLUMN.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UnusedImportChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UseAdjacentUnaryOperatorChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UseNewThrowCauseChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UseOneCasePerLineChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UseOneDeclarationPerLineChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UseOneStatementPerLineChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UseSynchronizedPublicMethod] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.cc.UseTabBetweenTypeAndIdentifierChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\USE_TAB_BETWEEN_TYPE_AND_IDENTIFIER.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.forbidden.ForbiddenCallDeprecatedChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\FORBIDDEN.CALL.DEPRECATED.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.forbidden.ForbiddenCallSystemGetenvChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\FORBIDDEN.CALL.SYSTEM_GETENV.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.forbidden.ForbiddenCallThreadStopChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\FORBIDDEN.CALL.THREAD_STOP.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.forbidden.ForbiddenMethodOverrideChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\FORBIDDEN.METHOD.OVERRIDE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.jdbc.ORDERING_TO_CATCH_SQLEXCEPTION_Checker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.j2ee.DirectManagementOfConnectionsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.j2ee.DirectUseOfSocketsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.j2ee.DirectUseOfThreadsChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.j2ee.RaceConditionStaticDatabaseConnectionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.j2ee.UsingSystemExitChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.android.AndroidAddJavascriptInterfaceChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\ANDROID_ADD_JAVASCRIPT_INTERFACE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.android.AndroidContextSendBroadcastChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\ANDROID_CONTEXT_SEND_BROADCAST.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.android.AndroidGrantUriPermissionsChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\ANDROID_GRANT_URI_PERMISSIONS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.android.AndroidWebSettingJavaScriptChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\ANDROID_WEB_SETTING_JAVA_SCRIPT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.AutocompletePasswordChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.cert.msc.SecurityInfiniteLoopChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\SECURITY.INFINITE_LOOP.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.CsrfChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\CROSS_SITE_REQUEST_FORGERY.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.DirectUseOfUnsafeJNIChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.EvalInjectionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.ExposureOfAdministrationPageChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\EXPOSURE_OF_ADMINISTRATION_PAGE.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.ExposureOfDangerousMethodChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\EXPOSURE_OF_DANGEROUS_METHOD.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.ExposureOfSystemDataChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\EXPOSURE_OF_SYSTEM_DATA.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.FinalizeMethodDeclaredPublicChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.ForbiddenReplacingEmailAddressChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\FORBIDDEN.REPLACING_EMAIL_ADDRESS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.HARD_CODED_USER_NAME_AND_PASSWORD_Checker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.INSUFFICIENT_SESSION_EXPIRATION_Checker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.LeakInformationPrivilegedBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.MissingAuthenticationControlChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_AUTHENTICATION_CONTROL.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.MissingCheckOfInputChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_CHECK_OF_INPUT.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.MissingLoginControlChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_LOGIN_CONTROL.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.MissingPasswordRecoveryControlChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_PASSWORD_RECOVERY_CONTROL.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.MISSING_AUTHENTICATION_FOR_CRITICAL_FUNCTION_Checker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\MISSING_AUTHENTICATION_FOR_CRITICAL_FUNCTION.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.ProcessControlChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.RELIANCE_ON_UNTRUSTED_INPUTS_IN_A_SECURITY_DECISION_Checker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.SecurityFileGlobalAccessChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\SECURITY.FILE.GLOBAL_ACCESS.xml
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.SsiInjectionChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.UntrustedDataInPrivilegedBlockChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.UsingDynamicClassLoadingChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.UsingWeakCryptographicAlgorithmChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.XssChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.XssDomChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.security.XssWarningChecker] loaded successfully
+[2016-05-12 13:29:15] [DEBUG] CHECKER_LOADER      |  + Checker [com.fasoo.javafinch.syn.checker.misuse.InfiniteRecursiveCallChecker] loaded successfully
+[2016-05-12 13:29:15] [ERROR] CHECKER_OPTION      |  + Unable to read the option file: C:\scalaProjects\testPOI\sparrow\option_files\checker_option\INFINITE_RECURSIVE_CALL.xml
+[2016-05-12 13:29:15] [INFO ] CHECKER_LOADER      |  + Total 232 checker(s) has(have) been enabled
+[2016-05-12 13:29:15] [INFO ] CHECKER_LOADER      |  |  + JAVA_AND_SCRIPTLET: 99
+[2016-05-12 13:29:15] [INFO ] CHECKER_LOADER      |  |  + JAVA_AND_JSP: 8
+[2016-05-12 13:29:15] [INFO ] CHECKER_LOADER      |  |  + JAVA: 125
+[2016-05-12 13:29:15] [INFO ] CHECKER_LOADER      + [C] <<<=== End of checker initialization
+[2016-05-12 13:29:15] [INFO ]  
+[2016-05-12 13:29:15] [DEBUG] CH_HANDLER          + Project [admin1_0_WMjava_10853] class hierarchy update added. C:\scalaProjects\testPOI\sparrow\source_files
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     + [H] Class hierarchy process started ===>>>
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     |  + Class hierarchy target: 
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     |  |  + Directory: C:\scalaProjects\testPOI\sparrow\source_files
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     |  + Gather class information from 6 files ===>>>
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     |  + <<<=== total 6/6 file(s) was(were) processed (0 file(s) failed)
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     |  + Class hierarchy process started with 6 files ===>>>
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     |  + <<<=== total 6 files were processed
+[2016-05-12 13:29:15] [INFO ] CLASS_HIERARCHY     + [H] <<<=== End of class hierarchy process
+[2016-05-12 13:29:15] [INFO ]  
+[2016-05-12 13:29:15] [DEBUG] JAVA_FINCH          + JavaFinch Analyzing..
+[2016-05-12 13:29:15] [INFO ] ANALYZER            + [A] Analyze the project [admin1_0_WMjava_10853] with 6 target(s) ===>>>
+[2016-05-12 13:29:15] [INFO ] ANALYZER            |  + [     1/     6] Analyze C:\scalaProjects\testPOI\sparrow\source_files\testPOI\poi\BenchmarkPOI\BenchmarkTemplate.java
+[2016-05-12 13:29:15] [INFO ] AUTO_ENCODING       |  |  + Encoding: UTF-8 (Auto-detected, Confidence : 100)
+[2016-05-12 13:29:15] [INFO ] ANALYZER            |  |  + 0 alarm(s) generated
+[2016-05-12 13:29:15] [INFO ] ANALYZER            |  |  + Elapsed time: 0.31 s (305 ms)
+[2016-05-12 13:29:15] [INFO ] ANALYZER            |  + [     2/     6] Analyze C:\scalaProjects\testPOI\sparrow\source_files\testPOI\TcSheet.java
+[2016-05-12 13:29:16] [INFO ] AUTO_ENCODING       |  |  + Encoding: UTF-8 (Default, ISO-8859-1 Auto-detected, Confidence : 29)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + 0 alarm(s) generated
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + Elapsed time: 0.17 s (174 ms)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  + [     3/     6] Analyze C:\scalaProjects\testPOI\sparrow\source_files\testPOI\poi\Constant.java
+[2016-05-12 13:29:16] [INFO ] AUTO_ENCODING       |  |  + Encoding: UTF-8 (Default, ISO-8859-1 Auto-detected, Confidence : 47)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + 0 alarm(s) generated
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + Elapsed time: 0.01 s (12 ms)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  + [     4/     6] Analyze C:\scalaProjects\testPOI\sparrow\source_files\testPOI\TcWorkbook.java
+[2016-05-12 13:29:16] [INFO ] AUTO_ENCODING       |  |  + Encoding: UTF-8 (Default, ISO-8859-1 Auto-detected, Confidence : 24)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + 0 alarm(s) generated
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + Elapsed time: 0.05 s (52 ms)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  + [     5/     6] Analyze C:\scalaProjects\testPOI\sparrow\source_files\testPOI\poi\Main.java
+[2016-05-12 13:29:16] [INFO ] AUTO_ENCODING       |  |  + Encoding: UTF-8 (Default, ISO-8859-1 Auto-detected, Confidence : 20)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + 9 alarm(s) generated
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + Elapsed time: 0.02 s (20 ms)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  + [     6/     6] Analyze C:\scalaProjects\testPOI\sparrow\source_files\testPOI\TcRow.java
+[2016-05-12 13:29:16] [INFO ] AUTO_ENCODING       |  |  + Encoding: UTF-8 (Default, ISO-8859-1 Auto-detected, Confidence : 34)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + 0 alarm(s) generated
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  |  + Elapsed time: 0.06 s (60 ms)
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  + Total 6 file(s) has(have) been analyzed.
+[2016-05-12 13:29:16] [INFO ] ANALYZER            + [A] <<<=== End of the analysis
+[2016-05-12 13:29:16] [INFO ]  
+[2016-05-12 13:29:16] [INFO ] ANALYZER            + [R] Generated alarm information ===>>>
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  +                                                    LEFTOVER_DEBUG_CODE:         1
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  +                                                          UNUSED_IMPORT:         8
+[2016-05-12 13:29:16] [INFO ] ANALYZER            |  + Total number of alarms: 9
+[2016-05-12 13:29:16] [INFO ] ANALYZER            + [R] <<<=== End of generated alamrs
+[2016-05-12 13:29:16] [INFO ]  

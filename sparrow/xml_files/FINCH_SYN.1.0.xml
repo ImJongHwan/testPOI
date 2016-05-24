@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<alarms>
+  <alarm localId="0">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>5388b10128cef1199fed43455d031a7663047dbf</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func>main</func>
+        <line>16</line>
+      </loc>
+      <rule>LEFTOVER_DEBUG_CODE</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>16</line_start>
+          <line_end>36</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line>16</line>
+        </loc>
+        <tag>A debug code has been left.</tag>
+        <desc id="jfsyn.LEFTOVER_DEBUG_CODE.defect"></desc>
+        <exp></exp>
+      </event>
+    </ctx>
+    <sca>
+      <alternative id="1">
+        <code type="remove" src="C:\scalaProjects\testPOI\src\poi\Main.java" endline="36" startline="16"></code>
+      </alternative>
+    </sca>
+  </alarm>
+  <alarm localId="1">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>55c4313b6e0764a8f671c14cfe059bdbcaa3872e</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>11</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>11</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>java.io.FileOutputStream</exp>
+      </event>
+    </ctx>
+  </alarm>
+  <alarm localId="2">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>ca0960df0918e89e00e480b9467938ce9e6f8fc4</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>6</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>6</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>org.apache.poi.xssf.usermodel.XSSFWorkbook</exp>
+      </event>
+    </ctx>
+  </alarm>
+  <alarm localId="3">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>75d97cd40628e6c64c124caf914e6971e6cce40d</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>5</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>5</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>org.apache.poi.xssf.usermodel.XSSFSheet</exp>
+      </event>
+    </ctx>
+  </alarm>
+  <alarm localId="4">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>f70208893c3c4c943c6d0c9824a3095c14deb39c</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>4</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>4</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>org.apache.poi.xssf.usermodel.XSSFRow</exp>
+      </event>
+    </ctx>
+  </alarm>
+  <alarm localId="5">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>ffe7f148f81e329b2f9854d71e782b6a755fa279</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>9</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>9</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>java.io.File</exp>
+      </event>
+    </ctx>
+  </alarm>
+  <alarm localId="6">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>3035dde75e846d16b450e558175a038bfcd45fb0</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>10</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>10</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>java.io.FileNotFoundException</exp>
+      </event>
+    </ctx>
+  </alarm>
+  <alarm localId="7">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>6761d3cb3a22f1ab239c93af9b96078ec1eaaa1d</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>3</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>3</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>org.apache.poi.xssf.usermodel.XSSFCell</exp>
+      </event>
+    </ctx>
+  </alarm>
+  <alarm localId="8">
+    <version></version>
+    <defect>
+      <prj_name>admin1_0_WMjava_10853</prj_name>
+      <did>ee7b51158d4e1239bd186eda287688c1fe78e27e</did>
+      <loc>
+        <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+        <class>poi.Main</class>
+        <func></func>
+        <line>12</line>
+      </loc>
+      <rule>UNUSED_IMPORT</rule>
+      <rank>0</rank>
+      <cid>0</cid>
+      <eid>0</eid>
+    </defect>
+    <ctx>
+      <cid>0</cid>
+      <scope>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func>main</func>
+          <line_start>1</line_start>
+          <line_end>37</line_end>
+        </loc>
+      </scope>
+      <event defect="true">
+        <eid>0</eid>
+        <loc>
+          <file>C:\scalaProjects\testPOI\src\poi\Main.java</file>
+          <class>poi.Main</class>
+          <func></func>
+          <line>12</line>
+        </loc>
+        <tag>The imported item has never been used.</tag>
+        <desc id="jfsyn.UNUSED_IMPORT.defect"></desc>
+        <exp>java.io.IOException</exp>
+      </event>
+    </ctx>
+  </alarm>
+</alarms>
+

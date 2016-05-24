@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<option>
+    <category name="LEAK.SYSTEM_INFORMATION.VBS">
+        <item name="taint_source" type="string" required="true" variable="true" regexp="true">
+            <value>err\..*$variable</value>
+        </item>
+        <item name="taint_sink" type="string" required="true" variable="true" regexp="true">
+            <value>response\.write$param(*)</value>
+        </item>
+        <item name="taint_propagator" type="string" required="false" variable="true" regexp="true">
+            <value>\+$operand(*)->return</value>
+            <value>&amp;$operand(*)->return</value>
+        </item>
+        <item name="taint_filter" type="string" required="false" variable="true" regexp="true">
+            <value>filter$return</value>
+        </item>
+    </category>
+</option>

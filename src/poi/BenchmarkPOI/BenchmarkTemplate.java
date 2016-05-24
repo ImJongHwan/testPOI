@@ -3,8 +3,9 @@ package poi.BenchmarkPOI;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.RichTextString;
-import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import poi.CellStyles;
 import poi.Constant;
 import poi.TestCasePOI.TcSheet;
 import poi.TestCasePOI.TcWorkbook;
@@ -29,20 +30,24 @@ public class BenchmarkTemplate {
             if (!benchmarkSheets.getSheetName().equals(Constant.BenchmarkSheets.total.getSheetName())) {
                 initVulnerabilitySheet(this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName()));
             } else {
-                this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName());
+                initTotalSheet(this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName()));
             }
         }
     }
 
+    /**
+     * generate vulnerability sheet template
+     *
+     * @param tempTcSheet vulnerability sheet
+     */
     private void initVulnerabilitySheet(TcSheet tempTcSheet) {
-//        TcSheet tempTcSheet = this.tcWorkbook.getTcSheet(vulnerabilitySheetName);
-//        XSSFCellStyle cs = tcWorkbook.getWorkbook().createCellStyle();
-//        cs.setAlignment(HorizontalAlignment.CENTER);
+        initVulnerabilityColumnWidth(tempTcSheet);
+        initVulnerabilitySheetStyle(tempTcSheet);
 
-        CellStyle cellStyle = tcWorkbook.getWorkbook().createCellStyle();
+        CellStyle dateCellStyle = tcWorkbook.getWorkbook().createCellStyle();
         CreationHelper createHelper = tcWorkbook.getWorkbook().getCreationHelper();
 
-        cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("yyyy-MM-dd hh:mm"));
+        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm"));
 
         Cell cell = tempTcSheet.getCell(1, 'A');
         cell.setCellValue("검사날짜");
@@ -50,7 +55,7 @@ public class BenchmarkTemplate {
         cell = tempTcSheet.getCell(1, 'B');
         // Actually this is not 검사날짜.
         cell.setCellValue(tcWorkbook.getWorkbookCreatedTime());
-        cell.setCellStyle(cellStyle);
+        cell.setCellStyle(dateCellStyle);
 
         cell = tempTcSheet.getCell(2, 'a');
 //        cell.setCellValue(vulnerabilitySheetName);
@@ -147,6 +152,101 @@ public class BenchmarkTemplate {
 
         cell = tempTcSheet.getCell(6, 'n');
         cell.setCellFormula("COUNTA(N:N)-2");
+    }
+
+    /**
+     * initialize vulnerability column width
+     *
+     * @param sheet sheet to set column width
+     */
+    private void initVulnerabilityColumnWidth(TcSheet sheet) {
+        sheet.setColumnWidth('b', Constant.BENCHMARK_TEST_CASE_CELL_SIZE);
+        sheet.setColumnWidth('m', Constant.BENCHMARK_TEST_CASE_CELL_SIZE);
+        sheet.setColumnWidth('n', Constant.BENCHMARK_TEST_CASE_CELL_SIZE);
+
+        sheet.setColumnWidth('l', 3);
+    }
+
+    /**
+     * initialize vulnerability sheet style
+     *
+     * @param sheet sheet to column width
+     */
+    private void initVulnerabilitySheetStyle(TcSheet sheet) {
+        sheet.setSameCellStyle(1, 2, 'a', 'b', CellStyles.getBoldStyle(this.tcWorkbook.getWorkbook()));
+
+        sheet.setSameCellStyle(3, 6, 'a', 'n', CellStyles.getBoldCenterStyle(this.tcWorkbook.getWorkbook()));
+    }
+
+
+    /**
+     * initialize total sheet
+     *
+     * @param tempTcSheet total sheet
+     */
+    private void initTotalSheet(TcSheet tempTcSheet) {
+
+        initTotalColumnWidth(tempTcSheet);
+        initTotalSheetStyle(tempTcSheet);
+
+        Cell cell = tempTcSheet.getCell(1, 'A');
+        cell.setCellValue("Category");
+
+        cell = tempTcSheet.getCell(1, 'B');
+        cell.setCellValue("CWE #");
+
+        cell = tempTcSheet.getCell(1, 'c');
+        cell.setCellValue("TP");
+
+        cell = tempTcSheet.getCell(1, 'd');
+        cell.setCellValue("FN");
+
+        cell = tempTcSheet.getCell(1, 'e');
+        cell.setCellValue("TN");
+
+        cell = tempTcSheet.getCell(1, 'f');
+        cell.setCellValue("FP");
+
+        cell = tempTcSheet.getCell(1, 'g');
+        cell.setCellValue("Total");
+
+        cell = tempTcSheet.getCell(1, 'h');
+        cell.setCellValue("TPR");
+
+        cell = tempTcSheet.getCell(1, 'i');
+        cell.setCellValue("FPR");
+
+        cell = tempTcSheet.getCell(1, 'j');
+        cell.setCellValue("Score");
+
+        int rowNum = 1;
+
+        for (Constant.BenchmarkSheets vulnerability : Constant.BenchmarkSheets.values()) {
+            if (!vulnerability.getSheetName().equals("Total")) {
+                rowNum++;
+                cell = tempTcSheet.getCell(rowNum, 'a');
+                cell.setCellValue(vulnerability.getSheetName());
+            }
+        }
+
+        cell = tempTcSheet.getCell(13, 'a');
+        cell.setCellValue("Totals");
+
+        cell = tempTcSheet.getCell(14, 'a');
+        cell.setCellValue("Overall Results");
+
+    }
+
+    private void initTotalColumnWidth(TcSheet sheet){
+        sheet.setColumnWidth('a', 30);
+
+        for(char i = 'b'; i < 'k'; i++){
+            sheet.setColumnWidth(i, 10);
+        }
+    }
+
+    private void initTotalSheetStyle(TcSheet sheet){
+        sheet.setSameCellStyle(1,1,'a','j',CellStyles.getBoldCenterStyle(this.tcWorkbook.getWorkbook()));
     }
 
     //todo define default XSSFCEllStyle
