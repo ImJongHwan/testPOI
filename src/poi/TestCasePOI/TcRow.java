@@ -1,7 +1,6 @@
 package poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import poi.CellStyles;
 import poi.Constant;
@@ -42,7 +41,7 @@ public class TcRow {
         }
 
         Cell cell = parentRow.createCell(convertColumnAlphabetToIndex(columnAlphabet));
-        cell.setCellStyle(CellStyles.getDefaultStyle(parentRow.getSheet().getWorkbook()));
+        cell.setCellStyle(CellStyles.setDefaultStyle(parentRow.getSheet().getWorkbook()));
 
         cellMap.put(columnAlphabet, cell);
 

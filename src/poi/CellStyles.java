@@ -37,9 +37,9 @@ public class CellStyles {
         return cellStyle;
     }
 
-    public static CellStyle getDefaultStyle(Workbook workbook){
+    public static CellStyle setDefaultStyle(Workbook workbook){
         CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFont(getDefaultFont(workbook));
+        cellStyle.setFont(setDefaultFont(workbook));
 
         return cellStyle;
     }
@@ -51,7 +51,7 @@ public class CellStyles {
      * @return Font
      */
     private static Font getBoldFont(Workbook workbook) {
-        Font font = getDefaultFont(workbook);
+        Font font = setDefaultFont(workbook);
         font.setBold(true);
 
         return font;
@@ -65,7 +65,7 @@ public class CellStyles {
      * @param workbook workbook to set font style
      * @return Font
      */
-    private static Font getDefaultFont(Workbook workbook){
+    private static Font setDefaultFont(Workbook workbook){
         Font defaultFont = workbook.createFont();
 
         defaultFont.setFontName(Constant.DEFAULT_FONT_NAME);
@@ -75,4 +75,53 @@ public class CellStyles {
 
         return defaultFont;
     }
+
+    /**
+     * append Style Top Border
+     *
+     * @param cellStyle cellStyle
+     * @param borderStyle borderStyle, you can get a CellStyle class.
+     */
+    public static void appendTopBorder(CellStyle cellStyle, short borderStyle){
+        if(cellStyle != null) {
+            cellStyle.setBorderTop(borderStyle);
+        }
+    }
+
+    /**
+     * append Style Bottom Border
+     *
+     * @param cellStyle cellStyle
+     * @param borderStyle borderStyle, you can get a CellStyle class.
+     */
+    public static void appendBottomBorder(CellStyle cellStyle, short borderStyle){
+        if(cellStyle != null) {
+            cellStyle.setBorderRight(borderStyle);
+        }
+    }
+
+    /**
+     * append Style Right Border
+     *
+     * @param cellStyle cellStyle
+     * @param borderStyle borderStyle, you can get a CellStyle class.
+     */
+    public static void appendRightBorder(CellStyle cellStyle, short borderStyle){
+        if(cellStyle != null) {
+            cellStyle.setBorderRight(borderStyle);
+        }
+    }
+
+    /**
+     * append Style Left Border
+     *
+     * @param cellStyle cellStyle
+     * @param borderStyle borderStyle, you can get a CellStyle class.
+     */
+    public static void appendLeftBorder(CellStyle cellStyle, short borderStyle){
+        if(cellStyle != null) {
+            cellStyle.setBorderLeft(borderStyle);
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import poi.CellStyles;
 import poi.Constant;
 
 import java.util.HashMap;
@@ -22,13 +23,13 @@ public class TcSheet {
 
     private Map<Integer, TcRow> rowMap = new HashMap<>();
 
-    public TcSheet(XSSFWorkbook parentWorkbook, String sheetName){
+    public TcSheet(XSSFWorkbook parentWorkbook, String sheetName) {
         this.parentWorkbook = parentWorkbook;
         this.sheetName = sheetName;
         this.sheet = this.parentWorkbook.createSheet(sheetName);
     }
 
-    public TcSheet(XSSFWorkbook parentWorkbook, XSSFSheet sheet){
+    public TcSheet(XSSFWorkbook parentWorkbook, XSSFSheet sheet) {
         this.parentWorkbook = parentWorkbook;
         this.sheetName = sheet.getSheetName();
         this.sheet = sheet;
@@ -36,12 +37,12 @@ public class TcSheet {
 
     /**
      * Get row
-     *! Caution : parameter rowNum is not XSSFRow index num but real excel row line num.
+     * ! Caution : parameter rowNum is not XSSFRow index num but real excel row line num.
      *
      * @param rowNum row line number (real excel row line number)
      * @return row
      */
-    public XSSFRow getRow(int rowNum){
+    public XSSFRow getRow(int rowNum) {
         return getTcRow(rowNum).getParentRow();
     }
 
@@ -52,12 +53,12 @@ public class TcSheet {
      * @param rowNum row line number (real excel row line number)
      * @return A TcRow instant
      */
-    public TcRow getTcRow(int rowNum){
-        if(rowNum < 1){
+    public TcRow getTcRow(int rowNum) {
+        if (rowNum < 1) {
             System.err.println("Getting Row Error - A row number is negative. Please check a row number.");
         }
 
-        if(rowMap.containsKey(rowNum)){
+        if (rowMap.containsKey(rowNum)) {
             return rowMap.get(rowNum);
         }
 
@@ -73,12 +74,12 @@ public class TcSheet {
     /**
      * Create and get cell.
      *
-     * @param rowNum row line number (real excel row line number)
+     * @param rowNum         row line number (real excel row line number)
      * @param columnAlphabet column alphabet (real excel column alphabet)
      * @return cell
      */
-    public Cell getCell(int rowNum, String columnAlphabet){
-        String upperColumnAlphabet =columnAlphabet.toUpperCase();
+    public Cell getCell(int rowNum, String columnAlphabet) {
+        String upperColumnAlphabet = columnAlphabet.toUpperCase();
 
         TcRow tcRow = getTcRow(rowNum);
         Cell cell = tcRow.getCell(upperColumnAlphabet);
@@ -89,11 +90,11 @@ public class TcSheet {
     /**
      * Create and get cell
      *
-     * @param rowNum row line number (real excel row line number)
+     * @param rowNum         row line number (real excel row line number)
      * @param columnAlphabet A single column alphabet (real excel column alphabet)
      * @return cell
      */
-    public Cell getCell(int rowNum, char columnAlphabet){
+    public Cell getCell(int rowNum, char columnAlphabet) {
         char upperColumnAlphabet = Character.toUpperCase(columnAlphabet);
 
         TcRow tcRow = getTcRow(rowNum);
@@ -105,11 +106,11 @@ public class TcSheet {
     /**
      * Create and get Cell by XSSFCell row index and column index
      *
-     * @param rowIndex XSSFCell row index
+     * @param rowIndex    XSSFCell row index
      * @param columnIndex XSSFCell column index
      * @return cell
      */
-    public Cell getCell(int rowIndex, int columnIndex){
+    public Cell getCell(int rowIndex, int columnIndex) {
         TcRow tcRow = getTcRow(rowIndex + 1);
         Cell cell = tcRow.getCell(columnIndex);
 
@@ -119,27 +120,27 @@ public class TcSheet {
     /**
      * merge cells region and get a first cell
      *
-     * @param firstRow row containing first cell
-     * @param lastRow row containing last cell
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
      * @param firstColumn column containing first cell
-     * @param lastColumn column containing last cell
+     * @param lastColumn  column containing last cell
      * @return first cell in merged cell region
      */
-    public Cell mergeCellRegion(int firstRow, int lastRow, String firstColumn, String lastColumn){
+    public Cell mergeCellRegion(int firstRow, int lastRow, String firstColumn, String lastColumn) {
 
         // Error check -  Must be lastRow > firstRow
-        if(firstRow > lastRow){
+        if (firstRow > lastRow) {
             System.err.println("Merge row data Error - Last row data must be bigger than first row data.");
             return null;
         }
 
         // Error check - Must be lastColumn > firstColumn
-        if(firstColumn.compareTo(lastColumn) > 0){
+        if (firstColumn.compareTo(lastColumn) > 0) {
             System.err.println("Merge column data Error - Last Column data must be bigger than first column data.");
             return null;
         }
 
-        if((firstRow == lastRow) && (firstColumn.compareTo(lastColumn) == 0)){
+        if ((firstRow == lastRow) && (firstColumn.compareTo(lastColumn) == 0)) {
             System.out.println("First row data = Last row data, and first column data = last column data - It is a only one cell.");
             return getCell(firstRow, firstColumn);
         }
@@ -150,13 +151,13 @@ public class TcSheet {
         Cell firstCellExistedMerged;
 
         // First cell is already contained merged region.
-        if((firstCellExistedMerged = getFirstCell(firstCell)) != null){
+        if ((firstCellExistedMerged = getFirstCell(firstCell)) != null) {
             System.out.println("This first cell is already contained merged region.");
             return firstCellExistedMerged;
         }
 
         // Last cell is already contained merged region.
-        if((firstCellExistedMerged = getFirstCell(lastCell)) != null){
+        if ((firstCellExistedMerged = getFirstCell(lastCell)) != null) {
             System.out.println("This last cell is already contained merged region.");
             return firstCellExistedMerged;
         }
@@ -172,13 +173,13 @@ public class TcSheet {
     /**
      * merge cells and get a first cell
      *
-     * @param firstRow row containing first cell
-     * @param lastRow row containing last cell
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
      * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn a single column alphabet containing a last cell
+     * @param lastColumn  a single column alphabet containing a last cell
      * @return first cell in merged cell region
      */
-    public Cell mergeCellRegion(int firstRow, int lastRow, char firstColumn, char lastColumn){
+    public Cell mergeCellRegion(int firstRow, int lastRow, char firstColumn, char lastColumn) {
         String firstColumnString = String.valueOf(firstColumn);
         String lastColumnString = String.valueOf(lastColumn);
 
@@ -188,26 +189,26 @@ public class TcSheet {
     /**
      * get cell range address to use real row int, column characters
      *
-     * @param firstRow row containing first cell
-     * @param lastRow row containing last cell
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
      * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn a single column alphabet containing a last cell
+     * @param lastColumn  a single column alphabet containing a last cell
      * @return CellRangeAddress
      */
-    public CellRangeAddress getCellRange(int firstRow, int lastRow, String firstColumn, String lastColumn){
+    public CellRangeAddress getCellRange(int firstRow, int lastRow, String firstColumn, String lastColumn) {
         // Error check -  Must be lastRow > firstRow
-        if(firstRow > lastRow){
+        if (firstRow > lastRow) {
             System.err.println("Merge row data Error - Last row data must be bigger than first row data.");
             return null;
         }
 
         // Error check - Must be lastColumn > firstColumn
-        if(firstColumn.compareTo(lastColumn) > 0){
+        if (firstColumn.compareTo(lastColumn) > 0) {
             System.err.println("Merge column data Error - Last Column data must be bigger than first column data.");
             return null;
         }
 
-        if((firstRow == lastRow) && (firstColumn.compareTo(lastColumn) == 0)){
+        if ((firstRow == lastRow) && (firstColumn.compareTo(lastColumn) == 0)) {
             System.out.println("First row data = Last row data, and first column data = last column data - It is a only one cell.");
             return null;
         }
@@ -224,13 +225,13 @@ public class TcSheet {
     /**
      * get cell range address to use real row int, column characters
      *
-     * @param firstRow row containing first cell
-     * @param lastRow row containing last cell
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
      * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn a single column alphabet containing a last cell
+     * @param lastColumn  a single column alphabet containing a last cell
      * @return CellRangeAddress
      */
-    public CellRangeAddress getCellRange(int firstRow, int lastRow, char firstColumn, char lastColumn){
+    public CellRangeAddress getCellRange(int firstRow, int lastRow, char firstColumn, char lastColumn) {
         String firstColumnString = String.valueOf(firstColumn);
         String lastColumnString = String.valueOf(lastColumn);
 
@@ -243,10 +244,10 @@ public class TcSheet {
      * @param cell a cell contained merged region
      * @return first cell
      */
-    public Cell getFirstCell(Cell cell){
-        for(CellRangeAddress region : sheet.getMergedRegions()){
-            if(region.getFirstRow() <= cell.getRowIndex() && region.getLastRow() >= cell.getRowIndex()){
-                if(region.getFirstColumn() <= cell.getColumnIndex() && region.getLastColumn() >= cell.getColumnIndex()){
+    public Cell getFirstCell(Cell cell) {
+        for (CellRangeAddress region : sheet.getMergedRegions()) {
+            if (region.getFirstRow() <= cell.getRowIndex() && region.getLastRow() >= cell.getRowIndex()) {
+                if (region.getFirstColumn() <= cell.getColumnIndex() && region.getLastColumn() >= cell.getColumnIndex()) {
                     Cell cellInMerged = getCell(region.getFirstRow(), region.getFirstColumn());
                     return cellInMerged;
                 }
@@ -259,35 +260,35 @@ public class TcSheet {
      * Multi cells set to be same value.
      * ! caution : value must be String or Integer.
      *
-     * @param firstRow row containing first cell
-     * @param lastRow row containing last cell
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
      * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn a single column alphabet containing a last cell
-     * @param value value (It must be String or Integer)
+     * @param lastColumn  a single column alphabet containing a last cell
+     * @param value       value (It must be String or Integer)
      */
-    public void setSameValueMultiCells(int firstRow, int lastRow, String firstColumn, String lastColumn, Object value){
+    public void setSameValueMultiCells(int firstRow, int lastRow, String firstColumn, String lastColumn, Object value) {
 
         String upperFirst = firstColumn.toUpperCase();
         String upperLast = lastColumn.toUpperCase();
 
-        for(int i = firstRow; i <= lastRow; i++){
+        for (int i = firstRow; i <= lastRow; i++) {
             TcRow tcRow = getTcRow(i);
 
             String tempColumn = upperFirst;
-            while(!(tempColumn.compareTo(lastColumn)>0)){
+            while (!(tempColumn.compareTo(lastColumn) > 0)) {
 
                 Cell tempCell = getCell(i, tempColumn);
 
-                if(value instanceof String){
+                if (value instanceof String) {
                     tempCell.setCellValue(value.toString());
-                } else if(value instanceof Integer){
+                } else if (value instanceof Integer) {
                     tempCell.setCellValue((int) value);
                 } else {
                     System.err.println("Set value Error - Setting multi cells to be same value is failed. Value must be String or Integer.");
                     return;
                 }
 
-                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn,1);
+                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn, 1);
             }
         }
     }
@@ -305,9 +306,9 @@ public class TcSheet {
      * !caution : setColumnWidth API has a error - you must multiply a Constant.COLUMN_SIZE_CONSTANT(256)
      *
      * @param columnIndex column alphabet
-     * @param width column width
+     * @param width       column width
      */
-    public void setColumnWidth(String columnIndex, int width){
+    public void setColumnWidth(String columnIndex, int width) {
         this.sheet.setColumnWidth(Constant.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
     }
 
@@ -316,42 +317,42 @@ public class TcSheet {
      * !caution : setColumnWidth API has a error - you must multiply a Constant.COLUMN_SIZE_CONSTANT(256)
      *
      * @param columnIndex single column alphabet
-     * @param width column width
+     * @param width       column width
      */
-    public void setColumnWidth(char columnIndex, int width){
+    public void setColumnWidth(char columnIndex, int width) {
         this.sheet.setColumnWidth(Constant.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
     }
 
     /**
      * set style to multi cells
      *
-     * @param firstRow row containing first cell
-     * @param lastRow row containing last cell
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
      * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn a single column alphabet containing a last cell
-     * @param style cell style
+     * @param lastColumn  a single column alphabet containing a last cell
+     * @param style       cell style
      */
-    public void setSameCellStyle(int firstRow, int lastRow, String firstColumn, String lastColumn, CellStyle style){
+    public void setSameCellStyle(int firstRow, int lastRow, String firstColumn, String lastColumn, CellStyle style) {
 
         String upperFirst = firstColumn.toUpperCase();
         String upperLast = lastColumn.toUpperCase();
 
-        if(style == null){
+        if (style == null) {
             System.out.println("Set style error - style is a null character : TcSheet");
             return;
         }
 
-        for(int i = firstRow; i <= lastRow; i++){
+        for (int i = firstRow; i <= lastRow; i++) {
             TcRow tcRow = getTcRow(i);
 
             String tempColumn = upperFirst;
-            while(!(tempColumn.compareTo(upperLast)>0)){
+            while (!(tempColumn.compareTo(upperLast) > 0)) {
 
                 Cell tempCell = getCell(i, tempColumn);
 
                 tempCell.setCellStyle(style);
 
-                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn,1);
+                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn, 1);
             }
         }
     }
@@ -359,16 +360,115 @@ public class TcSheet {
     /**
      * set style to multi cells
      *
-     * @param firstRow row containing first cell
-     * @param lastRow row containing last cell
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
      * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn a single column alphabet containing a last cell
-     * @param style cell style
+     * @param lastColumn  a single column alphabet containing a last cell
+     * @param style       cell style
      */
-    public void setSameCellStyle(int firstRow, int lastRow, char firstColumn, char lastColumn, CellStyle style){
+    public void setSameCellStyle(int firstRow, int lastRow, char firstColumn, char lastColumn, CellStyle style) {
         String firstColumnString = String.valueOf(firstColumn);
         String lastColumnString = String.valueOf(lastColumn);
 
         setSameCellStyle(firstRow, lastRow, firstColumnString, lastColumnString, style);
+    }
+
+    /**
+     * Set total cell range out border
+     *
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn  a single column alphabet containing a last cell
+     * @param borderStyle border style. It is a CellStyle constant.
+     */
+    public void setTotalRangeBorder(int firstRow, int lastRow, String firstColumn, String lastColumn, short borderStyle) {
+        String upperFirst = firstColumn.toUpperCase();
+        String upperLast = lastColumn.toUpperCase();
+
+        for (int i = firstRow; i <= lastRow; i++) {
+            TcRow tcRow = getTcRow(i);
+
+            String tempColumn = upperFirst;
+            while (!(tempColumn.compareTo(upperLast) > 0)) {
+
+                Cell tempCell = getCell(i, tempColumn);
+
+                if (tempColumn.equals(upperFirst)) {
+                    CellStyles.appendLeftBorder(tempCell.getCellStyle(), borderStyle);
+                } else if (tempColumn.equals(upperLast)) {
+                    CellStyles.appendRightBorder(tempCell.getCellStyle(), borderStyle);
+                } else if (i == firstRow) {
+                    CellStyles.appendTopBorder(tempCell.getCellStyle(), borderStyle);
+                } else if (i == lastRow) {
+                    CellStyles.appendBottomBorder(tempCell.getCellStyle(), borderStyle);
+                }
+
+                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn, 1);
+            }
+        }
+    }
+
+    /**
+     * Set total cell range out border
+     *
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn  a single column alphabet containing a last cell
+     * @param borderStyle border style. It is a CellStyle constant.
+     */
+    public void setTotalRangeBorder(int firstRow, int lastRow, char firstColumn, char lastColumn, short borderStyle) {
+        String firstColumnString = String.valueOf(firstColumn);
+        String lastColumnString = String.valueOf(lastColumn);
+
+        setTotalRangeBorder(firstRow, lastRow, firstColumnString, lastColumnString, borderStyle);
+    }
+
+    /**
+     * Set each cell range out border
+     *
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn  a single column alphabet containing a last cell
+     * @param borderStyle border style. It is a CellStyle constant.
+     */
+    public void setEachRangeBorder(int firstRow, int lastRow, String firstColumn, String lastColumn, short borderStyle) {
+        String upperFirst = firstColumn.toUpperCase();
+        String upperLast = lastColumn.toUpperCase();
+
+        for (int i = firstRow; i <= lastRow; i++) {
+            TcRow tcRow = getTcRow(i);
+
+            String tempColumn = upperFirst;
+            while (!(tempColumn.compareTo(upperLast) > 0)) {
+
+                Cell tempCell = getCell(i, tempColumn);
+
+                CellStyles.appendLeftBorder(tempCell.getCellStyle(), borderStyle);
+                CellStyles.appendRightBorder(tempCell.getCellStyle(), borderStyle);
+                CellStyles.appendTopBorder(tempCell.getCellStyle(), borderStyle);
+                CellStyles.appendBottomBorder(tempCell.getCellStyle(), borderStyle);
+
+                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn, 1);
+            }
+        }
+    }
+
+    /**
+     * Set each cell range out border
+     *
+     * @param firstRow    row containing first cell
+     * @param lastRow     row containing last cell
+     * @param firstColumn a single column alphabet containing a first cell
+     * @param lastColumn  a single column alphabet containing a last cell
+     * @param borderStyle border style. It is a CellStyle constant.
+     */
+    public void setEachRangeBorder(int firstRow, int lastRow, char firstColumn, char lastColumn, short borderStyle) {
+        String firstColumnString = String.valueOf(firstColumn);
+        String lastColumnString = String.valueOf(lastColumn);
+
+        setEachRangeBorder(firstRow, lastRow, firstColumnString, lastColumnString, borderStyle);
     }
 }
