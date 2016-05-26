@@ -25,6 +25,7 @@ public class TcSheet {
     private XSSFSheet sheet = null;
     private int tpTcEndRowNum = 0;
     private int fpTcEndRowNum = 0;
+    private int exTcEndRowNum = 0;
 
     private Map<Integer, TcRow> rowMap = new HashMap<>();
 
@@ -476,5 +477,23 @@ public class TcSheet {
      */
     public void setFpTcEndRowNum(int fpTcEndRowNum) {
         this.fpTcEndRowNum = fpTcEndRowNum;
+    }
+
+    /**
+     * get experimental test cases end row number
+     *
+     * @return experimental test cases end row number
+     */
+    public int getExTcEndRowNum() {
+        return exTcEndRowNum;
+    }
+
+    /**
+     * set experimental test cases end row number
+     *
+     * @param exTcEndRowNum experimental test cases end row number
+     */
+    public void setExTcEndRowNum(int exTcEndRowNum) {
+        this.exTcEndRowNum = exTcEndRowNum;
     }
 }

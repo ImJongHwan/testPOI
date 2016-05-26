@@ -8,10 +8,11 @@ public class Constant {
     public static final String WAVSEP_NAME = "ZAP_WAVSEP_Results_";
 
     public static final String TC_BENCHMARK_PATH = "C:\\gitProjects\\simpleURLParser\\benchmark\\benchmark_tc\\";
+    public static final String TC_WAVSEP_PATH = "C:\\gitProjects\\simpleURLParser\\wavsep\\wavsep_tc\\";
 
     public static final String TRUE_POSITIVE_POSTFIX = "_tp";
     public static final String FALSE_POSITIVE_POSTFIX = "_fp";
-    public static final String EXTENSION_POSTFIX = "_ex";
+    public static final String EXPERIMENTAL_POSTFIX = "_ex";
     public static final String TC_FILE_EXTENSION = ".txt";
 
     public static final String FILE_EXTENSION = ".xlsx";
@@ -31,8 +32,6 @@ public class Constant {
 
     public static final String DEFAULT_FONT_NAME = "맑은 고딕";
     public static final short DEFAULT_FONT_HEIGHT = 11;
-
-    public static final byte[] COLOR_GRAY_ARGB_HEX = Integer.toHexString(808080).getBytes();
 
     public enum BenchmarkSheets {
         total("Total"),
@@ -59,26 +58,20 @@ public class Constant {
         }
     }
 
-    /**
-     * Convert to column index to column alphabet
-     *
-     * @param columnIndex XSSFCell column index
-     * @return columnAlphabet
-     */
-    public static String convertColumnIndexToAlphabet(int columnIndex) {
-        String columnAlphabet = null;
+    public enum WavsepSheets {
+        total("Total"),
+        lfi("Path Traversal(LFI)"),
+        rfi("Remote File Inclusion(XSS via RFI)"),
+        rxss("Cross Site Scripting(Reflected)"),
+        sqli("SQL Injection(SQLI)"),
+        redirect("Unvalidated Redirect");
 
-        int tempIndex = 0;
-        int resIndex = columnIndex;
+        private String sheetName;
 
-        while (resIndex > 0) {
-            tempIndex = (resIndex % ALPHABET_SIZE) + 'A';
-            columnAlphabet = String.valueOf(Character.toChars(tempIndex)) + columnAlphabet;
-            resIndex = resIndex / ALPHABET_SIZE;
+        WavsepSheets(String sheetName) { this.sheetName = sheetName; }
+
+        public String getSheetName() {
+            return sheetName;
         }
-
-        return columnAlphabet;
     }
-
-
 }
