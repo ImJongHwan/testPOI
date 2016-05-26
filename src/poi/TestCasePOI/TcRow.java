@@ -2,7 +2,7 @@ package poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
-import poi.CellStyles;
+import poi.Util.CellStylesUtil;
 import poi.Constant;
 
 import java.util.HashMap;
@@ -41,7 +41,6 @@ public class TcRow {
         }
 
         Cell cell = parentRow.createCell(convertColumnAlphabetToIndex(columnAlphabet));
-        cell.setCellStyle(CellStyles.setDefaultStyle(parentRow.getSheet().getWorkbook()));
 
         cellMap.put(columnAlphabet, cell);
 
@@ -102,7 +101,7 @@ public class TcRow {
      * @param offset         distance
      * @return column alphabet
      */
-    String getOffsetColumnAlphabet(String columnAlphabet, int offset) {
+    public static String getOffsetColumnAlphabet(String columnAlphabet, int offset) {
         return convertColumnIndexToAlphabet(convertColumnAlphabetToIndex(columnAlphabet) + offset);
     }
 
@@ -112,7 +111,7 @@ public class TcRow {
      * @param columnIndex XSSFCell column index
      * @return columnAlphabet
      */
-    private String convertColumnIndexToAlphabet(int columnIndex) {
+    private static String convertColumnIndexToAlphabet(int columnIndex) {
         String columnAlphabet = "";
 
         int tempIndex = 0;
@@ -133,7 +132,7 @@ public class TcRow {
      * @param columnAlphabet columnAlphabet in real excel
      * @return cell index
      */
-    private int convertColumnAlphabetToIndex(String columnAlphabet) {
+    private static int convertColumnAlphabetToIndex(String columnAlphabet) {
 //        columnAlphabet = columnAlphabet.toUpperCase();
 
         int cellIndex = 0;

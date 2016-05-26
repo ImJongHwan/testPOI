@@ -1,14 +1,14 @@
 package poi.BenchmarkPOI;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import poi.CellStyles;
+import org.apache.poi.ss.usermodel.*;
+import poi.Util.CellStylesUtil;
 import poi.Constant;
 import poi.TestCasePOI.TcSheet;
 import poi.TestCasePOI.TcWorkbook;
+import poi.Util.FileUtil;
+import poi.Util.TcUtil;
+
+import java.util.List;
 
 /**
  * Created by Hwan on 2016-05-10.
@@ -18,7 +18,6 @@ public class BenchmarkTemplate {
 
     public BenchmarkTemplate() {
         this.tcWorkbook = new TcWorkbook();
-
         init();
     }
 
@@ -29,6 +28,7 @@ public class BenchmarkTemplate {
         for (Constant.BenchmarkSheets benchmarkSheets : Constant.BenchmarkSheets.values()) {
             if (!benchmarkSheets.getSheetName().equals(Constant.BenchmarkSheets.total.getSheetName())) {
                 initVulnerabilitySheet(this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName()));
+                initVulnerabilityTC(this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName()), benchmarkSheets.toString());
             } else {
                 initTotalSheet(this.tcWorkbook.getTcSheet(benchmarkSheets.getSheetName()));
             }
@@ -42,12 +42,8 @@ public class BenchmarkTemplate {
      */
     private void initVulnerabilitySheet(TcSheet tempTcSheet) {
         initVulnerabilityColumnWidth(tempTcSheet);
-        initVulnerabilitySheetStyle(tempTcSheet);
 
-        CellStyle dateCellStyle = tcWorkbook.getWorkbook().createCellStyle();
         CreationHelper createHelper = tcWorkbook.getWorkbook().getCreationHelper();
-
-        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm"));
 
         Cell cell = tempTcSheet.getCell(1, 'A');
         cell.setCellValue("검사날짜");
@@ -55,7 +51,6 @@ public class BenchmarkTemplate {
         cell = tempTcSheet.getCell(1, 'B');
         // Actually this is not 검사날짜.
         cell.setCellValue(tcWorkbook.getWorkbookCreatedTime());
-        cell.setCellStyle(dateCellStyle);
 
         cell = tempTcSheet.getCell(2, 'a');
 //        cell.setCellValue(vulnerabilitySheetName);
@@ -82,13 +77,14 @@ public class BenchmarkTemplate {
         cell = tempTcSheet.mergeCellRegion(3, 5, 'k', 'k');
         cell.setCellValue("Description");
 
-        cell = tempTcSheet.mergeCellRegion(1, Constant.MAX_ROW, 'l', 'l');
-
         cell = tempTcSheet.mergeCellRegion(3, 5, 'm', 'm');
-        cell.setCellValue("Failed TP");
+        cell.setCellValue("Failed Crawling");
 
         cell = tempTcSheet.mergeCellRegion(3, 5, 'n', 'n');
-        cell.setCellValue("Failed TN");
+        cell.setCellValue("Failed TP");
+
+        cell = tempTcSheet.mergeCellRegion(3, 5, 'o', 'o');
+        cell.setCellValue("Failed FP");
 
         cell = tempTcSheet.getCell(6, 'a');
         cell.setCellValue("합계");
@@ -124,13 +120,13 @@ public class BenchmarkTemplate {
         cell.setCellFormula("COUNTIF(C:C,TRUE)-1");
 
         cell = tempTcSheet.getCell(6, 'd');
-        cell.setCellFormula("COUNTIF(D:D,\"FALSE\")-1");
+        cell.setCellFormula("COUNTIF(D:D,FALSE)-1");
 
         cell = tempTcSheet.getCell(6, 'e');
-        cell.setCellFormula("COUNTIF(E:E,TRUE)-1");
+        cell.setCellFormula("COUNTIF(E:E,\"*TRUE*\")");
 
         cell = tempTcSheet.getCell(6, 'f');
-        cell.setCellFormula("COUNTIF(F:F,\"FALSE\")-1");
+        cell.setCellFormula("COUNTIF(F:F,\"*FALSE*\")");
 
         cell = tempTcSheet.getCell(6, 'g');
         cell.setCellFormula("COUNTIF(G:G,\"*TRUE*\")-1");
@@ -152,6 +148,13 @@ public class BenchmarkTemplate {
 
         cell = tempTcSheet.getCell(6, 'n');
         cell.setCellFormula("COUNTA(N:N)-2");
+
+        cell = tempTcSheet.getCell(6, 'o');
+        cell.setCellFormula("COUNTA(N:N)-2");
+
+        initVulnerabilitySheetStyle(tempTcSheet);
+        cell = tempTcSheet.getCell(1, 'B');
+        cell.getCellStyle().setDataFormat(createHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm"));
     }
 
     /**
@@ -160,9 +163,11 @@ public class BenchmarkTemplate {
      * @param sheet sheet to set column width
      */
     private void initVulnerabilityColumnWidth(TcSheet sheet) {
-        sheet.setColumnWidth('b', Constant.BENCHMARK_TEST_CASE_CELL_SIZE);
-        sheet.setColumnWidth('m', Constant.BENCHMARK_TEST_CASE_CELL_SIZE);
-        sheet.setColumnWidth('n', Constant.BENCHMARK_TEST_CASE_CELL_SIZE);
+        sheet.getSheet().setDefaultColumnWidth(Constant.DEFAULT_COLUMN_WIDTH);
+        sheet.setColumnWidth('b', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('m', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('n', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('o', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
 
         sheet.setColumnWidth('l', 3);
     }
@@ -173,9 +178,62 @@ public class BenchmarkTemplate {
      * @param sheet sheet to column width
      */
     private void initVulnerabilitySheetStyle(TcSheet sheet) {
-        sheet.setSameCellStyle(1, 2, 'a', 'b', CellStyles.getBoldStyle(this.tcWorkbook.getWorkbook()));
+        CellStylesUtil cellStyle = new CellStylesUtil(this.tcWorkbook.getWorkbook());
+        Cell cell;
 
-        sheet.setSameCellStyle(3, 6, 'a', 'n', CellStyles.getBoldCenterStyle(this.tcWorkbook.getWorkbook()));
+        for(char i = 'a'; i <= 'b'; i++){
+            sheet.getSheet().setDefaultColumnStyle(TcUtil.convertColumnAlphabetToIndex(i),cellStyle.DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT);
+        }
+
+        for(char i = 'c'; i <= 'j'; i++){
+            sheet.getSheet().setDefaultColumnStyle(TcUtil.convertColumnAlphabetToIndex(i), cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
+        }
+
+        for(char i = 'm'; i <= 'o'; i++){
+            sheet.getSheet().setDefaultColumnStyle(TcUtil.convertColumnAlphabetToIndex(i),cellStyle.DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT);
+        }
+
+        sheet.getSheet().setDefaultColumnStyle(TcUtil.convertColumnAlphabetToIndex("l"), cellStyle.DEFAULT_THICK_RIGHT_LEFT_BG_GRAY);
+
+        sheet.setSameCellStyle(1, 2, 'a', 'k', cellStyle.BOLD_DEFAULT_THICK_TOP_BOTTOM);
+        sheet.setSameCellStyle(1, 2, 'm', 'o', cellStyle.BOLD_DEFAULT_THICK_TOP_BOTTOM);
+
+        sheet.setSameCellStyle(6, 6, 'a', 'k', cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT);
+        sheet.setSameCellStyle(6, 6, 'm', 'o', cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT);
+        cell = sheet.getCell(3, 'b');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT);
+        cell = sheet.getCell(3, 'k');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT);
+        sheet.setSameCellStyle(3, 6, 'm', 'o', cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT);
+
+        cell = sheet.getCell(4, 'a');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_MIDDLE_RIGHT_LEFT);
+        sheet.setSameCellStyle(4, 4, 'g', 'h', cellStyle.BOLD_CENTER_MIDDLE_RIGHT_LEFT);
+        sheet.setSameCellStyle(4, 4, 'i', 'j', cellStyle.BOLD_CENTER_MIDDLE_RIGHT_LEFT);
+
+        sheet.setSameCellStyle(3, 4, 'c', 'd', cellStyle.BOLD_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT);
+        sheet.setSameCellStyle(3, 4, 'e', 'f', cellStyle.BOLD_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT);
+        sheet.setSameCellStyle(3, 3, 'g', 'j', cellStyle.BOLD_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT);
+
+        cell = sheet.getCell(5, 'c');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT);
+        cell = sheet.getCell(5, 'e');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT);
+        cell = sheet.getCell(5, 'g');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT);
+        cell = sheet.getCell(5, 'i');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT);
+
+        cell = sheet.getCell(5, 'a');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT);
+        cell = sheet.getCell(5, 'd');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT);
+        cell = sheet.getCell(5, 'f');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT);
+        cell = sheet.getCell(5, 'h');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT);
+        cell = sheet.getCell(5, 'j');
+        cell.setCellStyle(cellStyle.BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT);
     }
 
 
@@ -234,19 +292,67 @@ public class BenchmarkTemplate {
 
         cell = tempTcSheet.getCell(14, 'a');
         cell.setCellValue("Overall Results");
-
     }
 
-    private void initTotalColumnWidth(TcSheet sheet){
+    /**
+     * init vulnerability test cases
+     *
+     * @param tcSheet tcSheet to write
+     */
+    private void initVulnerabilityTC(TcSheet tcSheet, String vulnerabilityShortName){
+        List<String> tpTcList = FileUtil.readFile(Constant.TC_BENCHMARK_PATH + vulnerabilityShortName + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
+        int tpRowNum = TcUtil.writeDownListInSheet(tpTcList, tcSheet, 7, 'b');
+        tcSheet.setSameValueMultiCells(7, tpRowNum - 1, 'c','c', true);
+        tcSheet.setTpTcEndRowNum(tpRowNum - 1);
+
+        List<String> fpTcList = FileUtil.readFile(Constant.TC_BENCHMARK_PATH + vulnerabilityShortName + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
+        int fpRowNum = TcUtil.writeDownListInSheet(fpTcList, tcSheet, tpRowNum, 'b');
+        tcSheet.setSameValueMultiCells(tpRowNum, fpRowNum -1, 'd', 'd', false);
+        tcSheet.setFpTcEndRowNum(fpRowNum - 1);
+
+
+        for(int i = 7; i < fpRowNum; i++){
+            String formula = "IF(EXACT(F" + i + ",\"FALSE\"), \"\", \"TRUE\")";
+            Cell cell = tcSheet.getCell(i,'e');
+            cell.setCellFormula(formula);
+        }
+
+        for(int i = 7; i < fpRowNum; i++){
+            String formula = "IF(COUNTIF($M:$M,B" + i + ") > 0, \"FALSE\", \"\")";
+            tcSheet.getCell(i,'f').setCellFormula(formula);
+        }
+
+        for(int i = 7; i < tpRowNum; i++){
+            String formula = "IF(EXACT(H" + i + ",\"FALSE\"), \"\", \"TRUE\")";
+            tcSheet.getCell(i,'g').setCellFormula(formula);
+        }
+
+        for(int i = 7; i < tpRowNum; i++){
+            String formula = "IF(COUNTIF($N:$N,B" + i + ") > 0, \"FALSE\", \"\")";
+            tcSheet.getCell(i,'h').setCellFormula(formula);
+        }
+
+        for(int i = tpRowNum; i < fpRowNum; i++){
+            String formula = "IF(EXACT(J" + i + ",\"FALSE\"), \"\", \"TRUE\")";
+            tcSheet.getCell(i,'i').setCellFormula(formula);
+        }
+
+        for(int i = tpRowNum; i < fpRowNum; i++){
+            String formula = "IF(COUNTIF($O:$O,B" + i + ") > 0, \"FALSE\", \"\")";
+            tcSheet.getCell(i,'j').setCellFormula(formula);
+        }
+    }
+
+    private void initTotalColumnWidth(TcSheet sheet) {
         sheet.setColumnWidth('a', 30);
 
-        for(char i = 'b'; i < 'k'; i++){
+        for (char i = 'b'; i < 'k'; i++) {
             sheet.setColumnWidth(i, 10);
         }
     }
 
-    private void initTotalSheetStyle(TcSheet sheet){
-        sheet.setSameCellStyle(1,1,'a','j',CellStyles.getBoldCenterStyle(this.tcWorkbook.getWorkbook()));
+    private void initTotalSheetStyle(TcSheet sheet) {
+        sheet.setSameCellStyle(1, 1, 'a', 'j', CellStylesUtil.getBoldCenterStyle(this.tcWorkbook.getWorkbook()));
     }
 
     //todo define default XSSFCEllStyle

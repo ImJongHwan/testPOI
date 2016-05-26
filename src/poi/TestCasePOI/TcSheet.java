@@ -2,13 +2,16 @@ package poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import poi.CellStyles;
 import poi.Constant;
+import poi.Util.TcUtil;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +23,8 @@ public class TcSheet {
     private String sheetName = null;
 
     private XSSFSheet sheet = null;
+    private int tpTcEndRowNum = 0;
+    private int fpTcEndRowNum = 0;
 
     private Map<Integer, TcRow> rowMap = new HashMap<>();
 
@@ -275,7 +280,7 @@ public class TcSheet {
             TcRow tcRow = getTcRow(i);
 
             String tempColumn = upperFirst;
-            while (!(tempColumn.compareTo(lastColumn) > 0)) {
+            while (!(tempColumn.compareTo(upperLast) > 0)) {
 
                 Cell tempCell = getCell(i, tempColumn);
 
@@ -283,14 +288,29 @@ public class TcSheet {
                     tempCell.setCellValue(value.toString());
                 } else if (value instanceof Integer) {
                     tempCell.setCellValue((int) value);
+                } else if (value instanceof Boolean) {
+                    tempCell.setCellValue((boolean) value);
+                } else if (value instanceof Calendar) {
+                    tempCell.setCellValue((Calendar) value);
+                } else if (value instanceof Date) {
+                    tempCell.setCellValue((Date) value);
+                } else if (value instanceof RichTextString) {
+                    tempCell.setCellValue((RichTextString) value);
                 } else {
-                    System.err.println("Set value Error - Setting multi cells to be same value is failed. Value must be String or Integer.");
+                    System.err.println("Set value Error - Setting multi cells to be same value is failed.");
                     return;
                 }
 
                 tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn, 1);
             }
         }
+    }
+
+    public void setSameValueMultiCells(int firstRow, int lastRow, char firstColumn, char lastColumn, Object value) {
+        String firstColumnString = String.valueOf(firstColumn);
+        String lastColumnString = String.valueOf(lastColumn);
+
+        setSameValueMultiCells(firstRow, lastRow, firstColumnString, lastColumnString, value);
     }
 
     public XSSFSheet getSheet() {
@@ -309,7 +329,7 @@ public class TcSheet {
      * @param width       column width
      */
     public void setColumnWidth(String columnIndex, int width) {
-        this.sheet.setColumnWidth(Constant.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
+        this.sheet.setColumnWidth(TcUtil.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
     }
 
     /**
@@ -320,7 +340,7 @@ public class TcSheet {
      * @param width       column width
      */
     public void setColumnWidth(char columnIndex, int width) {
-        this.sheet.setColumnWidth(Constant.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
+        this.sheet.setColumnWidth(TcUtil.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
     }
 
     /**
@@ -374,17 +394,22 @@ public class TcSheet {
     }
 
     /**
-     * Set total cell range out border
+     * set same formula to multi cells
      *
      * @param firstRow    row containing first cell
      * @param lastRow     row containing last cell
-     * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn  a single column alphabet containing a last cell
-     * @param borderStyle border style. It is a CellStyle constant.
+     * @param firstColumn column alphabet containing a first cell
+     * @param lastColumn  column alphabet containing a last cell
+     * @param formula     formula
      */
-    public void setTotalRangeBorder(int firstRow, int lastRow, String firstColumn, String lastColumn, short borderStyle) {
+    public void setSameFormula(int firstRow, int lastRow, String firstColumn, String lastColumn, String formula) {
         String upperFirst = firstColumn.toUpperCase();
         String upperLast = lastColumn.toUpperCase();
+
+        if (formula == null) {
+            System.out.println("Set style error - style is a null character : TcSheet");
+            return;
+        }
 
         for (int i = firstRow; i <= lastRow; i++) {
             TcRow tcRow = getTcRow(i);
@@ -394,15 +419,7 @@ public class TcSheet {
 
                 Cell tempCell = getCell(i, tempColumn);
 
-                if (tempColumn.equals(upperFirst)) {
-                    CellStyles.appendLeftBorder(tempCell.getCellStyle(), borderStyle);
-                } else if (tempColumn.equals(upperLast)) {
-                    CellStyles.appendRightBorder(tempCell.getCellStyle(), borderStyle);
-                } else if (i == firstRow) {
-                    CellStyles.appendTopBorder(tempCell.getCellStyle(), borderStyle);
-                } else if (i == lastRow) {
-                    CellStyles.appendBottomBorder(tempCell.getCellStyle(), borderStyle);
-                }
+                tempCell.setCellFormula(formula);
 
                 tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn, 1);
             }
@@ -410,65 +427,54 @@ public class TcSheet {
     }
 
     /**
-     * Set total cell range out border
+     * set same formula to multi cells
      *
      * @param firstRow    row containing first cell
      * @param lastRow     row containing last cell
-     * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn  a single column alphabet containing a last cell
-     * @param borderStyle border style. It is a CellStyle constant.
+     * @param firstColumn column alphabet containing a first cell
+     * @param lastColumn  column alphabet containing a last cell
+     * @param formula     formula
      */
-    public void setTotalRangeBorder(int firstRow, int lastRow, char firstColumn, char lastColumn, short borderStyle) {
+    public void setSameFormula(int firstRow, int lastRow, char firstColumn, char lastColumn, String formula) {
         String firstColumnString = String.valueOf(firstColumn);
         String lastColumnString = String.valueOf(lastColumn);
 
-        setTotalRangeBorder(firstRow, lastRow, firstColumnString, lastColumnString, borderStyle);
+        setSameFormula(firstRow, lastRow, firstColumnString, lastColumnString, formula);
     }
 
     /**
-     * Set each cell range out border
+     * get true positive test cases end row number
      *
-     * @param firstRow    row containing first cell
-     * @param lastRow     row containing last cell
-     * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn  a single column alphabet containing a last cell
-     * @param borderStyle border style. It is a CellStyle constant.
+     * @return true positive test cases end row number
      */
-    public void setEachRangeBorder(int firstRow, int lastRow, String firstColumn, String lastColumn, short borderStyle) {
-        String upperFirst = firstColumn.toUpperCase();
-        String upperLast = lastColumn.toUpperCase();
-
-        for (int i = firstRow; i <= lastRow; i++) {
-            TcRow tcRow = getTcRow(i);
-
-            String tempColumn = upperFirst;
-            while (!(tempColumn.compareTo(upperLast) > 0)) {
-
-                Cell tempCell = getCell(i, tempColumn);
-
-                CellStyles.appendLeftBorder(tempCell.getCellStyle(), borderStyle);
-                CellStyles.appendRightBorder(tempCell.getCellStyle(), borderStyle);
-                CellStyles.appendTopBorder(tempCell.getCellStyle(), borderStyle);
-                CellStyles.appendBottomBorder(tempCell.getCellStyle(), borderStyle);
-
-                tempColumn = tcRow.getOffsetColumnAlphabet(tempColumn, 1);
-            }
-        }
+    public int getTpTcEndRowNum() {
+        return tpTcEndRowNum;
     }
 
     /**
-     * Set each cell range out border
+     * set true positive test cases end row number
      *
-     * @param firstRow    row containing first cell
-     * @param lastRow     row containing last cell
-     * @param firstColumn a single column alphabet containing a first cell
-     * @param lastColumn  a single column alphabet containing a last cell
-     * @param borderStyle border style. It is a CellStyle constant.
+     * @param tpTcEndRowNum true positive test cases end row number
      */
-    public void setEachRangeBorder(int firstRow, int lastRow, char firstColumn, char lastColumn, short borderStyle) {
-        String firstColumnString = String.valueOf(firstColumn);
-        String lastColumnString = String.valueOf(lastColumn);
+    public void setTpTcEndRowNum(int tpTcEndRowNum) {
+        this.tpTcEndRowNum = tpTcEndRowNum;
+    }
 
-        setEachRangeBorder(firstRow, lastRow, firstColumnString, lastColumnString, borderStyle);
+    /**
+     * get false positive test cases end row number
+     *
+     * @return false positive test cases end row number
+     */
+    public int getFpTcEndRowNum() {
+        return fpTcEndRowNum;
+    }
+
+    /**
+     * set false positive test casea end row number
+     *
+     * @param fpTcEndRowNum false positive test cases end row number
+     */
+    public void setFpTcEndRowNum(int fpTcEndRowNum) {
+        this.fpTcEndRowNum = fpTcEndRowNum;
     }
 }

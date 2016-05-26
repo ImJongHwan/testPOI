@@ -4,10 +4,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import poi.Constant;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -65,7 +62,7 @@ public class TcWorkbook {
                 this.newFileNum++;
             }
 
-            FileOutputStream out = new FileOutputStream(workbookFile);
+            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(workbookFile));
             this.workbook.write(out);
 
             out.close();
