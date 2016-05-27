@@ -34,27 +34,34 @@ public class Constant {
     public static final short DEFAULT_FONT_HEIGHT = 11;
 
     public enum BenchmarkSheets {
-        total("Total"),
-        cmdi("Command Injection"),
-        crypto("Weak Encryption Algorithm"),
-        hash("Weak Hash Algorithm"),
-        ldapi("LDAP Injection"),
-        pathtraver("Path Traversal"),
-        securecookie("Insecure Cookie"),
-        sqli("SQL Injection"),
-        trustbound("Trust Boundary Violation"),
-        weakrand("Weak Random Number"),
-        xpathi("XPath Injection"),
-        xss("Cross-Site Scripting");
+        total("Total", -1),
+        cmdi("Command Injection", 78),
+        xss("Cross-Site Scripting", 79),
+        securecookie("Insecure Cookie", 614),
+        ldapi("LDAP Injection", 90),
+        pathtraver("Path Traversal", 22),
+        sqli("SQL Injection", 89),
+        trustbound("Trust Boundary Violation", 501),
+        crypto("Weak Encryption Algorithm", 327),
+        hash("Weak Hash Algorithm", 328),
+        weakrand("Weak Random Number", 330),
+        xpathi("XPath Injection", 643);
+
 
         private String sheetName;
+        private int cwe;
 
-        BenchmarkSheets(String sheetName) {
+        BenchmarkSheets(String sheetName, int cwe) {
             this.sheetName = sheetName;
+            this.cwe = cwe;
         }
 
         public String getSheetName() {
             return sheetName;
+        }
+
+        public int getCwe() {
+            return cwe;
         }
     }
 

@@ -1,9 +1,6 @@
 package poi.Util;
 
-import org.apache.poi.ss.format.CellFormat;
-import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.usermodel.*;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.STCellType;
 import poi.Constant;
 
 /**
@@ -29,7 +26,6 @@ public class CellStylesUtil {
     public CellStyle DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT;
 
     public CellStyle DEFAULT_THICK_RIGHT_LEFT_BG_GRAY;
-    public CellStyle BOOLEAN_DEFAULT_MIDDLE_RIGHT_LEFT;
 
     private Workbook workbook = null;
 
@@ -39,38 +35,26 @@ public class CellStylesUtil {
     }
 
     private void init(Workbook workbook) {
-        BOLD_CENTER_THICK_TOP_BOTTOM = getBoldCenterStyle(workbook);
-        BOLD_CENTER_THICK_TOP_BOTTOM.setBorderTop(CellStyle.BORDER_THICK);
-        BOLD_CENTER_THICK_TOP_BOTTOM.setBorderBottom(CellStyle.BORDER_THICK);
+        BOLD_CENTER_THICK_TOP_BOTTOM = getSimpleCellStyle(true, true, 2, 2, 0, 0);
 
         BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT = workbook.createCellStyle();
         BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT.cloneStyleFrom(BOLD_CENTER_THICK_TOP_BOTTOM);
         BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT.setBorderRight(CellStyle.BORDER_THIN);
         BOLD_CENTER_THICK_TOP_BOTTOM_MIDDLE_RIGHT_LEFT.setBorderLeft(CellStyle.BORDER_THIN);
 
-        BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT = getBoldCenterStyle(workbook);
-        BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT.setBorderBottom(CellStyle.BORDER_THICK);
-        BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT.setBorderLeft(CellStyle.BORDER_THIN);
+        BOLD_CENTER_THICK_BOTTOM_MIDDLE_LEFT = getSimpleCellStyle(true, true, 0, 2, 1, 0);
 
-        BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT = getBoldCenterStyle(workbook);
-        BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT.setBorderBottom(CellStyle.BORDER_THICK);
-        BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT.setBorderRight(CellStyle.BORDER_THIN);
+        BOLD_CENTER_THICK_BOTTOM_MIDDLE_RIGHT = getSimpleCellStyle(true, true, 0, 2, 0, 1);
 
-        BOLD_CENTER_MIDDLE_RIGHT_LEFT = getBoldCenterStyle(workbook);
-        BOLD_CENTER_MIDDLE_RIGHT_LEFT.setBorderRight(CellStyle.BORDER_THIN);
-        BOLD_CENTER_MIDDLE_RIGHT_LEFT.setBorderLeft(CellStyle.BORDER_THIN);
+        BOLD_CENTER_MIDDLE_RIGHT_LEFT = getSimpleCellStyle(true, true, 0, 0, 1, 1);
 
         BOLD_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT = workbook.createCellStyle();
         BOLD_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT.cloneStyleFrom(BOLD_CENTER_MIDDLE_RIGHT_LEFT);
         BOLD_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT.setBorderTop(CellStyle.BORDER_THICK);
 
-        BOLD_DEFAULT_THICK_TOP_BOTTOM = getBoldStyle(workbook);
-        BOLD_DEFAULT_THICK_TOP_BOTTOM.setBorderTop(CellStyle.BORDER_THICK);
-        BOLD_DEFAULT_THICK_TOP_BOTTOM.setBorderBottom(CellStyle.BORDER_THICK);
+        BOLD_DEFAULT_THICK_TOP_BOTTOM = getSimpleCellStyle(true, false, 2, 2, 0, 0);
 
-        DEFAULT_CENTER_MIDDLE_RIGHT_LEFT = getDefaultCenterStyle(workbook);
-        DEFAULT_CENTER_MIDDLE_RIGHT_LEFT.setBorderRight(CellStyle.BORDER_THIN);
-        DEFAULT_CENTER_MIDDLE_RIGHT_LEFT.setBorderLeft(CellStyle.BORDER_THIN);
+        DEFAULT_CENTER_MIDDLE_RIGHT_LEFT = getSimpleCellStyle(false, true, 0, 0, 1, 1);
 
         DEFAULT_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT = workbook.createCellStyle();
         DEFAULT_CENTER_THICK_TOP_MIDDLE_RIGHT_LEFT.cloneStyleFrom(DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
@@ -80,12 +64,7 @@ public class CellStylesUtil {
         DEFAULT_CENTER_THICK_BOTTOM_MIDDLE_RIGHT_LEFT.cloneStyleFrom(DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         DEFAULT_CENTER_THICK_BOTTOM_MIDDLE_RIGHT_LEFT.setBorderBottom(CellStyle.BORDER_THICK);
 
-        DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT = workbook.createCellStyle();
-        DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT.setBorderRight(CellStyle.BORDER_THIN);
-        DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT.setBorderLeft(CellStyle.BORDER_THIN);
-
-        BOOLEAN_DEFAULT_MIDDLE_RIGHT_LEFT = workbook.createCellStyle();
-        BOOLEAN_DEFAULT_MIDDLE_RIGHT_LEFT.cloneStyleFrom(DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT);
+        DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT = getSimpleCellStyle(false, true, 0, 0, 1, 1);
 
         DEFAULT_DEFAULT_THICK_TOP_MIDDLE_RIGHT_LEFT = workbook.createCellStyle();
         DEFAULT_DEFAULT_THICK_TOP_MIDDLE_RIGHT_LEFT.cloneStyleFrom(DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT);
@@ -95,11 +74,96 @@ public class CellStylesUtil {
         DEFAULT_DEFAULT_THICK_BOTTOM_MIDDLE_RIGHT_LEFT.cloneStyleFrom(DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT);
         DEFAULT_DEFAULT_THICK_BOTTOM_MIDDLE_RIGHT_LEFT.setBorderBottom(CellStyle.BORDER_THICK);
 
-        DEFAULT_THICK_RIGHT_LEFT_BG_GRAY = workbook.createCellStyle();
-        DEFAULT_THICK_RIGHT_LEFT_BG_GRAY.setBorderRight(CellStyle.BORDER_THIN);
-        DEFAULT_THICK_RIGHT_LEFT_BG_GRAY.setBorderLeft(CellStyle.BORDER_THIN);
-        DEFAULT_THICK_RIGHT_LEFT_BG_GRAY.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
-        DEFAULT_THICK_RIGHT_LEFT_BG_GRAY.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        DEFAULT_THICK_RIGHT_LEFT_BG_GRAY = getSimpleCellStyle(false, false, 0, 0, 2, 2, IndexedColors.GREY_50_PERCENT.getIndex());
+    }
+
+    /**
+     * get simple cell style
+     * default : 맑은 고딕, font size 11, vertical center
+     *
+     * @param isBold       is font bold
+     * @param isCenter     is alignment center
+     * @param topBorder    top border. (2) thick, (1) thin, (others) default
+     * @param bottomBorder bottom border. (2) thick, (1) thin, (others) default
+     * @param leftBorder   left border. (2) thick, (1) thin, (others) default
+     * @param rightBorder  right border. (2) thick, (1) thin, (others) default
+     * @param foreColor    foreground color. 0 or negative is none.
+     * @return cellStyle
+     */
+    public CellStyle getSimpleCellStyle(boolean isBold, boolean isCenter, int topBorder, int bottomBorder, int leftBorder, int rightBorder, short foreColor) {
+        CellStyle cellStyle = this.workbook.createCellStyle();
+
+        if (isBold) {
+            cellStyle.setFont(getBoldFont(this.workbook));
+        } else {
+            cellStyle.setFont(getDefaultFont(this.workbook));
+        }
+
+        if (isCenter) {
+            cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+            cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        } else {
+            cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        }
+
+        if (topBorder == 2) {
+            cellStyle.setBorderTop(CellStyle.BORDER_THICK);
+        } else if (topBorder == 1) {
+            cellStyle.setBorderTop(cellStyle.BORDER_THIN);
+        }
+
+        if (bottomBorder == 2) {
+            cellStyle.setBorderBottom(CellStyle.BORDER_THICK);
+        } else if (bottomBorder == 1) {
+            cellStyle.setBorderBottom(cellStyle.BORDER_THIN);
+        }
+
+        if (rightBorder == 2) {
+            cellStyle.setBorderRight(CellStyle.BORDER_THICK);
+        } else if (rightBorder == 1) {
+            cellStyle.setBorderRight(cellStyle.BORDER_THIN);
+        }
+
+        if (leftBorder == 2) {
+            cellStyle.setBorderLeft(CellStyle.BORDER_THICK);
+        } else if (leftBorder == 1) {
+            cellStyle.setBorderLeft(cellStyle.BORDER_THIN);
+        }
+
+        if (foreColor > 0) {
+            cellStyle.setFillForegroundColor(foreColor);
+            cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        }
+
+        return cellStyle;
+    }
+
+    /**
+     * get simple cell style
+     * default : 맑은 고딕, font size 11, vertical center
+     *
+     * @param isBold   is font bold
+     * @param isCenter is alignment center
+     * @return
+     */
+    public CellStyle getSimpleCellStyle(boolean isBold, boolean isCenter) {
+        return getSimpleCellStyle(isBold, isCenter, 0, 0, 0, 0, (short) 0);
+    }
+
+    /**
+     * get simple cell style
+     * default : 맑은 고딕, font size 11, vertical center
+     *
+     * @param isBold       is font bold
+     * @param isCenter     is alignment center
+     * @param topBorder    top border. (2) thick, (1) thin, (others) default
+     * @param bottomBorder bottom border. (2) thick, (1) thin, (others) default
+     * @param leftBorder   left border. (2) thick, (1) thin, (others) default
+     * @param rightBorder  right border. (2) thick, (1) thin, (others) default
+     * @return cellStyle
+     */
+    public CellStyle getSimpleCellStyle(boolean isBold, boolean isCenter, int topBorder, int bottomBorder, int leftBorder, int rightBorder) {
+        return getSimpleCellStyle(isBold, isCenter, topBorder, bottomBorder, leftBorder, rightBorder, (short) 0);
     }
 
     /**
@@ -118,36 +182,6 @@ public class CellStylesUtil {
         return cellStyle;
     }
 
-    public static CellStyle getDefaultCenterStyle(Workbook workbook) {
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFont(setDefaultFont(workbook));
-
-        cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
-        cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-
-        return cellStyle;
-    }
-
-    /**
-     * get cell style that set only bold.
-     *
-     * @param workbook workbook to set style
-     * @return CellStyle
-     */
-    public static CellStyle getBoldStyle(Workbook workbook) {
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFont(getBoldFont(workbook));
-
-        return cellStyle;
-    }
-
-    public static CellStyle setDefaultStyle(Workbook workbook) {
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFont(setDefaultFont(workbook));
-
-        return cellStyle;
-    }
-
     /**
      * get font style that set only bold
      *
@@ -155,7 +189,7 @@ public class CellStylesUtil {
      * @return Font
      */
     private static Font getBoldFont(Workbook workbook) {
-        Font font = setDefaultFont(workbook);
+        Font font = getDefaultFont(workbook);
         font.setBold(true);
 
         return font;
@@ -169,7 +203,7 @@ public class CellStylesUtil {
      * @param workbook workbook to set font style
      * @return Font
      */
-    private static Font setDefaultFont(Workbook workbook) {
+    private static Font getDefaultFont(Workbook workbook) {
         Font defaultFont = workbook.createFont();
 
         defaultFont.setFontName(Constant.DEFAULT_FONT_NAME);
@@ -178,53 +212,5 @@ public class CellStylesUtil {
         defaultFont.setFontHeight(defaultFontHeight);
 
         return defaultFont;
-    }
-
-    /**
-     * append Style Top Border
-     *
-     * @param cellStyle   cellStyle
-     * @param borderStyle borderStyle, you can get a CellStyle class.
-     */
-    public static void appendTopBorder(CellStyle cellStyle, short borderStyle) {
-        if (cellStyle != null) {
-            cellStyle.setBorderTop(borderStyle);
-        }
-    }
-
-    /**
-     * append Style Bottom Border
-     *
-     * @param cellStyle   cellStyle
-     * @param borderStyle borderStyle, you can get a CellStyle class.
-     */
-    public static void appendBottomBorder(CellStyle cellStyle, short borderStyle) {
-        if (cellStyle != null) {
-            cellStyle.setBorderBottom(borderStyle);
-        }
-    }
-
-    /**
-     * append Style Right Border
-     *
-     * @param cellStyle   cellStyle
-     * @param borderStyle borderStyle, you can get a CellStyle class.
-     */
-    public static void appendRightBorder(CellStyle cellStyle, short borderStyle) {
-        if (cellStyle != null) {
-            cellStyle.setBorderRight(borderStyle);
-        }
-    }
-
-    /**
-     * append Style Left Border
-     *
-     * @param cellStyle   cellStyle
-     * @param borderStyle borderStyle, you can get a CellStyle class.
-     */
-    public static void appendLeftBorder(CellStyle cellStyle, short borderStyle) {
-        if (cellStyle != null) {
-            cellStyle.setBorderLeft(borderStyle);
-        }
     }
 }
