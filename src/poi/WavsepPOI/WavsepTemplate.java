@@ -1,7 +1,10 @@
 package poi.WavsepPOI;
 
+import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DataFormat;
 import poi.Constant;
 import poi.TestCasePOI.TcSheet;
 import poi.TestCasePOI.TcWorkbook;
@@ -319,41 +322,41 @@ public class WavsepTemplate {
     /**
      * initialize total sheet
      *
-     * @param tempTcSheet total sheet
+     * @param tcSheet total sheet
      */
-    private void initTotalSheet(TcSheet tempTcSheet) {
+    private void initTotalSheet(TcSheet tcSheet) {
 
-        initTotalColumnWidth(tempTcSheet);
-        initTotalSheetStyle(tempTcSheet);
+        initTotalColumnWidth(tcSheet);
+        initTotalSheetStyle(tcSheet);
 
-        Cell cell = tempTcSheet.getCell(1, 'A');
+        Cell cell = tcSheet.getCell(1, 'A');
         cell.setCellValue("Category");
 
-        cell = tempTcSheet.getCell(1, 'b');
+        cell = tcSheet.getCell(1, 'b');
         cell.setCellValue("TP");
 
-        cell = tempTcSheet.getCell(1, 'c');
+        cell = tcSheet.getCell(1, 'c');
         cell.setCellValue("FN");
 
-        cell = tempTcSheet.getCell(1, 'd');
+        cell = tcSheet.getCell(1, 'd');
         cell.setCellValue("TN");
 
-        cell = tempTcSheet.getCell(1, 'e');
+        cell = tcSheet.getCell(1, 'e');
         cell.setCellValue("FP");
 
-        cell = tempTcSheet.getCell(1, 'f');
+        cell = tcSheet.getCell(1, 'f');
         cell.setCellValue("Total");
 
-        cell = tempTcSheet.getCell(1, 'g');
+        cell = tcSheet.getCell(1, 'g');
         cell.setCellValue("TPR");
 
-        cell = tempTcSheet.getCell(1, 'h');
+        cell = tcSheet.getCell(1, 'h');
         cell.setCellValue("FPR");
 
-        cell = tempTcSheet.getCell(1, 'i');
+        cell = tcSheet.getCell(1, 'i');
         cell.setCellValue("Score");
 
-        cell = tempTcSheet.getCell(2, 'a');
+        cell = tcSheet.getCell(2, 'a');
         cell.setCellValue("Vulnerabilities + False Positive");
 
         int rowNum = 2;
@@ -361,25 +364,88 @@ public class WavsepTemplate {
         for (Constant.WavsepSheets vulnerability : Constant.WavsepSheets.values()) {
             if (!vulnerability.toString().equals("total")) {
                 rowNum++;
-                cell = tempTcSheet.getCell(rowNum, 'a');
+                cell = tcSheet.getCell(rowNum, 'a');
                 cell.setCellValue(vulnerability.getSheetName());
+
+                cell = tcSheet.getCell(rowNum, 'b');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!H6");
+                cell = tcSheet.getCell(rowNum, 'c');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!I6");
+                cell = tcSheet.getCell(rowNum, 'd');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!J6");
+                cell = tcSheet.getCell(rowNum, 'e');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!K6");
+
+                cell = tcSheet.getCell(rowNum, 'f');
+                cell.setCellFormula("SUM(B" + rowNum + ":E" + rowNum + ")");
+                cell = tcSheet.getCell(rowNum, 'g');
+                cell.setCellFormula("B" + rowNum + "/(B" + rowNum + "+C" + rowNum + ")");
+                cell = tcSheet.getCell(rowNum, 'h');
+                cell.setCellFormula("E" + rowNum + "/(E" + rowNum + "+D" + rowNum + ")");
+                cell = tcSheet.getCell(rowNum, 'i');
+                cell.setCellFormula("G" + rowNum + "-H" + rowNum);
+
+            }
+
+            if(vulnerability.toString().equals("rxss")){
+                cell = tcSheet.getCell(9, 'b');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!L6");
+                cell = tcSheet.getCell(9, 'c');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!M6");
+
+                cell = tcSheet.getCell(9, 'f');
+                cell.setCellFormula("B9+C9");
+                cell = tcSheet.getCell(9, 'g');
+                cell.setCellFormula("B9/(B9+C9)");
+                cell = tcSheet.getCell(9, 'i');
+                cell.setCellFormula("G9");
+            } else if(vulnerability.toString().equals("sqli")){
+                cell = tcSheet.getCell(10, 'b');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!L6");
+                cell = tcSheet.getCell(10, 'c');
+                cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!M6");
+
+                cell = tcSheet.getCell(10, 'f');
+                cell.setCellFormula("B10+C10");
+                cell = tcSheet.getCell(10, 'g');
+                cell.setCellFormula("B10/(B10+C10)");
+                cell = tcSheet.getCell(10, 'i');
+                cell.setCellFormula("G10");
             }
         }
 
-        cell = tempTcSheet.getCell(++rowNum, 'a');
+        cell = tcSheet.getCell(++rowNum, 'a');
         cell.setCellValue("Experimental Test Cases (inspired/imported from ZAP-WAVE)");
 
-        cell = tempTcSheet.getCell(++rowNum, 'a');
+        cell = tcSheet.getCell(++rowNum, 'a');
         cell.setCellValue("additional RXSS(anticsrf tokens, secret input vectors, tag signatures etc.)");
 
-        cell = tempTcSheet.getCell(++rowNum, 'a');
+        cell = tcSheet.getCell(++rowNum, 'a');
         cell.setCellValue("addtional SQLi(INSERT)");
 
-        cell = tempTcSheet.getCell(++rowNum, 'a');
+        cell = tcSheet.getCell(++rowNum, 'a');
         cell.setCellValue("Totals");
 
-        cell = tempTcSheet.getCell(++rowNum, 'a');
+        cell = tcSheet.getCell(++rowNum, 'a');
         cell.setCellValue("Overall Results");
+
+        cell = tcSheet.getCell(11, 'b');
+        cell.setCellFormula("SUM(B3:B7, B9:B10)");
+        cell = tcSheet.getCell(11, 'c');
+        cell.setCellFormula("SUM(C3:C7, C9:C10)");
+        cell = tcSheet.getCell(11, 'd');
+        cell.setCellFormula("SUM(D3:D7, D9:D10)");
+        cell = tcSheet.getCell(11, 'e');
+        cell.setCellFormula("SUM(E3:E7, E9:E10)");
+        cell = tcSheet.getCell(11, 'f');
+        cell.setCellFormula("SUM(F3:F7, F9:F10)");
+
+        cell = tcSheet.getCell(12, 'g');
+        cell.setCellFormula("AVERAGE(G3:G7,G9:G10)");
+        cell = tcSheet.getCell(12, 'h');
+        cell.setCellFormula("AVERAGE(H3:H7)");
+        cell = tcSheet.getCell(12, 'i');
+        cell.setCellFormula("AVERAGE(I3:I7,I9:I10)");
     }
 
     private void initTotalColumnWidth(TcSheet sheet) {
@@ -388,7 +454,120 @@ public class WavsepTemplate {
     }
 
     private void initTotalSheetStyle(TcSheet sheet) {
-        sheet.setSameCellStyle(1, 1, 'a', 'i', CellStylesUtil.getBoldCenterStyle(this.tcWorkbook.getWorkbook()));
+        CellStyle boldCenterThickRight = cellStyle.getSimpleCellStyle(true, true, 0, 0, 0, 2);
+        CellStyle thickRight = cellStyle.getSimpleCellStyle(false, false, 0, 0, 0, 2);
+        CellStyle thinUpThickBotRight = cellStyle.getSimpleCellStyle(false, false, 1, 2, 0, 2);
+        CellStyle thickUpBotRight = cellStyle.getSimpleCellStyle(false, false, 2, 2, 0, 2);
+        CellStyle thinTopBot = cellStyle.getSimpleCellStyle(false, false, 1, 1, 0, 0);
+        CellStyle thinTopThickBot = cellStyle.getSimpleCellStyle(false, false, 1, 2, 0, 0);
+        CellStyle thinTopBotThickRight = cellStyle.getSimpleCellStyle(false, false, 1, 1, 0, 2);
+
+        Cell cell = sheet.getCell(1, 'a');
+        cell.setCellStyle(boldCenterThickRight);
+        cell = sheet.getCell(1, 'f');
+        cell.setCellStyle(boldCenterThickRight);
+        cell = sheet.getCell(1, 'i');
+        cell.setCellStyle(boldCenterThickRight);
+
+        cell = sheet.getCell(3, 'a');
+        cell.setCellStyle(thickRight);
+        cell = sheet.getCell(7, 'a');
+        cell.setCellStyle(thickRight);
+        cell = sheet.getCell(9, 'a');
+        cell.setCellStyle(thickRight);
+        cell = sheet.getCell(11, 'a');
+        cell.setCellStyle(thickRight);
+
+        cell = sheet.getCell(3, 'f');
+        cell.setCellStyle(thickRight);
+        cell = sheet.getCell(7, 'f');
+        cell.setCellStyle(thickRight);
+        cell = sheet.getCell(9, 'f');
+        cell.setCellStyle(thickRight);
+        cell = sheet.getCell(11, 'f');
+        cell.setCellStyle(thickRight);
+
+        sheet.setSameCellStyle(2, 2, 'a', 'h', cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM);
+        cell = sheet.getCell(2, 'i');
+        cell.setCellStyle(thickUpBotRight);
+        sheet.setSameCellStyle(8, 8, 'a', 'h', cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM);
+        cell = sheet.getCell(8, 'i');
+        cell.setCellStyle(thickUpBotRight);
+        sheet.setSameCellStyle(1, 1, 'b', 'e', cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM);
+        sheet.setSameCellStyle(1, 1, 'g', 'h', cellStyle.BOLD_CENTER_THICK_TOP_BOTTOM);
+
+        cell = sheet.getCell(10, 'a');
+        cell.setCellStyle(thinUpThickBotRight);
+        cell = sheet.getCell(12, 'a');
+        cell.setCellStyle(thinUpThickBotRight);
+        cell = sheet.getCell(10, 'f');
+        cell.setCellStyle(thinUpThickBotRight);
+        cell = sheet.getCell(12, 'f');
+        cell.setCellStyle(thinUpThickBotRight);
+
+        sheet.setSameCellStyle(4, 6, 'b', 'e', thinTopBot);
+
+        sheet.setSameCellStyle(10, 10, 'b', 'e', thinTopThickBot);
+        sheet.setSameCellStyle(12, 12, 'b', 'e', thinTopThickBot);
+
+        sheet.setSameCellStyle(4, 6, 'a', 'a', thinTopBotThickRight);
+        sheet.setSameCellStyle(4, 6, 'f', 'f', thinTopBotThickRight);
+
+        /** set percentage cell style */
+        CellStyle pThickRight = this.tcWorkbook.getWorkbook().createCellStyle();
+        pThickRight.cloneStyleFrom(thickRight);
+        pThickRight.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle pThinTopBotThickRight = this.tcWorkbook.getWorkbook().createCellStyle();
+        pThinTopBotThickRight .cloneStyleFrom(thinTopBotThickRight);
+        pThinTopBotThickRight .setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle pThinUpThickBotRight = this.tcWorkbook.getWorkbook().createCellStyle();
+        pThinUpThickBotRight .cloneStyleFrom(thinUpThickBotRight);
+        pThinUpThickBotRight .setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle pThinTopBot = this.tcWorkbook.getWorkbook().createCellStyle();
+        pThinTopBot.cloneStyleFrom(thinTopBot);
+        pThinTopBot.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle pThinTopThickBot = this.tcWorkbook.getWorkbook().createCellStyle();
+        pThinTopThickBot .cloneStyleFrom(thinTopThickBot);
+        pThinTopThickBot .setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle p = cellStyle.getSimpleCellStyle(false, false);
+        p.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        cell = sheet.getCell(3, 'i');
+        cell.setCellStyle(pThickRight);
+        cell = sheet.getCell(7, 'i');
+        cell.setCellStyle(pThickRight);
+        cell = sheet.getCell(9, 'i');
+        cell.setCellStyle(pThickRight);
+        cell = sheet.getCell(11, 'i');
+        cell.setCellStyle(pThickRight);
+
+        sheet.setSameCellStyle(4, 6, 'i', 'i', pThinTopBotThickRight);
+
+        cell = sheet.getCell(10, 'i');
+        cell.setCellStyle(pThinUpThickBotRight);
+        cell = sheet.getCell(12, 'i');
+        cell.setCellStyle(pThinUpThickBotRight);
+
+        sheet.setSameCellStyle(4, 6, 'g', 'h', pThinTopBot);
+
+        sheet.setSameCellStyle(12, 12, 'g', 'h', pThinTopThickBot);
+        sheet.setSameCellStyle(10, 10, 'g', 'h', pThinTopThickBot);
+
+        cell = sheet.getCell(3, 'g');
+        cell.setCellStyle(p);
+        cell = sheet.getCell(7, 'g');
+        cell.setCellStyle(p);
+        cell = sheet.getCell(9, 'g');
+        cell.setCellStyle(p);
+        cell = sheet.getCell(3, 'h');
+        cell.setCellStyle(p);
+        cell = sheet.getCell(7, 'h');
+        cell.setCellStyle(p);
     }
 
     //todo define default XSSFCEllStyle

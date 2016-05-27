@@ -36,7 +36,7 @@ public class Constant {
     public enum BenchmarkSheets {
         total("Total", -1),
         cmdi("Command Injection", 78),
-        xss("Cross-Site Scripting", 79),
+        rxss("Cross-Site Scripting", 79),
         securecookie("Insecure Cookie", 614),
         ldapi("LDAP Injection", 90),
         pathtraver("Path Traversal", 22),
@@ -68,7 +68,7 @@ public class Constant {
     public enum WavsepSheets {
         total("Total"),
         lfi("Path Traversal(LFI)"),
-        rfi("Remote File Inclusion(XSS via RFI)"),
+        rfi("Remote File Inclusion"),
         rxss("Cross Site Scripting(Reflected)"),
         sqli("SQL Injection(SQLI)"),
         redirect("Unvalidated Redirect");
