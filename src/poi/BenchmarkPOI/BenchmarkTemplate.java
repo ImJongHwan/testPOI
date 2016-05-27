@@ -388,39 +388,61 @@ public class BenchmarkTemplate {
 
         sheet.setSameCellStyle(2, 11, 'a', 'a', thinTopBotThickRight);
         sheet.setSameCellStyle(2, 11, 'g', 'g', thinTopBotThickRight);
-        sheet.setSameCellStyle(2, 11, 'j', 'j', thinTopBotThickRight);
+
         cell = sheet.getCell(13, 'a');
         cell.setCellStyle(thinTopBotThickRight);
         cell = sheet.getCell(13, 'g');
-        cell.setCellStyle(thinTopBotThickRight);
-        cell = sheet.getCell(13, 'j');
         cell.setCellStyle(thinTopBotThickRight);
 
         cell = sheet.getCell(12, 'a');
         cell.setCellStyle(thickBottomRight);
         cell = sheet.getCell(12, 'g');
         cell.setCellStyle(thickBottomRight);
-        cell = sheet.getCell(12, 'j');
-        cell.setCellStyle(thickBottomRight);
         cell = sheet.getCell(14, 'a');
         cell.setCellStyle(thickBottomRight);
         cell = sheet.getCell(14, 'g');
-        cell.setCellStyle(thickBottomRight);
-        cell = sheet.getCell(14, 'j');
         cell.setCellStyle(thickBottomRight);
 
         sheet.setSameCellStyle(1, 1, 'b', 'f', boldCenterThickBottom);
         sheet.setSameCellStyle(1, 1, 'h', 'i', boldCenterThickBottom);
 
         sheet.setSameCellStyle(12, 12, 'b', 'f', thickBottom);
-        sheet.setSameCellStyle(12, 12, 'h', 'i', thickBottom);
         sheet.setSameCellStyle(14, 14, 'b', 'f', thickBottom);
-        sheet.setSameCellStyle(14, 14, 'h', 'i', thickBottom);
 
         sheet.setSameCellStyle(2, 11, 'b', 'f', thinTopBot);
-        sheet.setSameCellStyle(2, 11, 'h', 'i', thinTopBot);
         sheet.setSameCellStyle(13, 13, 'b', 'f', thinTopBot);
-        sheet.setSameCellStyle(13, 13, 'h', 'i', thinTopBot);
+
+        /** set percentage cell style */
+        CellStyle pThinTopBotThickRight = cellStyle.getSimpleCellStyle(false, false);
+        pThinTopBotThickRight.cloneStyleFrom(thinTopBotThickRight);
+        pThinTopBotThickRight.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle pThickBottomRight = cellStyle.getSimpleCellStyle(false, false);
+        pThickBottomRight.cloneStyleFrom(thickBottomRight);
+        pThickBottomRight.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle pThickBottom= cellStyle.getSimpleCellStyle(false, false);
+        pThickBottom.cloneStyleFrom(thickBottom);
+        pThickBottom.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        CellStyle pThinTopBot= cellStyle.getSimpleCellStyle(false, false);
+        pThinTopBot.cloneStyleFrom(thinTopBot);
+        pThinTopBot.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+
+        cell = sheet.getCell(13, 'j');
+        cell.setCellStyle(pThinTopBotThickRight);
+        sheet.setSameCellStyle(2, 11, 'j', 'j', pThinTopBotThickRight);
+
+        cell = sheet.getCell(12, 'j');
+        cell.setCellStyle(pThickBottomRight);
+        cell = sheet.getCell(14, 'j');
+        cell.setCellStyle(pThickBottomRight);
+
+        sheet.setSameCellStyle(12, 12, 'h', 'i', pThickBottom);
+        sheet.setSameCellStyle(14, 14, 'h', 'i', pThickBottom);
+
+        sheet.setSameCellStyle(2, 11, 'h', 'i', pThinTopBot);
+        sheet.setSameCellStyle(13, 13, 'h', 'i', pThinTopBot);
     }
 
     /**
