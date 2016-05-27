@@ -1,4 +1,4 @@
-package poi.TestCasePOI;
+package org.poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -7,8 +7,8 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import poi.Constant;
-import poi.Util.TcUtil;
+import org.POIConstant;
+import org.poi.Util.TcUtil;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -324,24 +324,24 @@ public class TcSheet {
 
     /**
      * set column width to use real column alphabet
-     * !caution : setColumnWidth API has a error - you must multiply a Constant.COLUMN_SIZE_CONSTANT(256)
+     * !caution : setColumnWidth API has a error - you must multiply a POIConstant.COLUMN_SIZE_CONSTANT(256)
      *
      * @param columnIndex column alphabet
      * @param width       column width
      */
     public void setColumnWidth(String columnIndex, int width) {
-        this.sheet.setColumnWidth(TcUtil.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
+        this.sheet.setColumnWidth(TcUtil.convertColumnAlphabetToIndex(columnIndex), POIConstant.COLUMN_SIZE_CONSTANT * width);
     }
 
     /**
      * set column width to use real column alphabet
-     * !caution : setColumnWidth API has a error - you must multiply a Constant.COLUMN_SIZE_CONSTANT(256)
+     * !caution : setColumnWidth API has a error - you must multiply a POIConstant.COLUMN_SIZE_CONSTANT(256)
      *
      * @param columnIndex single column alphabet
      * @param width       column width
      */
     public void setColumnWidth(char columnIndex, int width) {
-        this.sheet.setColumnWidth(TcUtil.convertColumnAlphabetToIndex(columnIndex), Constant.COLUMN_SIZE_CONSTANT * width);
+        this.sheet.setColumnWidth(TcUtil.convertColumnAlphabetToIndex(columnIndex), POIConstant.COLUMN_SIZE_CONSTANT * width);
     }
 
     /**

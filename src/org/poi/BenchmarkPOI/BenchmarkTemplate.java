@@ -1,12 +1,13 @@
-package poi.BenchmarkPOI;
+package org.poi.BenchmarkPOI;
 
+import org.Constant;
 import org.apache.poi.ss.usermodel.*;
-import poi.Util.CellStylesUtil;
-import poi.Constant;
-import poi.TestCasePOI.TcSheet;
-import poi.TestCasePOI.TcWorkbook;
-import poi.Util.FileUtil;
-import poi.Util.TcUtil;
+import org.POIConstant;
+import org.poi.Util.CellStylesUtil;
+import org.poi.TestCasePOI.TcSheet;
+import org.poi.TestCasePOI.TcWorkbook;
+import org.poi.Util.FileUtil;
+import org.poi.Util.TcUtil;
 
 import java.util.List;
 
@@ -165,11 +166,11 @@ public class BenchmarkTemplate {
      * @param sheet sheet to set column width
      */
     private void initVulnerabilityColumnWidth(TcSheet sheet) {
-        sheet.getSheet().setDefaultColumnWidth(Constant.DEFAULT_COLUMN_WIDTH);
-        sheet.setColumnWidth('b', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
-        sheet.setColumnWidth('m', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
-        sheet.setColumnWidth('n', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
-        sheet.setColumnWidth('o', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.getSheet().setDefaultColumnWidth(POIConstant.DEFAULT_COLUMN_WIDTH);
+        sheet.setColumnWidth('b', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('m', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('n', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('o', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
 
         sheet.setColumnWidth('l', 3);
     }
@@ -363,7 +364,7 @@ public class BenchmarkTemplate {
 
     private void initTotalColumnWidth(TcSheet sheet) {
         sheet.setColumnWidth('a', 30);
-        sheet.getSheet().setDefaultColumnWidth(Constant.DEFAULT_COLUMN_WIDTH);
+        sheet.getSheet().setDefaultColumnWidth(POIConstant.DEFAULT_COLUMN_WIDTH);
     }
 
     /**
@@ -421,11 +422,11 @@ public class BenchmarkTemplate {
         pThickBottomRight.cloneStyleFrom(thickBottomRight);
         pThickBottomRight.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
-        CellStyle pThickBottom= cellStyle.getSimpleCellStyle(false, false);
+        CellStyle pThickBottom = cellStyle.getSimpleCellStyle(false, false);
         pThickBottom.cloneStyleFrom(thickBottom);
         pThickBottom.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
-        CellStyle pThinTopBot= cellStyle.getSimpleCellStyle(false, false);
+        CellStyle pThinTopBot = cellStyle.getSimpleCellStyle(false, false);
         pThinTopBot.cloneStyleFrom(thinTopBot);
         pThinTopBot.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
@@ -450,7 +451,7 @@ public class BenchmarkTemplate {
      */
     public void writeBenchmark() {
         if (tcWorkbook != null) {
-            tcWorkbook.writeWorkbook(Constant.BENCHMARK_NAME);
+            tcWorkbook.writeWorkbook(POIConstant.BENCHMARK_NAME);
         }
     }
 }

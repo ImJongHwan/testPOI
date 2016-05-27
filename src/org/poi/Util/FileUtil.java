@@ -1,4 +1,4 @@
-package poi.Util;
+package org.poi.Util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,6 +18,36 @@ public class FileUtil {
 
         if(!file.exists()){
             System.out.println("File don't exist - " + path);
+            return null;
+        }
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            List<String> lines = new ArrayList<>();
+            String line;
+
+            while((line = br.readLine()) != null){
+                lines.add(line);
+            }
+
+            br.close();
+
+            return lines;
+        } catch (IOException e) {
+            System.out.println("Reading File is failed");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * read a file and put lines in string list
+     * @param file file
+     * @return line string list
+     */
+    public static List<String> readFile(File file){
+        if(!file.exists()){
+            System.out.println("File don't exist - " + file.getAbsolutePath());
             return null;
         }
 

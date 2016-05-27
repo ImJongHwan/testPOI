@@ -1,9 +1,9 @@
-package poi.Util;
+package org.poi.Util;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.RichTextString;
-import poi.Constant;
-import poi.TestCasePOI.TcSheet;
+import org.POIConstant;
+import org.poi.TestCasePOI.TcSheet;
 
 import java.util.*;
 
@@ -24,7 +24,7 @@ public class TcUtil {
         int cellIndex = 0;
 
         for (int i = 0; i < columnAlphabet.length(); i++) {
-            cellIndex += (columnAlphabet.charAt(i) - 'A') * Math.pow(Constant.ALPHABET_SIZE, columnAlphabet.length() - i - 1);
+            cellIndex += (columnAlphabet.charAt(i) - 'A') * Math.pow(POIConstant.ALPHABET_SIZE, columnAlphabet.length() - i - 1);
         }
 
         return cellIndex;

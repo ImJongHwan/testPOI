@@ -1,9 +1,8 @@
-package poi.TestCasePOI;
+package org.poi.TestCasePOI;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
-import poi.Util.CellStylesUtil;
-import poi.Constant;
+import org.POIConstant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class TcRow {
      * @return cell
      */
     Cell getCell(String columnAlphabet) {
-        if (columnAlphabet.compareTo(Constant.MAX_COLUMN_STRING) > 0) {
+        if (columnAlphabet.compareTo(POIConstant.MAX_COLUMN_STRING) > 0) {
             System.err.println("Getting cell Error - The columnAlphabet is too big. Please input a columnAlphabet less than \"XFD\".");
             return null;
         } else if (isInteger(columnAlphabet)) {

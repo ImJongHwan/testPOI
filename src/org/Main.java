@@ -1,7 +1,7 @@
-package poi;
+package org;
 
-import poi.BenchmarkPOI.BenchmarkTemplate;
-import poi.WavsepPOI.WavsepTemplate;
+import org.poi.BenchmarkPOI.BenchmarkTemplate;
+import org.poi.WavsepPOI.WavsepTemplate;
 
 public class Main {
 

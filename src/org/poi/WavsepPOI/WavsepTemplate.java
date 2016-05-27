@@ -1,17 +1,17 @@
-package poi.WavsepPOI;
+package org.poi.WavsepPOI;
 
-import org.apache.poi.ss.format.CellFormatType;
+import org.Constant;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.DataFormat;
-import poi.Constant;
-import poi.TestCasePOI.TcSheet;
-import poi.TestCasePOI.TcWorkbook;
-import poi.Util.CellStylesUtil;
-import poi.Util.FileUtil;
-import poi.Util.TcUtil;
+import org.POIConstant;
+import org.poi.TestCasePOI.TcSheet;
+import org.poi.TestCasePOI.TcWorkbook;
+import org.poi.Util.CellStylesUtil;
+import org.poi.Util.FileUtil;
+import org.poi.Util.TcUtil;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -25,7 +25,6 @@ public class WavsepTemplate {
         this.tcWorkbook = new TcWorkbook();
         cellStyle = new CellStylesUtil(this.tcWorkbook.getWorkbook());
         init();
-        this.tcWorkbook.getWorkbook().setForceFormulaRecalculation(true);
     }
 
     /**
@@ -197,12 +196,12 @@ public class WavsepTemplate {
      * @param sheet sheet to set column width
      */
     private void initVulnerabilityColumnWidth(TcSheet sheet) {
-        sheet.getSheet().setDefaultColumnWidth(Constant.DEFAULT_COLUMN_WIDTH);
-        sheet.setColumnWidth('b', Constant.WAVSEP_TEST_CASE_CELL_WIDTH);
-        sheet.setColumnWidth('p', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
-        sheet.setColumnWidth('q', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
-        sheet.setColumnWidth('r', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
-        sheet.setColumnWidth('s', Constant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.getSheet().setDefaultColumnWidth(POIConstant.DEFAULT_COLUMN_WIDTH);
+        sheet.setColumnWidth('b', POIConstant.WAVSEP_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('p', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('q', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('r', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('s', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
 
         sheet.setColumnWidth('o', 3);
     }
@@ -387,7 +386,7 @@ public class WavsepTemplate {
 
             }
 
-            if(vulnerability.toString().equals("rxss")){
+            if (vulnerability.toString().equals("rxss")) {
                 cell = tcSheet.getCell(9, 'b');
                 cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!L6");
                 cell = tcSheet.getCell(9, 'c');
@@ -399,7 +398,7 @@ public class WavsepTemplate {
                 cell.setCellFormula("B9/(B9+C9)");
                 cell = tcSheet.getCell(9, 'i');
                 cell.setCellFormula("G9");
-            } else if(vulnerability.toString().equals("sqli")){
+            } else if (vulnerability.toString().equals("sqli")) {
                 cell = tcSheet.getCell(10, 'b');
                 cell.setCellFormula("\'" + vulnerability.getSheetName() + "\'!L6");
                 cell = tcSheet.getCell(10, 'c');
@@ -449,8 +448,8 @@ public class WavsepTemplate {
     }
 
     private void initTotalColumnWidth(TcSheet sheet) {
-        sheet.getSheet().setDefaultColumnWidth(Constant.DEFAULT_COLUMN_WIDTH);
-        sheet.setColumnWidth('a', Constant.WAVSEP_TEST_CASE_CELL_WIDTH);
+        sheet.getSheet().setDefaultColumnWidth(POIConstant.DEFAULT_COLUMN_WIDTH);
+        sheet.setColumnWidth('a', POIConstant.WAVSEP_TEST_CASE_CELL_WIDTH);
     }
 
     private void initTotalSheetStyle(TcSheet sheet) {
@@ -519,20 +518,20 @@ public class WavsepTemplate {
         pThickRight.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
         CellStyle pThinTopBotThickRight = this.tcWorkbook.getWorkbook().createCellStyle();
-        pThinTopBotThickRight .cloneStyleFrom(thinTopBotThickRight);
-        pThinTopBotThickRight .setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+        pThinTopBotThickRight.cloneStyleFrom(thinTopBotThickRight);
+        pThinTopBotThickRight.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
         CellStyle pThinUpThickBotRight = this.tcWorkbook.getWorkbook().createCellStyle();
-        pThinUpThickBotRight .cloneStyleFrom(thinUpThickBotRight);
-        pThinUpThickBotRight .setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+        pThinUpThickBotRight.cloneStyleFrom(thinUpThickBotRight);
+        pThinUpThickBotRight.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
         CellStyle pThinTopBot = this.tcWorkbook.getWorkbook().createCellStyle();
         pThinTopBot.cloneStyleFrom(thinTopBot);
         pThinTopBot.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
         CellStyle pThinTopThickBot = this.tcWorkbook.getWorkbook().createCellStyle();
-        pThinTopThickBot .cloneStyleFrom(thinTopThickBot);
-        pThinTopThickBot .setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+        pThinTopThickBot.cloneStyleFrom(thinTopThickBot);
+        pThinTopThickBot.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
 
         CellStyle p = cellStyle.getSimpleCellStyle(false, false);
         p.setDataFormat(this.tcWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
@@ -577,7 +576,47 @@ public class WavsepTemplate {
      */
     public void writeWavsep() {
         if (tcWorkbook != null) {
-            tcWorkbook.writeWorkbook(Constant.WAVSEP_NAME);
+            tcWorkbook.writeWorkbook(POIConstant.WAVSEP_NAME);
+        }
+    }
+
+    /**
+     * set Failed List - failed Crawling, failed TP, failed FP, failed EX
+     *
+     * @param resTcDirPath scanning results directory path
+     */
+    public void setFailedList(String resTcDirPath) {
+        File resDir = new File(resTcDirPath);
+
+        if (resDir.exists() && resDir.isDirectory()) {
+            for (File tcFile : resDir.listFiles()) {
+                String fileName = tcFile.getName();
+                String vulnerability;
+                int index;
+                boolean crawlFlag = false;
+
+                if ((index = fileName.indexOf(WavsepParser.WAVSEP_TEST_PREFIX + WavsepParser.WAVSEP_TEST_CRAWLED) ) > 0) {
+                    vulnerability = fileName.substring(index);
+                    crawlFlag = true;
+                } else if ((index = fileName.indexOf(WavsepParser.WAVSEP_TEST_PREFIX)) > 0){
+                    vulnerability = fileName.substring(index);
+                } else {
+                    continue;
+                }
+
+                for(Constant.WavsepSheets wavsep : Constant.WavsepSheets.values()){
+                    if(wavsep.toString().equals(vulnerability)){
+                        TcSheet tcSheet = this.tcWorkbook.getTcSheet(wavsep.getSheetName());
+                        if(crawlFlag){
+                            TcUtil.writeDownListInSheet(WavsepParser.getFailedCrawlingLIst(tcFile), tcSheet, 7, 'p');
+                        } else {
+                            TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_TRUE_POSITIVE), tcSheet, 7, 'q');
+                            TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_FALSE_POSITIVE), tcSheet, 7, 'r');
+                            TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_EXPERIMENTAL), tcSheet, 7, 's');
+                        }
+                    }
+                }
+            }
         }
     }
 }

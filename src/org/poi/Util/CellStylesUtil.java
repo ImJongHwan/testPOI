@@ -1,7 +1,7 @@
-package poi.Util;
+package org.poi.Util;
 
 import org.apache.poi.ss.usermodel.*;
-import poi.Constant;
+import org.POIConstant;
 
 /**
  * Created by Hwan on 2016-05-24.
@@ -206,9 +206,9 @@ public class CellStylesUtil {
     private static Font getDefaultFont(Workbook workbook) {
         Font defaultFont = workbook.createFont();
 
-        defaultFont.setFontName(Constant.DEFAULT_FONT_NAME);
+        defaultFont.setFontName(POIConstant.DEFAULT_FONT_NAME);
 
-        short defaultFontHeight = Constant.DEFAULT_FONT_HEIGHT * Constant.FONT_SIZE_CONSTANT;
+        short defaultFontHeight = POIConstant.DEFAULT_FONT_HEIGHT * POIConstant.FONT_SIZE_CONSTANT;
         defaultFont.setFontHeight(defaultFontHeight);
 
         return defaultFont;

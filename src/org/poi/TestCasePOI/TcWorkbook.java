@@ -1,8 +1,8 @@
-package poi.TestCasePOI;
+package org.poi.TestCasePOI;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import poi.Constant;
+import org.POIConstant;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -50,14 +50,14 @@ public class TcWorkbook {
             SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmm");
             String createdTime = sdf.format(workbookCreatedTime);
 
-            File outputDir = new File(Constant.RES_OUTPUT_PATH);
+            File outputDir = new File(POIConstant.RES_OUTPUT_PATH);
             outputDir.mkdir();
 
-            String workbookFileName = Constant.RES_OUTPUT_PATH + tcName + createdTime + Constant.FILE_EXTENSION;
+            String workbookFileName = POIConstant.RES_OUTPUT_PATH + tcName + createdTime + POIConstant.FILE_EXTENSION;
             File workbookFile = new File(workbookFileName);
 
             while(workbookFile.exists()) {
-                workbookFileName = Constant.RES_OUTPUT_PATH + tcName + createdTime +" (" + this.newFileNum + ")" + Constant.FILE_EXTENSION;
+                workbookFileName = POIConstant.RES_OUTPUT_PATH + tcName + createdTime +" (" + this.newFileNum + ")" + POIConstant.FILE_EXTENSION;
                 workbookFile = new File(workbookFileName);
                 this.newFileNum++;
             }
