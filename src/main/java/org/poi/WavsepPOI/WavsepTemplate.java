@@ -262,16 +262,19 @@ public class WavsepTemplate {
         int exRowNum = TcUtil.writeDownListInSheet(exTcList, tcSheet, fpRowNum, 'b');
         tcSheet.setSameCellStyle(fpRowNum, exRowNum - 1, 'b', 'b', cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         tcSheet.setSameValueMultiCells(fpRowNum, exRowNum - 1, 'e', 'e', "EX");
+        tcSheet.setSameCellStyle(fpRowNum, exRowNum - 1, 'e', 'e', cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         tcSheet.setFpTcEndRowNum(exRowNum - 1);
 
-        for (int i = 7; i < fpRowNum; i++) {
+        exRowNum = exRowNum > 0 ? exRowNum : fpRowNum;
+
+        for (int i = 7; i < exRowNum; i++) {
             String formula = "IF(EXACT(G" + i + ",\"FALSE\"), \"\", \"TRUE\")";
             Cell cell = tcSheet.getCell(i, 'f');
             cell.setCellFormula(formula);
             cell.setCellStyle(cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         }
 
-        for (int i = 7; i < fpRowNum; i++) {
+        for (int i = 7; i < exRowNum; i++) {
             String formula = "IF(COUNTIF($P:$P,B" + i + ") > 0, \"FALSE\", \"\")";
             Cell cell = tcSheet.getCell(i, 'g');
             tcSheet.getCell(i, 'g').setCellFormula(formula);
@@ -313,7 +316,7 @@ public class WavsepTemplate {
             cell.setCellStyle(cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         }
 
-        for (int i = tpRowNum; i < fpRowNum; i++) {
+        for (int i = fpRowNum; i < exRowNum; i++) {
             String formula = "IF(COUNTIF($S:$S,B" + i + ") > 0, \"FALSE\", \"\")";
             Cell cell = tcSheet.getCell(i, 'm');
             tcSheet.getCell(i, 'm').setCellFormula(formula);
@@ -617,10 +620,10 @@ public class WavsepTemplate {
                 boolean crawlFlag = false;
 
                 if ((index = fileName.indexOf(WavsepParser.WAVSEP_TEST_PREFIX + WavsepParser.WAVSEP_TEST_CRAWLED) ) > 0) {
-                    vulnerability = fileName.substring(index);
+                    vulnerability = fileName.substring(index + (WavsepParser.WAVSEP_TEST_PREFIX + WavsepParser.WAVSEP_TEST_CRAWLED).length(), fileName.lastIndexOf("."));
                     crawlFlag = true;
                 } else if ((index = fileName.indexOf(WavsepParser.WAVSEP_TEST_PREFIX)) > 0){
-                    vulnerability = fileName.substring(index);
+                    vulnerability = fileName.substring(index + WavsepParser.WAVSEP_TEST_PREFIX.length(), fileName.lastIndexOf("."));
                 } else {
                     continue;
                 }
@@ -635,6 +638,7 @@ public class WavsepTemplate {
                             TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_FALSE_POSITIVE), tcSheet, 7, 'r');
                             TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_EXPERIMENTAL), tcSheet, 7, 's');
                         }
+                        break;
                     }
                 }
             }

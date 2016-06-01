@@ -116,6 +116,7 @@ public class WavsepParser {
         List<String> mustContain = new ArrayList<>();
         mustContain.add(WAVSEP_CONTAIN_CASE_STRING);
         mustContain.add(WAVSEP_CONTAIN_URL_EXTENSION_JSP);
-        return StringUtil.parseList(targetList, WAVSEP_START_ACTIVE, WAVSEP_END_JSP, mustContain);
+        List<String> firstParse = StringUtil.parseList(targetList, WAVSEP_START_ACTIVE, WAVSEP_END_JSP, mustContain);
+        return StringUtil.parseList(firstParse, "/", mustContain);
     }
 }

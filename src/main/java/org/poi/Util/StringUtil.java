@@ -65,7 +65,7 @@ public class StringUtil {
                     int endIndex = trimLine.indexOf(endParse);
 
                     if (endIndex > 0 && endIndex > startIndex) {
-                        parseString = trimLine.substring(startIndex, endIndex);
+                        parseString = trimLine.substring(startIndex, endIndex + endParse.length());
                     } else {
                         continue;
                     }
