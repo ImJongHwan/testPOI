@@ -21,7 +21,7 @@ public class StringUtil {
         }
 
         if(targets.isEmpty() || origins.isEmpty()){
-            System.out.println("Comparing Error - list is empty : StringUtil Class");
+            System.out.println("StringUtil Class : Cannot compare targets and origins since target or origin list is empty");
             return null;
         }
 

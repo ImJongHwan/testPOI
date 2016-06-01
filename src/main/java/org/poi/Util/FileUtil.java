@@ -45,11 +45,12 @@ public class FileUtil {
 
     /**
      * read a file and put lines in string list
+     *
      * @param file file
      * @return line string list
      */
-    public static List<String> readFile(File file){
-        if(!file.exists()){
+    public static List<String> readFile(File file) {
+        if (!file.exists()) {
             System.out.println("File don't exist - " + file.getAbsolutePath());
             return null;
         }
@@ -59,7 +60,7 @@ public class FileUtil {
             List<String> lines = new ArrayList<>();
             String line;
 
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 lines.add(line);
             }
 
@@ -76,9 +77,9 @@ public class FileUtil {
     /**
      * write content in a file
      *
-     * @param contents contents to write
+     * @param contents  contents to write
      * @param outputDir output directory path
-     * @param fileName file name
+     * @param fileName  file name
      * @return isSuccess
      */
     public static boolean writeFile(Collection<String> contents, String outputDir, String fileName) {
@@ -95,7 +96,7 @@ public class FileUtil {
         File resDir = new File(outputDir);
 
         if (!resDir.exists()) {
-            if(!resDir.mkdir()) {
+            if (!resDir.mkdir()) {
                 System.err.println("FileUtil : Making a directory is failed.");
             }
         } else {
@@ -108,7 +109,7 @@ public class FileUtil {
 
         int redundant = 0;
 
-        while(writingFile.exists()) {
+        while (writingFile.exists()) {
             String avoidRedundantFileName = fileName.substring(0, fileName.lastIndexOf("."));
             String originExtension = fileName.substring(fileName.lastIndexOf("."));
             writingFile = new File(resDir, avoidRedundantFileName + "(" + redundant + ")" + originExtension);
@@ -116,15 +117,53 @@ public class FileUtil {
         }
 
         try {
-            if(writingFile.createNewFile()) {
+            if (writingFile.createNewFile()) {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(writingFile));
-                for(String content : contents) {
+                for (String content : contents) {
                     bw.write(content);
                     bw.newLine();
                 }
                 bw.close();
                 return true;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Append contents in file
+     *
+     * @param contents contents to append
+     * @param filePath file path
+     * @return isSuccess
+     */
+    public static boolean appendContents(Collection<String> contents, String filePath) {
+        if (contents == null || contents.isEmpty()) {
+            System.out.println("FileUtil : Cannot append contents since contents are empty or null");
+        }
+
+        if (filePath == null) {
+            System.err.println("FileUtil : Appending error - filePath is null");
+        }
+
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            System.err.println("FileUtil : Appending error - this file dose not exist > " + filePath);
+        }
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+
+            for (String content : contents) {
+                bw.write(content);
+                bw.newLine();
+            }
+
+            bw.close();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
