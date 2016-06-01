@@ -2,11 +2,13 @@ package org.poi.TestCasePOI;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.POIConstant;
+import org.poi.POIConstant;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Hwan on 2016-05-10.
@@ -46,7 +48,6 @@ public class TcWorkbook {
      */
     public String writeWorkbook(String tcName){
         try {
-
             SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmm");
             String createdTime = sdf.format(workbookCreatedTime);
 
@@ -77,9 +78,62 @@ public class TcWorkbook {
             e.printStackTrace();
             System.out.println("Writing a workbook Error - Writing a test cases workbook is failed.");
         }
-
         return null;
+    }
 
+    /**
+     * write workbook in file
+     *
+     * @param outputDir output directory path
+     * @param fileName file name
+     * @return file absolute path
+     */
+    public String writeWorkbook(String outputDir, String fileName){
+
+        if(fileName == null){
+            System.err.println("Cannot write workbook since a file name is null");
+        }
+
+        if(outputDir == null){
+            outputDir = POIConstant.RES_OUTPUT_PATH;
+        }
+
+        File output = new File(outputDir);
+
+        if(!output.exists()) {
+            if(!output.mkdir()){
+                System.err.println("Cannot write workbook since making output directory is failed - " + outputDir);
+            }
+        } else {
+            if (!output.isDirectory()) {
+                System.err.println("Cannot write workbook since a output directory path is wrong - " + outputDir);
+                return null;
+            }
+        }
+
+        File workbookFile = new File(output, fileName);
+
+        int redundant = 0;
+
+        while(workbookFile.exists()){
+            String avoidRedundantFileName = fileName.substring(0, fileName.lastIndexOf("."));
+            String originExtension = fileName.substring(fileName.lastIndexOf("."));
+            workbookFile = new File(output, avoidRedundantFileName + "(" + redundant + ")" + originExtension);
+            redundant++;
+        }
+
+        try {
+            if (workbookFile.createNewFile()) {
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(workbookFile));
+                this.workbook.write(bos);
+
+                bos.close();
+                return workbookFile.getAbsolutePath();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

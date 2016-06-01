@@ -1,13 +1,13 @@
 package org.poi.BenchmarkPOI;
 
-import org.Constant;
-import org.apache.poi.ss.usermodel.*;
-import org.POIConstant;
-import org.poi.Util.CellStylesUtil;
+import org.poi.Constant;
 import org.poi.TestCasePOI.TcSheet;
 import org.poi.TestCasePOI.TcWorkbook;
-import org.poi.Util.FileUtil;
 import org.poi.Util.TcUtil;
+import org.apache.poi.ss.usermodel.*;
+import org.poi.POIConstant;
+import org.poi.Util.CellStylesUtil;
+import org.poi.Util.FileUtil;
 
 import java.util.List;
 
@@ -166,7 +166,10 @@ public class BenchmarkTemplate {
      * @param sheet sheet to set column width
      */
     private void initVulnerabilityColumnWidth(TcSheet sheet) {
-        sheet.getSheet().setDefaultColumnWidth(POIConstant.DEFAULT_COLUMN_WIDTH);
+        for(char i = 'c'; i <= 'j'; i++){
+            sheet.setColumnWidth(i, POIConstant.DEFAULT_COLUMN_WIDTH);
+        }
+        sheet.setColumnWidth('a',POIConstant.DEFAULT_COLUMN_WIDTH);
         sheet.setColumnWidth('b', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
         sheet.setColumnWidth('m', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
         sheet.setColumnWidth('n', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);

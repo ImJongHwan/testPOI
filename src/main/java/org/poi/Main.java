@@ -1,4 +1,4 @@
-package org;
+package org.poi;
 
 import org.poi.BenchmarkPOI.BenchmarkTemplate;
 import org.poi.WavsepPOI.WavsepTemplate;

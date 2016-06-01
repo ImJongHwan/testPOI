@@ -2,7 +2,7 @@ package org.poi.Util;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.RichTextString;
-import org.POIConstant;
+import org.poi.POIConstant;
 import org.poi.TestCasePOI.TcSheet;
 
 import java.util.*;

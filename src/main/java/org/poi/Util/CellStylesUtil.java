@@ -1,7 +1,7 @@
 package org.poi.Util;
 
+import org.poi.POIConstant;
 import org.apache.poi.ss.usermodel.*;
-import org.POIConstant;
 
 /**
  * Created by Hwan on 2016-05-24.
@@ -190,7 +190,7 @@ public class CellStylesUtil {
      */
     private static Font getBoldFont(Workbook workbook) {
         Font font = getDefaultFont(workbook);
-        font.setBold(true);
+        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
 
         return font;
     }

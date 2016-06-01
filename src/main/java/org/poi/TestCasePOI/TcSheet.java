@@ -1,5 +1,6 @@
 package org.poi.TestCasePOI;
 
+import org.poi.Util.TcUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.RichTextString;
@@ -7,8 +8,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.POIConstant;
-import org.poi.Util.TcUtil;
+import org.poi.POIConstant;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -251,7 +251,8 @@ public class TcSheet {
      * @return first cell
      */
     public Cell getFirstCell(Cell cell) {
-        for (CellRangeAddress region : sheet.getMergedRegions()) {
+        for (int i = 0; i < sheet.getNumMergedRegions(); i++) {
+            CellRangeAddress region = sheet.getMergedRegion(i);
             if (region.getFirstRow() <= cell.getRowIndex() && region.getLastRow() >= cell.getRowIndex()) {
                 if (region.getFirstColumn() <= cell.getColumnIndex() && region.getLastColumn() >= cell.getColumnIndex()) {
                     Cell cellInMerged = getCell(region.getFirstRow(), region.getFirstColumn());

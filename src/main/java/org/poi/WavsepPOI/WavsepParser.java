@@ -1,6 +1,6 @@
 package org.poi.WavsepPOI;
 
-import org.Constant;
+import org.poi.Constant;
 import org.poi.Util.FileUtil;
 import org.poi.Util.StringUtil;
 
@@ -95,7 +95,7 @@ public class WavsepParser {
      * @param targetFile crawled target list
      * @return failed crawled list
      */
-    public static List<String> getFailedCrawlingLIst(File targetFile) {
+    public static List<String> getFailedCrawlingList(File targetFile) {
         List<String> crawledList = parseList(FileUtil.readFile(targetFile));
 
         String tpPath = WAVSEP_TC_PATH + Constant.ALL_TC_FILE_NAME + Constant.TC_FILE_EXTENSION;

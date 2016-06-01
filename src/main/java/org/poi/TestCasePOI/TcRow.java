@@ -1,8 +1,8 @@
 package org.poi.TestCasePOI;
 
+import org.poi.POIConstant;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.POIConstant;
 
 import java.util.HashMap;
 import java.util.Map;
