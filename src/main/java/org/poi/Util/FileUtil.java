@@ -80,17 +80,17 @@ public class FileUtil {
      * @param contents  contents to write
      * @param outputDir output directory path
      * @param fileName  file name
-     * @return isSuccess
+     * @return file absolute path
      */
-    public static boolean writeFile(Collection<String> contents, String outputDir, String fileName) {
+    public static String writeFile(Collection<String> contents, String outputDir, String fileName) {
         if (contents == null || contents.isEmpty()) {
             System.err.println("FileUtil : Writing a file is failed since contents is null");
-            return false;
+            return null;
         }
 
         if (outputDir == null || fileName == null) {
             System.err.println("FileUtil : Writing a file is failed since outputDir or fileName is null");
-            return false;
+            return null;
         }
 
         File resDir = new File(outputDir);
@@ -124,12 +124,12 @@ public class FileUtil {
                     bw.newLine();
                 }
                 bw.close();
-                return true;
+                return writingFile.getAbsolutePath();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
