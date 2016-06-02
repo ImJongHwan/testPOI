@@ -15,13 +15,13 @@ public class StringUtil {
      * @return complement list
      */
     public static List<String> getComplementList(List<String> targets, List<String> origins){
-        if(targets == null || origins == null){
-            System.err.println("Comparing Error - list is null : StringUtil Class");
-            return null;
+        if(targets == null || targets.isEmpty()){
+            System.out.println("StringUtil : target is none.");
+            return origins;
         }
 
-        if(targets.isEmpty() || origins.isEmpty()){
-            System.out.println("StringUtil Class : Cannot compare targets and origins since target or origin list is empty");
+        if(origins == null || origins.isEmpty()){
+            System.err.println("StringUtil Class : Cannot compare targets and origins since a origin list is empty");
             return null;
         }
 

@@ -83,10 +83,10 @@ public class FileUtil {
      * @return file absolute path
      */
     public static String writeFile(Collection<String> contents, String outputDir, String fileName) {
-        if (contents == null || contents.isEmpty()) {
-            System.err.println("FileUtil : Writing a file is failed since contents is null");
-            return null;
-        }
+//        if (contents == null || contents.isEmpty()) {
+//            System.err.println("FileUtil : Writing a file is failed since contents is null");
+//            return null;
+//        }
 
         if (outputDir == null || fileName == null) {
             System.err.println("FileUtil : Writing a file is failed since outputDir or fileName is null");

@@ -296,21 +296,21 @@ public class WavsepTemplate {
         }
 
         for (int i = tpRowNum; i < fpRowNum; i++) {
-            String formula = "IF(EXACT(K" + i + ",\"FALSE\"), \"\", \"TRUE\")";
+            String formula = "IF(COUNTIF($R:$R,B" + i + ") > 0, \"TRUE\", \"\")";
             Cell cell = tcSheet.getCell(i, 'j');
             tcSheet.getCell(i, 'j').setCellFormula(formula);
             cell.setCellStyle(cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         }
 
         for (int i = tpRowNum; i < fpRowNum; i++) {
-            String formula = "IF(COUNTIF($R:$R,B" + i + ") > 0, \"FALSE\", \"\")";
+            String formula = "IF(EXACT($J" + i + ",\"TRUE\"), \"\", \"FALSE\")";
             Cell cell = tcSheet.getCell(i, 'k');
             tcSheet.getCell(i, 'k').setCellFormula(formula);
             cell.setCellStyle(cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         }
 
         for (int i = fpRowNum; i < exRowNum; i++) {
-            String formula = "IF(EXACT(M" + i + ",\"FALSE\"), \"\", \"TRUE\")";
+            String formula = "IF(EXACT($M" + i + ",\"FALSE\"), \"\", \"TRUE\")";
             Cell cell = tcSheet.getCell(i, 'l');
             tcSheet.getCell(i, 'l').setCellFormula(formula);
             cell.setCellStyle(cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
