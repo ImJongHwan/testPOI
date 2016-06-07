@@ -1,5 +1,6 @@
 package org.poi.BenchmarkPOI;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.poi.Constant;
 import org.poi.TestCasePOI.TcSheet;
 import org.poi.TestCasePOI.TcWorkbook;
@@ -24,6 +25,11 @@ public class BenchmarkTemplate {
         this.tcWorkbook = new TcWorkbook();
         this.cellStyle = new CellStylesUtil(this.tcWorkbook.getWorkbook());
         init();
+    }
+
+    public BenchmarkTemplate(XSSFWorkbook workbook){
+        this.tcWorkbook = new TcWorkbook(workbook);
+        this.cellStyle = new CellStylesUtil(this.tcWorkbook.getWorkbook());
     }
 
     /**

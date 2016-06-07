@@ -1,7 +1,11 @@
 package org.poi;
 
 import org.poi.BenchmarkPOI.BenchmarkTemplate;
+import org.poi.TestCasePOI.TcWorkbook;
+import org.poi.Util.FileUtil;
 import org.poi.WavsepPOI.WavsepTemplate;
+
+import java.io.IOException;
 
 public class Main {
 
@@ -21,6 +25,13 @@ public class Main {
                 bt.writeBenchmark();
                 WavsepTemplate wt = new WavsepTemplate();
                 wt.writeWavsep();
+            } else if (args[0].equals("-rb")){
+                try {
+                    TcWorkbook bt = new TcWorkbook(FileUtil.readExcelFile("C:\\gitProjects\\zap\\results\\160602145110_wavseptest\\Zap_Wavsep_Results_160602145110.xlsx"));
+                    System.out.println(bt.getWorkbookCreatedTime());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 System.out.println("Check a argument.");
             }

@@ -1,6 +1,7 @@
 package org.poi.Util;
 
-import org.poi.Main;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -200,5 +201,21 @@ public class FileUtil {
         br.close();
 
         return lines;
+    }
+
+    /**
+     * Read excel file
+     * if filePath is null, return is null.
+     *
+     * @param filePath Excel file path
+     * @return XSSFWorkbook
+     * @throws IOException
+     */
+    public static XSSFWorkbook readExcelFile(String filePath) throws IOException{
+        if(filePath == null){
+            System.err.println("FileUtil : Reading a excel file is failed since filePath is null");
+            return null;
+        }
+        return new XSSFWorkbook(XSSFWorkbook.openPackage(filePath));
     }
 }

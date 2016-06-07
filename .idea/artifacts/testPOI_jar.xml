@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="testPOI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/testPOI_jar</output-path>
+    <root id="archive" name="testPOI.jar">
+      <element id="module-output" name="testPOI" />
+      <element id="extracted-dir" path="C:/API/poi-3.14/poi-3.14-20160307.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/API/poi-3.14/poi-ooxml-3.14-20160307.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/API/poi-3.14/poi-ooxml-schemas-3.14-20160307.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/API/poi-3.14/ooxml-lib/curvesapi-1.03.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/API/poi-3.14/ooxml-lib/xmlbeans-2.6.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
