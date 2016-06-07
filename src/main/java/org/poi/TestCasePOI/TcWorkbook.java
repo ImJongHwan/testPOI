@@ -54,11 +54,11 @@ public class TcWorkbook {
             File outputDir = new File(POIConstant.RES_OUTPUT_PATH);
             outputDir.mkdir();
 
-            String workbookFileName = POIConstant.RES_OUTPUT_PATH + tcName + createdTime + POIConstant.FILE_EXTENSION;
+            String workbookFileName = POIConstant.RES_OUTPUT_PATH + tcName + createdTime + POIConstant.EXCEL_FILE_EXTENSION;
             File workbookFile = new File(workbookFileName);
 
             while(workbookFile.exists()) {
-                workbookFileName = POIConstant.RES_OUTPUT_PATH + tcName + createdTime +" (" + this.newFileNum + ")" + POIConstant.FILE_EXTENSION;
+                workbookFileName = POIConstant.RES_OUTPUT_PATH + tcName + createdTime +" (" + this.newFileNum + ")" + POIConstant.EXCEL_FILE_EXTENSION;
                 workbookFile = new File(workbookFileName);
                 this.newFileNum++;
             }

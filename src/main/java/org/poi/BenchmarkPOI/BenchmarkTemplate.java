@@ -8,7 +8,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.poi.POIConstant;
 import org.poi.Util.CellStylesUtil;
 import org.poi.Util.FileUtil;
+import org.poi.WavsepPOI.WavsepParser;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -455,6 +457,60 @@ public class BenchmarkTemplate {
     public void writeBenchmark() {
         if (tcWorkbook != null) {
             tcWorkbook.writeWorkbook(POIConstant.BENCHMARK_NAME);
+        }
+    }
+
+    /**
+     * write current state in cxcel file
+     *
+     * @param outputDir output directory path
+     * @param fileName file name
+     * @return file absoluete path
+     */
+    public String writeBenchmark(String outputDir, String fileName){
+        if(tcWorkbook != null){
+            return tcWorkbook.writeWorkbook(outputDir, fileName);
+        }
+        return null;
+    }
+
+    /**
+     * write down failed lists
+     *
+     * @param resTcDirPath result test cases directory path
+     */
+    public void writeFailedList(String resTcDirPath) {
+        File resDir = new File(resTcDirPath);
+
+        if (resDir.exists() && resDir.isDirectory()) {
+            for (File tcFile : resDir.listFiles()) {
+                String fileName = tcFile.getName();
+                String vulnerability;
+                int index;
+                boolean crawlFlag = false;
+
+                if ((index = fileName.indexOf(BenchmarkParser.BENCHMARK_TEST_PREFIX+ BenchmarkParser.BENCHMARK_TEST_CRAWLED) ) > 0) {
+                    vulnerability = fileName.substring(index + (BenchmarkParser.BENCHMARK_TEST_PREFIX+ BenchmarkParser.BENCHMARK_TEST_CRAWLED).length(), fileName.lastIndexOf("."));
+                    crawlFlag = true;
+                } else if ((index = fileName.indexOf(BenchmarkParser.BENCHMARK_TEST_PREFIX)) > 0){
+                    vulnerability = fileName.substring(index + BenchmarkParser.BENCHMARK_TEST_PREFIX.length(), fileName.lastIndexOf("."));
+                } else {
+                    continue;
+                }
+
+                for(Constant.BenchmarkSheets benchmark : Constant.BenchmarkSheets.values()){
+                    if(benchmark.toString().equals(vulnerability)){
+                        TcSheet tcSheet = this.tcWorkbook.getTcSheet(benchmark.getSheetName());
+                        if(crawlFlag){
+                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedCrawlingList(tcFile), tcSheet, 7, 'm');
+                        } else {
+                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedTPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'n');
+                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedFPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'o');
+                        }
+                        break;
+                    }
+                }
+            }
         }
     }
 }

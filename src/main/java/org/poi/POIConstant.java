@@ -7,7 +7,7 @@ public class POIConstant {
     public static final String BENCHMARK_NAME = "ZAP_OWASPBenchmark_Results_";
     public static final String WAVSEP_NAME = "ZAP_WAVSEP_Results_";
 
-    public static final String FILE_EXTENSION = ".xlsx";
+    public static final String EXCEL_FILE_EXTENSION = ".xlsx";
 
     public static final String MAX_COLUMN_STRING = "XFD";
     public static final int MAX_ROW = 1048576;

@@ -1,6 +1,9 @@
 package org.poi.Util;
 
+import org.poi.Main;
+
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -168,5 +171,34 @@ public class FileUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * read Resource file
+     *
+     * @param mainClass main class, ex) Main.class
+     * @param resourceFilePath resource file path
+     * @return read list
+     * @throws IOException
+     */
+    public static List<String> readResourceFile(Class mainClass, String resourceFilePath) throws IOException{
+        InputStream is = mainClass.getResourceAsStream(resourceFilePath);
+
+        if(is == null){
+            System.err.println("FileUtil : Cannot read a resource file since path is wrong - " + resourceFilePath);
+            return null;
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+        List<String> lines = new ArrayList<>();
+        String line;
+
+        while((line = br.readLine()) != null){
+            lines.add(line);
+        }
+
+        br.close();
+
+        return lines;
     }
 }

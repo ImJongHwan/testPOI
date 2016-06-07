@@ -609,7 +609,7 @@ public class WavsepTemplate {
      *
      * @param resTcDirPath scanning results directory path
      */
-    public void setFailedList(String resTcDirPath) {
+    public void writeFailedList(String resTcDirPath) {
         File resDir = new File(resTcDirPath);
 
         if (resDir.exists() && resDir.isDirectory()) {
