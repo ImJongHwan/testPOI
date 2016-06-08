@@ -161,7 +161,7 @@ public class BenchmarkTemplate {
         cell.setCellFormula("COUNTA(N:N)-2");
 
         cell = tcSheet.getCell(6, 'o');
-        cell.setCellFormula("COUNTA(N:N)-2");
+        cell.setCellFormula("COUNTA(O:O)-2");
 
         initVulnerabilitySheetStyle(tcSheet);
         cell = tcSheet.getCell(1, 'B');
@@ -264,14 +264,14 @@ public class BenchmarkTemplate {
         }
 
         for (int i = tpRowNum; i < fpRowNum; i++) {
-            String formula = "IF(EXACT(J" + i + ",\"FALSE\"), \"\", \"TRUE\")";
+            String formula = "IF(COUNTIF($O:$O,B" + i + ") > 0, \"TRUE\", \"\")";
             Cell cell = tcSheet.getCell(i, 'i');
             cell.setCellFormula(formula);
             cell.setCellStyle(cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         }
 
         for (int i = tpRowNum; i < fpRowNum; i++) {
-            String formula = "IF(COUNTIF($O:$O,B" + i + ") > 0, \"FALSE\", \"\")";
+            String formula = "IF(EXACT(I" + i + ",\"TRUE\"), \"\", \"FALSE\")";
             Cell cell = tcSheet.getCell(i, 'j');
             cell.setCellFormula(formula);
             cell.setCellStyle(cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);

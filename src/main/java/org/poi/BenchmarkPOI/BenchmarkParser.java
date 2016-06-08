@@ -16,7 +16,8 @@ public class BenchmarkParser {
     final static public String BENCHMARK_RES_PATH = "C:\\gitProjects\\simpleURLParser\\benchmark\\benchmark_res\\";
     final static public String BENCHMARK_SCORE_PATH = "C:\\gitProjects\\simpleURLParser\\benchmark\\benchmark_score\\";
 
-    public static final String BENCHMARK_END_HTML = ".html";
+    public static final String BENCHMARK_HTML_TAIL = ".html";
+    public static final String BENCHMARK_QUESTION_TAIL = "?";
     public static final String BENCHMARK_CONTAIN_TEST = "BenchmarkTest";
     public static final String BENCHMARK_START_STRING =  "/benchmark/";
 
@@ -89,12 +90,40 @@ public class BenchmarkParser {
     private static List<String> parseList(List<String> targetList){
         List<String> mustContain = new ArrayList<>();
         mustContain.add(BENCHMARK_CONTAIN_TEST);
-        List<String> parsingListContainedHTML = StringUtil.parseList(targetList, BENCHMARK_START_STRING, BENCHMARK_END_HTML, mustContain);
-        List<String> cutHTML = new ArrayList<>();
-        for(String tc : parsingListContainedHTML){
-            cutHTML.add(tc.substring(0, tc.lastIndexOf(".html")));
+        List<String> parsingListContainedTail = StringUtil.parseList(targetList, BENCHMARK_START_STRING, mustContain);
+
+        List<String> tailList = new ArrayList<>();
+
+        tailList.add(BENCHMARK_HTML_TAIL);
+        tailList.add(BENCHMARK_QUESTION_TAIL);
+
+        return removeTails(parsingListContainedTail, tailList);
+    }
+
+    /**
+     * get remove Tail list
+     *
+     * @param targetList target list
+     * @param tailList tail list
+     * @return removeTails list
+     */
+    private static List<String> removeTails(List<String> targetList, List<String> tailList){
+        List<String> removeTailList = new ArrayList<>();
+        boolean hasPostfix;
+        for(String target : targetList){
+            hasPostfix = false;
+            for(String tail : tailList){
+                if(target.contains(tail)){
+                    removeTailList.add(target.substring(0, target.indexOf(tail)));
+                    hasPostfix = true;
+                    break;
+                }
+            }
+            if(!hasPostfix){
+                removeTailList.add(target);
+            }
         }
-        return cutHTML;
+        return removeTailList;
     }
 
     /**
