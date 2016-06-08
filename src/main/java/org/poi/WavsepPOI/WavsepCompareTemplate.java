@@ -10,8 +10,11 @@ import java.io.IOException;
  */
 public class WavsepCompareTemplate {
 
+    /** before TcWorkbook for compare */
     private TcWorkbook beforeWorkbook = null;
+    /** after TcWorkbook for compare */
     private TcWorkbook afterWorkbook = null;
+    /** compare TcWrokbook for compare */
     private TcWorkbook compareWorkbook = null;
 
     public WavsepCompareTemplate(TcWorkbook beforeWorkbook, TcWorkbook afterWorkbook){
@@ -26,6 +29,7 @@ public class WavsepCompareTemplate {
         this(new TcWorkbook(FileUtil.readExcelFile(beforePath)), new TcWorkbook(FileUtil.readExcelFile(afterPath)));
     }
 
+    /** initialize Wavsep compare template */
     private void init() {
         setCompareStyle();
         setCompareWidth();
@@ -58,8 +62,12 @@ public class WavsepCompareTemplate {
      *
      * @param outputDir output directory path
      * @param fileName file name
+     * @return fale absolute path
      */
-    public void writeCompareWorkbook(String outputDir, String fileName){
-
+    public String writeCompareWorkbook(String outputDir, String fileName){
+        if(compareWorkbook != null){
+            return compareWorkbook.writeWorkbook(outputDir, fileName);
+        }
+        return null;
     }
 }

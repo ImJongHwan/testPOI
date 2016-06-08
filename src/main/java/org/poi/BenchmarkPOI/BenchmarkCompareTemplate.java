@@ -10,8 +10,11 @@ import java.io.IOException;
  */
 public class BenchmarkCompareTemplate {
 
+    /** before TcWorkbook for compare */
     private TcWorkbook beforeWorkbook = null;
+    /** after TcWorkbook for compare */
     private TcWorkbook afterWorkbook = null;
+    /** compare TcWorkbook for compare */
     private TcWorkbook compareWorkbook = null;
 
     public BenchmarkCompareTemplate(TcWorkbook beforeWorkbook, TcWorkbook afterWorkbook){
@@ -26,6 +29,7 @@ public class BenchmarkCompareTemplate {
         this(new TcWorkbook(FileUtil.readExcelFile(beforePath)), new TcWorkbook(FileUtil.readExcelFile(afterPath)));
     }
 
+    /** initialize Benchmark compare template */
     private void init(){
         setCompareStyle();
         setCompareWidth();
@@ -58,8 +62,12 @@ public class BenchmarkCompareTemplate {
      *
      * @param outputDir output directory path
      * @param fileName file name
+     * @return file absolute path
      */
-    public void writeCompareWrokbook(String outputDir, String fileName){
-
+    public String writeCompareWrokbook(String outputDir, String fileName){
+        if(compareWorkbook != null){
+            return compareWorkbook.writeWorkbook(outputDir, fileName);
+        }
+        return null;
     }
 }

@@ -34,7 +34,7 @@ public class BenchmarkParser {
      */
     protected static List<String> getFailedTPList(String targetFilePath, String vulnerability){
         String expectedTPPath = BENCHMARK_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(FileUtil.readFile(new File(targetFilePath)), FileUtil.readFile(new File(expectedTPPath)));
+        return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readFile(new File(expectedTPPath)));
     }
 
     /**
@@ -46,7 +46,7 @@ public class BenchmarkParser {
      */
     protected static List<String> getFailedFPList(String targetFilePath, String vulnerability){
         String expectedFPPath = BENCHMARK_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(FileUtil.readFile(new File(targetFilePath)), FileUtil.readFile(new File(expectedFPPath)));
+        return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readFile(new File(expectedFPPath)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class BenchmarkParser {
         File targetFile = new File(targetFilePath);
         File originFile = new File(originFilePath);
 
-        return StringUtil.getComplementList(FileUtil.readFile(targetFile), FileUtil.readFile(originFile));
+        return StringUtil.getComplementList(parseList(FileUtil.readFile(targetFile)), FileUtil.readFile(originFile));
     }
 
     /**
@@ -89,7 +89,12 @@ public class BenchmarkParser {
     private static List<String> parseList(List<String> targetList){
         List<String> mustContain = new ArrayList<>();
         mustContain.add(BENCHMARK_CONTAIN_TEST);
-        return StringUtil.parseList(targetList, BENCHMARK_START_STRING, BENCHMARK_END_HTML);
+        List<String> parsingListContainedHTML = StringUtil.parseList(targetList, BENCHMARK_START_STRING, BENCHMARK_END_HTML, mustContain);
+        List<String> cutHTML = new ArrayList<>();
+        for(String tc : parsingListContainedHTML){
+            cutHTML.add(tc.substring(0, tc.lastIndexOf(".html")));
+        }
+        return cutHTML;
     }
 
     /**
