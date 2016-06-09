@@ -1,7 +1,10 @@
 package org.poi.WavsepPOI;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFName;
 import org.poi.Constant;
 import org.poi.POIConstant;
 import org.poi.TestCasePOI.TcSheet;
@@ -10,8 +13,10 @@ import org.poi.Util.CellStylesUtil;
 import org.poi.Util.FileUtil;
 import org.poi.Util.TcUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by Hwan on 2016-06-07.
@@ -50,6 +55,9 @@ public class WavsepCompareTemplate {
      */
     private TcWorkbook compareWorkbook = null;
 
+    private String beforeFileName = "";
+    private String afterFileName = "";
+
     /**
      * generate a WavsepCompareTemplate instance
      *
@@ -72,7 +80,24 @@ public class WavsepCompareTemplate {
      * @throws IOException
      */
     public WavsepCompareTemplate(String beforePath, String afterPath) throws IOException {
-        this(new TcWorkbook(FileUtil.readExcelFile(beforePath)), new TcWorkbook(FileUtil.readExcelFile(afterPath)));
+        this.beforeWorkbook = new TcWorkbook(FileUtil.readExcelFile(beforePath));
+        this.afterWorkbook = new TcWorkbook(FileUtil.readExcelFile(afterPath));
+        this.compareWorkbook = new TcWorkbook();
+
+        setFileNames(beforePath, afterPath);
+
+        init();
+    }
+
+    /**
+     * set File Names
+     *
+     * @param beforePath before file path
+     * @param afterPath after file path
+     */
+    private void setFileNames(String beforePath, String afterPath){
+        this.beforeFileName = new File(beforePath).getName();
+        this.afterFileName = new File(afterPath).getName();
     }
 
     /**
@@ -93,6 +118,8 @@ public class WavsepCompareTemplate {
 
         // compare all wavsep vulnerability sheets
         compareVulnerabilitySheets();
+        // add total sheet, before and after
+        compareTotalSheet();
     }
 
 //    /**
@@ -303,105 +330,207 @@ public class WavsepCompareTemplate {
         for(Constant.WavsepSheets wavsepSheet : Constant.WavsepSheets.values()){
             if(!wavsepSheet.toString().equals(Constant.WavsepSheets.total.toString())){
                 String sheetName = wavsepSheet.getSheetName();
-                compareBeforeAndAfterSheet(compareWorkbook.getTcSheet(sheetName), beforeWorkbook.getTcSheet(sheetName), afterWorkbook.getTcSheet(sheetName));
+                compareBeforeAndAfterVulnerabilitySheet(compareWorkbook.getTcSheet(sheetName), beforeWorkbook.getTcSheet(sheetName), afterWorkbook.getTcSheet(sheetName));
             }
         }
     }
 
     /**
+     * add before and after total sheet content in compare total sheet
+     */
+    private void compareTotalSheet(){
+        String totalSheetName = Constant.WavsepSheets.total.getSheetName();
+        writeBeforeAndAfterTotalInCompareTotal(compareWorkbook.getTcSheet(totalSheetName), beforeWorkbook.getTcSheet(totalSheetName), afterWorkbook.getTcSheet(totalSheetName));
+    }
+
+    /**
      * compare before workbook and after workbook
      */
-    private void compareBeforeAndAfterSheet(TcSheet compareSheet, TcSheet beforeSheet, TcSheet afterSheet){
+    private void compareBeforeAndAfterVulnerabilitySheet(TcSheet compareSheet, TcSheet beforeSheet, TcSheet afterSheet){
         int tcRow = START_WAVSEP_TC_ROW;
         int compareRow = START_WAVSEP_COMPARE_ROW;
 
         while(afterSheet.getCell(tcRow, 'b').getCellType() != Cell.CELL_TYPE_BLANK) {
-            /** after sheet test case cell string value */
-            String afterCellTC = afterSheet.getCell(tcRow, 'b').getStringCellValue();
-            /** before sheet test case cell string value */
-            String beforeCellTC = beforeSheet.getCell(tcRow, 'b').getStringCellValue();
-            /** compare sheet test case cell */
-            Cell compareCell = compareSheet.getCell(compareRow, 'b');
-            if (afterCellTC.equals(beforeCellTC)) {
-                // write test case in Compare sheet
-                compareCell.setCellValue(afterCellTC);
-                compareCell.setCellStyle(cellStyle.DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT);
+            try {
+                /** after sheet test case cell string value */
+                String afterCellTC = afterSheet.getCell(tcRow, 'b').getStringCellValue();
+                /** before sheet test case cell string value */
+                String beforeCellTC = beforeSheet.getCell(tcRow, 'b').getStringCellValue();
+                /** compare sheet test case cell */
+                Cell compareCell = compareSheet.getCell(compareRow, 'b');
+                if (afterCellTC.equals(beforeCellTC)) {
+                    // write test case in Compare sheet
+                    compareCell.setCellValue(afterCellTC);
+                    compareCell.setCellStyle(cellStyle.DEFAULT_DEFAULT_MIDDLE_RIGHT_LEFT);
 
-                if(!(afterSheet.getCell(tcRow, 'c').getCellType() == Cell.CELL_TYPE_BLANK) && afterSheet.getCell(tcRow, 'c').getBooleanCellValue()){
-                    /** tc is true positive */
-                    if(afterSheet.getCell(tcRow, 'h').getStringCellValue().equals("TRUE")){
-                        if(beforeSheet.getCell(tcRow, 'h').getStringCellValue().equals("TRUE")){
-                            /** both true */
-                            compareSheet.getCell(compareRow, 'c').setCellValue(true);
+                    if (!(afterSheet.getCell(tcRow, 'c').getCellType() == Cell.CELL_TYPE_BLANK) && afterSheet.getCell(tcRow, 'c').getBooleanCellValue()) {
+                        /** tc is true positive */
+                        if (afterSheet.getCell(tcRow, 'h').getStringCellValue().equals("TRUE")) {
+                            if (beforeSheet.getCell(tcRow, 'h').getStringCellValue().equals("TRUE")) {
+                                /** both true */
+                                compareSheet.getCell(compareRow, 'c').setCellValue(true);
+                            } else {
+                                /** only after true */
+                                // beforeSheet.getCell(tcRow, 'i').getStringCellValue().equals("FALSE") same meaning
+                                compareSheet.getCell(compareRow, 'f').setCellValue(true);
+                            }
                         } else {
-                            /** only after true */
-                            // beforeSheet.getCell(tcRow, 'i').getStringCellValue().equals("FALSE") same meaning
-                            compareSheet.getCell(compareRow, 'f').setCellValue(true);
+                            // afterSheet.getCell(tcRow, 'i').getStringCellValue().equals("FALSE") same meaning
+                            if (beforeSheet.getCell(tcRow, 'i').getStringCellValue().equals("FALSE")) {
+                                /** both false */
+                                compareSheet.getCell(compareRow, 'd').setCellValue(false);
+                            } else {
+                                /** only before true */
+                                // before.getCell(tcRow, 'h').getStringCellValue().equals("TRUE") same meaning
+                                compareSheet.getCell(compareRow, 'e').setCellValue(true);
+                            }
                         }
-                    } else {
-                        // afterSheet.getCell(tcRow, 'i').getStringCellValue().equals("FALSE") same meaning
-                        if(beforeSheet.getCell(tcRow, 'i').getStringCellValue().equals("FALSE")){
-                            /** both false */
-                            compareSheet.getCell(compareRow, 'd').setCellValue(false);
+                    } else if (!(afterSheet.getCell(tcRow, 'd').getCellType() == Cell.CELL_TYPE_BLANK) && !afterSheet.getCell(tcRow, 'd').getBooleanCellValue()) {
+                        /** tc is false positive */
+                        if (afterSheet.getCell(tcRow, 'j').getStringCellValue().equals("TRUE")) {
+                            if (beforeSheet.getCell(tcRow, 'j').getStringCellValue().equals("TRUE")) {
+                                /** both true */
+                                compareSheet.getCell(compareRow, 'g').setCellValue(true);
+                            } else {
+                                /** only after true */
+                                // beforeSheet.getCell(tcRow, 'k').getStringCellValue().equals("FALSE") same meaning
+                                compareSheet.getCell(compareRow, 'j').setCellValue(true);
+                            }
                         } else {
-                            /** only before true */
-                            // before.getCell(tcRow, 'h').getStringCellValue().equals("TRUE") same meaning
-                            compareSheet.getCell(compareRow, 'e').setCellValue(true);
+                            // afterSheet.getCell(tcRow, 'k').getStringCellValue().equals("FALSE") same meaning
+                            if (beforeSheet.getCell(tcRow, 'k').getStringCellValue().equals("FALSE")) {
+                                /** both false */
+                                compareSheet.getCell(compareRow, 'h').setCellValue(false);
+                            } else {
+                                /** only before true */
+                                // before.getCell(tcRow, 'j').getStringCellValue().equals("TRUE") same meaning
+                                compareSheet.getCell(compareRow, 'i').setCellValue(true);
+                            }
+                        }
+                    } else if (!(afterSheet.getCell(tcRow, 'e').getCellType() == Cell.CELL_TYPE_BLANK) && afterSheet.getCell(tcRow, 'e').getStringCellValue().equals("EX")) {
+                        /** tc is experimental */
+                        if (afterSheet.getCell(tcRow, 'l').getStringCellValue().equals("TRUE")) {
+                            if (beforeSheet.getCell(tcRow, 'l').getStringCellValue().equals("TRUE")) {
+                                /** both true */
+                                compareSheet.getCell(compareRow, 'k').setCellValue(true);
+                            } else {
+                                /** only after true */
+                                // beforeSheet.getCell(tcRow, 'm').getStringCellValue().equals("FALSE") same meaning
+                                compareSheet.getCell(compareRow, 'n').setCellValue(true);
+                            }
+                        } else {
+                            // afterSheet.getCell(tcRow, 'm').getStringCellValue().equals("FALSE") same meaning
+                            if (beforeSheet.getCell(tcRow, 'm').getStringCellValue().equals("FALSE")) {
+                                /** both false */
+                                compareSheet.getCell(compareRow, 'l').setCellValue(false);
+                            } else {
+                                /** only before true */
+                                // before.getCell(tcRow, 'l').getStringCellValue().equals("TRUE") same meaning
+                                compareSheet.getCell(compareRow, 'm').setCellValue(true);
+                            }
                         }
                     }
-                } else if (!(afterSheet.getCell(tcRow, 'd').getCellType() == Cell.CELL_TYPE_BLANK) && !afterSheet.getCell(tcRow, 'd').getBooleanCellValue()){
-                    /** tc is false positive */
-                    if(afterSheet.getCell(tcRow, 'j').getStringCellValue().equals("TRUE")){
-                        if(beforeSheet.getCell(tcRow, 'j').getStringCellValue().equals("TRUE")){
-                            /** both true */
-                            compareSheet.getCell(compareRow, 'g').setCellValue(true);
-                        } else {
-                            /** only after true */
-                            // beforeSheet.getCell(tcRow, 'k').getStringCellValue().equals("FALSE") same meaning
-                            compareSheet.getCell(compareRow, 'j').setCellValue(true);
-                        }
-                    } else {
-                        // afterSheet.getCell(tcRow, 'k').getStringCellValue().equals("FALSE") same meaning
-                        if(beforeSheet.getCell(tcRow, 'k').getStringCellValue().equals("FALSE")){
-                            /** both false */
-                            compareSheet.getCell(compareRow, 'h').setCellValue(false);
-                        } else {
-                            /** only before true */
-                            // before.getCell(tcRow, 'j').getStringCellValue().equals("TRUE") same meaning
-                            compareSheet.getCell(compareRow, 'i').setCellValue(true);
-                        }
-                    }
-                } else if (!(afterSheet.getCell(tcRow, 'e').getCellType() == Cell.CELL_TYPE_BLANK) && afterSheet.getCell(tcRow, 'e').getStringCellValue().equals("EX")){
-                    /** tc is experimental */
-                    if(afterSheet.getCell(tcRow, 'l').getStringCellValue().equals("TRUE")){
-                        if(beforeSheet.getCell(tcRow, 'l').getStringCellValue().equals("TRUE")){
-                            /** both true */
-                            compareSheet.getCell(compareRow, 'k').setCellValue(true);
-                        } else {
-                            /** only after true */
-                            // beforeSheet.getCell(tcRow, 'm').getStringCellValue().equals("FALSE") same meaning
-                            compareSheet.getCell(compareRow, 'n').setCellValue(true);
-                        }
-                    } else {
-                        // afterSheet.getCell(tcRow, 'm').getStringCellValue().equals("FALSE") same meaning
-                        if(beforeSheet.getCell(tcRow, 'm').getStringCellValue().equals("FALSE")){
-                            /** both false */
-                            compareSheet.getCell(compareRow, 'l').setCellValue(false);
-                        } else {
-                            /** only before true */
-                            // before.getCell(tcRow, 'l').getStringCellValue().equals("TRUE") same meaning
-                            compareSheet.getCell(compareRow, 'm').setCellValue(true);
-                        }
-                    }
+                } else {
+                    /** after test case and before case is not same */
+                    compareCell.setCellStyle(cellStyle.DEFAULT_THICK_RIGHT_LEFT_BG_GRAY);
                 }
-            } else {
-                /** after test case and before case is not same */
-                compareCell.setCellStyle(cellStyle.DEFAULT_THICK_RIGHT_LEFT_BG_GRAY);
+                // move next row
+                tcRow++;
+                compareRow++;
+            } catch (Exception e){
+                e.printStackTrace();
             }
-            // move next row
-            tcRow++;
-            compareRow++;
         }
+    }
+
+    /**
+     * write before and after total sheet contents in copmare total sheet
+     * @param compareTotal compare total sheet
+     * @param beforeTotal before total sheet
+     * @param afterTotal after total sheet
+     */
+    private void writeBeforeAndAfterTotalInCompareTotal(TcSheet compareTotal, TcSheet beforeTotal, TcSheet afterTotal){
+        int compareRow = 16;
+
+        compareTotal.getCell(compareRow++, 'a').setCellValue("Before : " + beforeFileName);
+        compareRow = copySheet(compareTotal, beforeTotal, compareRow, 0) + 2;
+        compareTotal.getCell(compareRow++, 'a').setCellValue("After : " + afterFileName);
+
+        copySheet(compareTotal, afterTotal, compareRow, 0);
+    }
+
+    /**
+     * copied sheet is copied to the target sheet.
+     *
+     * @param target taget sheet
+     * @param copied copied sheet
+     * @param startRow start row number
+     * @param startColumn start column number
+     * @return next row number
+     */
+    private int copySheet(TcSheet target, TcSheet copied, int startRow, int startColumn){
+        Iterator<Row> copiedRowIterator = copied.getSheet().rowIterator();
+
+        setBeforeAndAfterTotalStyle(target, startRow);
+
+        while(copiedRowIterator.hasNext()){
+            Row beforeRow = copiedRowIterator.next();
+            Iterator<Cell> copiedCellIterator = beforeRow.cellIterator();
+            int copyColumn = startColumn;
+            while(copiedCellIterator.hasNext()){
+                Cell copiedCell = copiedCellIterator.next();
+                Cell compareCell = target.getCell(startRow - 1, copyColumn);
+                int copiedCellType = copiedCell.getCellType();
+
+                if(copiedCellType == Cell.CELL_TYPE_FORMULA){
+                    copiedCellType = copiedCell.getCachedFormulaResultType();
+                }
+
+                switch(copiedCellType){
+                    case Cell.CELL_TYPE_BOOLEAN :
+                        compareCell.setCellValue(copiedCell.getBooleanCellValue());
+                        break;
+                    case Cell.CELL_TYPE_NUMERIC :
+                        compareCell.setCellValue(copiedCell.getNumericCellValue());
+                        break;
+                    case Cell.CELL_TYPE_STRING :
+                        compareCell.setCellValue(copiedCell.getStringCellValue());
+                        break;
+                    case Cell.CELL_TYPE_ERROR :
+                        compareCell.setCellValue(copiedCell.getErrorCellValue());
+                        break;
+                }
+
+                copyColumn++;
+            }
+            startRow++;
+        }
+
+        return startRow;
+    }
+
+    private void setBeforeAndAfterTotalStyle(TcSheet target, int startRow){
+        int tempRow = startRow;
+
+        CellStyle percentCellStyle = compareWorkbook.getWorkbook().createCellStyle();
+        percentCellStyle.setDataFormat(compareWorkbook.getWorkbook().createDataFormat().getFormat("0%"));
+        percentCellStyle.setBorderTop(CellStyle.BORDER_THIN);
+        percentCellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+        percentCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+        percentCellStyle.setBorderRight(CellStyle.BORDER_THIN);
+
+        target.setSameCellStyle(tempRow - 1, tempRow - 1, 'a', 'i', cellStyle.getSimpleCellStyle(true, false, 0, 2, 0, 0));
+        target.setSameCellStyle(tempRow, tempRow, 'a', 'i', cellStyle.getSimpleCellStyle(true, true, 1, 1, 1, 1));
+        target.setSameCellStyle(++tempRow, tempRow, 'a', 'i', cellStyle.getSimpleCellStyle(true, true, 2, 2, 0 , 0));
+        target.setSameCellStyle(++tempRow, tempRow + 4, 'a', 'f', cellStyle.getSimpleCellStyle(false, false, 1, 1, 1, 1));
+        target.setSameCellStyle(tempRow, tempRow + 4, 'g', 'i', percentCellStyle);
+        tempRow = tempRow + 4;
+        target.setSameCellStyle(++tempRow, tempRow, 'a', 'i', cellStyle.getSimpleCellStyle(true, true, 2, 2, 0, 0));
+        target.setSameCellStyle(++tempRow, tempRow + 3, 'a', 'f', cellStyle.getSimpleCellStyle(false, false, 1, 1, 1, 1));
+        target.setSameCellStyle(tempRow, tempRow + 3, 'g', 'i', percentCellStyle);
+        tempRow = tempRow + 3;
+        target.setSameCellStyle(startRow, tempRow, 'j', 'j', cellStyle.getSimpleCellStyle(false, false, 0, 0, 2, 0));
+        target.setSameCellStyle(++tempRow, tempRow, 'a', 'i', cellStyle.getSimpleCellStyle(false, false, 2, 0, 0, 0));
     }
 
     public static void main(String[] args){

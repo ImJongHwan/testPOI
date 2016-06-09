@@ -27,8 +27,6 @@ public class TcSheet {
     private int fpTcEndRowNum = 0;
     private int exTcEndRowNum = 0;
 
-    private Map<Integer, TcRow> rowMap = new HashMap<>();
-
     public TcSheet(XSSFWorkbook parentWorkbook, String sheetName) {
         this.parentWorkbook = parentWorkbook;
         this.sheetName = sheetName;
@@ -64,16 +62,10 @@ public class TcSheet {
             System.err.println("Getting Row Error - A row number is negative. Please check a row number.");
         }
 
-
-
-        if (rowMap.containsKey(rowNum)) {
-            return rowMap.get(rowNum);
-        }
-
         XSSFRow row;
 
         if (this.sheet.getRow(rowNum - 1) != null){
-            row = this.sheet.getRow(rowNum - 1);
+            row = sheet.getRow(rowNum - 1);
         } else {
             // excel row line number start 1 but XSSFRow index start 0
             row = sheet.createRow(rowNum - 1);
@@ -81,7 +73,6 @@ public class TcSheet {
 
 
         TcRow tcRow = new TcRow(row);
-        rowMap.put(rowNum, tcRow);
 
         return tcRow;
     }

@@ -575,9 +575,6 @@ public class WavsepTemplate {
         cell.setCellStyle(p);
     }
 
-    //todo define default XSSFCEllStyle
-
-
     /**
      * write current state in excel file - ZAP_WAVSEP_Results_[time].xlsx
      *

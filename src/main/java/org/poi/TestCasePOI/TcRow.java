@@ -13,7 +13,6 @@ import java.util.Map;
 public class TcRow {
 
     private XSSFRow row = null;
-    private Map<String, Cell> cellMap = new HashMap<>();
     private static final int ALPHABET_SIZE = 26;
 
     TcRow(XSSFRow row) {
@@ -27,23 +26,7 @@ public class TcRow {
      * @return cell
      */
     Cell getCell(String columnAlphabet) {
-        if (columnAlphabet.compareTo(POIConstant.MAX_COLUMN_STRING) > 0) {
-            System.err.println("Getting cell Error - The columnAlphabet is too big. Please input a columnAlphabet less than \"XFD\".");
-            return null;
-        } else if (isInteger(columnAlphabet)) {
-            System.err.println("ColumnAlphabet Error - The ColumnAlphabet is contained number. Please check columnAlphabet.");
-            return null;
-        }
-
-        if (cellMap.containsKey(columnAlphabet)) {
-            return cellMap.get(columnAlphabet);
-        }
-
-        Cell cell = row.createCell(convertColumnAlphabetToIndex(columnAlphabet));
-
-        cellMap.put(columnAlphabet, cell);
-
-        return cell;
+        return getCell(convertColumnAlphabetToIndex(columnAlphabet));
     }
 
     /**
@@ -53,30 +36,8 @@ public class TcRow {
      * @return cell
      */
     Cell getCell(char columnAlphabet) {
-        if (!Character.isAlphabetic(columnAlphabet)) {
-            System.err.println("Getting cell Error - The Single columnAlphabet is number. Please input a alphabet.");
-            return null;
-        }
-
         String charToString = String.valueOf(columnAlphabet);
-
-        if (cellMap.containsKey(charToString)) {
-            return cellMap.get(charToString);
-        }
-
-        int cellIndex = convertColumnAlphabetToIndex(charToString);
-        Cell cell;
-
-        if (this.row.getCell(convertColumnAlphabetToIndex(charToString)) != null){
-            // If read a external workbook, the cell dose not contain cellMap but exist.
-            cell = this.row.getCell(cellIndex);
-        } else {
-            cell = row.createCell(cellIndex);
-        }
-
-        cellMap.put(charToString, cell);
-
-        return cell;
+        return getCell(charToString);
     }
 
     /**
@@ -86,8 +47,11 @@ public class TcRow {
      * @return cell
      */
     Cell getCell(int columnIndex) {
-        String columnAlphabet = convertColumnIndexToAlphabet(columnIndex);
-        return getCell(columnAlphabet);
+        if(row.getCell(columnIndex) != null){
+            return row.getCell(columnIndex);
+        } else {
+            return row.createCell(columnIndex);
+        }
     }
 
     /**
@@ -119,9 +83,13 @@ public class TcRow {
      * @return columnAlphabet
      */
     private static String convertColumnIndexToAlphabet(int columnIndex) {
+        if(columnIndex == 0){
+            return "A";
+        }
+
         String columnAlphabet = "";
 
-        int tempIndex = 0;
+        int tempIndex;
         int resIndex = columnIndex;
 
         while (resIndex > 0) {

@@ -20,8 +20,6 @@ public class TcWorkbook {
 
     private Date workbookCreatedTime = null;
 
-    private Map<String, TcSheet> sheetMap = new HashMap<>();
-
     public TcWorkbook(){
         this.workbook = new XSSFWorkbook();
         init();
@@ -36,7 +34,6 @@ public class TcWorkbook {
      * Set created workbook time.
      */
     private void init(){
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmm");
         this.workbookCreatedTime = new Date();
     }
 
@@ -154,10 +151,6 @@ public class TcWorkbook {
             return null;
         }
 
-        if(sheetMap.containsKey(sheetName)){
-            return sheetMap.get(sheetName);
-        }
-
         XSSFSheet sheet;
 
         if (workbook.getSheet(sheetName) != null){
@@ -168,7 +161,6 @@ public class TcWorkbook {
         }
 
         TcSheet tcSheet = new TcSheet(workbook, sheet);
-        sheetMap.put(sheetName, tcSheet);
 
         return tcSheet;
     }
