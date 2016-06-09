@@ -72,7 +72,7 @@ public class TcSheet {
 
         XSSFRow row;
 
-        if (this.sheet.getRow(rowNum) != null){
+        if (this.sheet.getRow(rowNum - 1) != null){
             row = this.sheet.getRow(rowNum - 1);
         } else {
             // excel row line number start 1 but XSSFRow index start 0
