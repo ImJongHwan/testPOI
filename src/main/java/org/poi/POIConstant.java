@@ -17,6 +17,7 @@ public class POIConstant {
     public static final int BENCHMARK_TEST_CASE_CELL_WIDTH = 25;
     public static final int DEFAULT_COLUMN_WIDTH = 10;
     public static final int WAVSEP_TEST_CASE_CELL_WIDTH = 50;
+    public static final int COMPARE_DEFAULT_COLUMN_WIDTH = 17;
 
     public static final int ALPHABET_SIZE = 26;
     public static final int COLUMN_SIZE_CONSTANT = 256;

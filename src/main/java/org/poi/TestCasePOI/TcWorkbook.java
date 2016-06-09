@@ -20,7 +20,7 @@ public class TcWorkbook {
 
     private Date workbookCreatedTime = null;
 
-    private Map<String, TcSheet> benchmarkSheetMap = new HashMap<>();
+    private Map<String, TcSheet> sheetMap = new HashMap<>();
 
     public TcWorkbook(){
         this.workbook = new XSSFWorkbook();
@@ -154,13 +154,21 @@ public class TcWorkbook {
             return null;
         }
 
-        if(benchmarkSheetMap.containsKey(sheetName)){
-            return benchmarkSheetMap.get(sheetName);
+        if(sheetMap.containsKey(sheetName)){
+            return sheetMap.get(sheetName);
         }
 
-        XSSFSheet vulnerabilitySheet = workbook.createSheet(sheetName);
-        TcSheet tcSheet = new TcSheet(workbook, vulnerabilitySheet);
-        benchmarkSheetMap.put(sheetName, tcSheet);
+        XSSFSheet sheet;
+
+        if (workbook.getSheet(sheetName) != null){
+            // If reading a external workbook, the sheet dose not contain sheetMap, but exist.
+            sheet = workbook.getSheet(sheetName);
+        } else {
+            sheet = workbook.createSheet(sheetName);
+        }
+
+        TcSheet tcSheet = new TcSheet(workbook, sheet);
+        sheetMap.put(sheetName, tcSheet);
 
         return tcSheet;
     }

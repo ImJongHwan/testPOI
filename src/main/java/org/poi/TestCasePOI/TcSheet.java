@@ -49,7 +49,7 @@ public class TcSheet {
      * @return row
      */
     public XSSFRow getRow(int rowNum) {
-        return getTcRow(rowNum).getParentRow();
+        return getTcRow(rowNum).getRow();
     }
 
     /**
@@ -64,14 +64,23 @@ public class TcSheet {
             System.err.println("Getting Row Error - A row number is negative. Please check a row number.");
         }
 
+
+
         if (rowMap.containsKey(rowNum)) {
             return rowMap.get(rowNum);
         }
 
-        // excel row line number start 1 but XSSFRow index start 0
-        XSSFRow row = sheet.createRow(rowNum - 1);
-        TcRow tcRow = new TcRow(row);
+        XSSFRow row;
 
+        if (this.sheet.getRow(rowNum) != null){
+            row = this.sheet.getRow(rowNum);
+        } else {
+            // excel row line number start 1 but XSSFRow index start 0
+            row = sheet.createRow(rowNum - 1);
+        }
+
+
+        TcRow tcRow = new TcRow(row);
         rowMap.put(rowNum, tcRow);
 
         return tcRow;

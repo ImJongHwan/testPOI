@@ -12,16 +12,16 @@ import java.util.Map;
  */
 public class TcRow {
 
-    private XSSFRow parentRow = null;
+    private XSSFRow row = null;
     private Map<String, Cell> cellMap = new HashMap<>();
     private static final int ALPHABET_SIZE = 26;
 
-    TcRow(XSSFRow parentRow) {
-        this.parentRow = parentRow;
+    TcRow(XSSFRow row) {
+        this.row = row;
     }
 
     /**
-     * Create and Get cell in parentRow.
+     * Create and Get cell in row.
      *
      * @param columnAlphabet columnAlphabet in real excel.
      * @return cell
@@ -39,7 +39,7 @@ public class TcRow {
             return cellMap.get(columnAlphabet);
         }
 
-        Cell cell = parentRow.createCell(convertColumnAlphabetToIndex(columnAlphabet));
+        Cell cell = row.createCell(convertColumnAlphabetToIndex(columnAlphabet));
 
         cellMap.put(columnAlphabet, cell);
 
@@ -47,7 +47,7 @@ public class TcRow {
     }
 
     /**
-     * Create and get cell in parentRow
+     * Create and get cell in row
      *
      * @param columnAlphabet A single columnAlphabet in real excel.
      * @return cell
@@ -64,7 +64,15 @@ public class TcRow {
             return cellMap.get(charToString);
         }
 
-        Cell cell = parentRow.createCell(convertColumnAlphabetToIndex(charToString));
+        int cellIndex = convertColumnAlphabetToIndex(charToString);
+        Cell cell;
+
+        if (this.row.getCell(convertColumnAlphabetToIndex(charToString)) != null){
+            // If read a external workbook, the cell dose not contain cellMap but exist.
+            cell = this.row.getCell(cellIndex);
+        } else {
+            cell = row.createCell(cellIndex);
+        }
 
         cellMap.put(charToString, cell);
 
@@ -72,7 +80,7 @@ public class TcRow {
     }
 
     /**
-     * Get cell in parentRow by columnIndex
+     * Get cell in row by columnIndex
      *
      * @param columnIndex XSSFCell ColumnIndex
      * @return cell
@@ -161,7 +169,7 @@ public class TcRow {
     }
 
 
-    XSSFRow getParentRow() {
-        return parentRow;
+    XSSFRow getRow() {
+        return row;
     }
 }

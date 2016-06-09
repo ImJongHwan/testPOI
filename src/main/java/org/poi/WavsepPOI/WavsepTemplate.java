@@ -28,7 +28,7 @@ public class WavsepTemplate {
     }
 
     /**
-     * Set wavsep workbook templates.
+     * Set a wavsep workbook templates.
      */
     private void init() {
         for (Constant.WavsepSheets wavsepSheet : Constant.WavsepSheets.values()) {
@@ -42,7 +42,7 @@ public class WavsepTemplate {
     }
 
     /**
-     * generate vulnerability sheet template
+     * generate a vulnerability sheet template
      *
      * @param tempTcSheet vulnerability sheet
      */
@@ -584,6 +584,7 @@ public class WavsepTemplate {
      * @return file absolute path
      */
     public String writeWavsep() {
+        this.tcWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateAll();
         if (tcWorkbook != null) {
             return tcWorkbook.writeWorkbook(POIConstant.WAVSEP_NAME);
         }
