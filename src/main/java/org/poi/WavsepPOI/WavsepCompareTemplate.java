@@ -191,9 +191,9 @@ public class WavsepCompareTemplate {
         sheet.getCell(row, 'f').setCellFormula("SUM(B" + row + ":E" + row++ + ")");
         sheet.getCell(row, 'a').setCellValue("addtional SQLi(INSERT)");
         sheet.getCell(row, 'b').setCellFormula("\'" + Constant.WavsepSheets.sqli.getSheetName() + "\'" + "!K5");
-        sheet.getCell(row, 'c').setCellFormula("\'" + Constant.WavsepSheets.sqli.getSheetName() + "\'" + "!K5");
-        sheet.getCell(row, 'd').setCellFormula("\'" + Constant.WavsepSheets.sqli.getSheetName() + "\'" + "!K5");
-        sheet.getCell(row, 'e').setCellFormula("\'" + Constant.WavsepSheets.sqli.getSheetName() + "\'" + "!K5");
+        sheet.getCell(row, 'c').setCellFormula("\'" + Constant.WavsepSheets.sqli.getSheetName() + "\'" + "!L5");
+        sheet.getCell(row, 'd').setCellFormula("\'" + Constant.WavsepSheets.sqli.getSheetName() + "\'" + "!M5");
+        sheet.getCell(row, 'e').setCellFormula("\'" + Constant.WavsepSheets.sqli.getSheetName() + "\'" + "!N5");
         sheet.getCell(row, 'f').setCellFormula("SUM(B" + row + ":E" + row++ + ")");
         sheet.getCell(row, 'a').setCellValue("Totals");
         sheet.getCell(row, 'b').setCellFormula("SUM(B" + 4 + ":B" + (row - 1) + ")");
@@ -312,7 +312,7 @@ public class WavsepCompareTemplate {
      * compare before workbook and after workbook
      */
     private void compareBeforeAndAfterSheet(TcSheet compareSheet, TcSheet beforeSheet, TcSheet afterSheet){
-        int tcRow = START_WAVSEP_TC_ROW - 1;
+        int tcRow = START_WAVSEP_TC_ROW;
         int compareRow = START_WAVSEP_COMPARE_ROW;
 
         while(afterSheet.getCell(tcRow, 'b').getCellType() != Cell.CELL_TYPE_BLANK) {
