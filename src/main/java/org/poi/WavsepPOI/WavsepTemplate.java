@@ -584,7 +584,6 @@ public class WavsepTemplate {
      * @return file absolute path
      */
     public String writeWavsep() {
-        this.tcWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateAll();
         if (tcWorkbook != null) {
             return tcWorkbook.writeWorkbook(POIConstant.WAVSEP_NAME);
         }
@@ -599,6 +598,7 @@ public class WavsepTemplate {
      * @return file absolute path
      */
     public String writeWavsep(String outputDir, String fileName){
+        this.tcWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator().evaluateAll();
         if(tcWorkbook != null){
             return tcWorkbook.writeWorkbook(outputDir, fileName);
         }
