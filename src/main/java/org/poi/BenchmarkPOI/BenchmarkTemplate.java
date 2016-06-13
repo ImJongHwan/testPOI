@@ -508,7 +508,7 @@ public class BenchmarkTemplate {
                     if(benchmark.toString().equals(vulnerability)){
                         TcSheet tcSheet = this.tcWorkbook.getTcSheet(benchmark.getSheetName());
                         if(crawlFlag){
-                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedCrawlingList(tcFile), tcSheet, 7, 'm');
+                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedCrawlingList(tcFile, vulnerability), tcSheet, 7, 'm');
                         } else {
                             TcUtil.writeDownListInSheet(BenchmarkParser.getFailedTPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'n');
                             TcUtil.writeDownListInSheet(BenchmarkParser.getFailedFPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'o');

@@ -12,9 +12,7 @@ import java.util.List;
  * Created by Hwan on 2016-05-27.
  */
 public class BenchmarkParser {
-    static public String BENCHMARK_TC_PATH = "C:\\gitProjects\\simpleURLParser\\benchmark\\benchmark_tc\\";
-    final static public String BENCHMARK_RES_PATH = "C:\\gitProjects\\simpleURLParser\\benchmark\\benchmark_res\\";
-    final static public String BENCHMARK_SCORE_PATH = "C:\\gitProjects\\simpleURLParser\\benchmark\\benchmark_score\\";
+    static public String BENCHMARK_TC_PATH = "C:\\scalaProjects\\testPOI\\src\\main\\resources\\BenchmarkTC\\";
 
     public static final String BENCHMARK_HTML_TAIL = ".html";
     public static final String BENCHMARK_QUESTION_TAIL = "?";
@@ -56,11 +54,14 @@ public class BenchmarkParser {
      * @param targetFile target file
      * @return failed crawled list
      */
-    protected static List<String> getFailedCrawlingList(File targetFile){
+    protected static List<String> getFailedCrawlingList(File targetFile, String vulnerability){
         List<String> crawledList = parseList(FileUtil.readFile(targetFile));
 
-        String expectedCrawlingFilePath = BENCHMARK_TC_PATH + Constant.ALL_TC_FILE_NAME + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(crawledList, FileUtil.readFile(expectedCrawlingFilePath));
+        List<String> expectedCrawlingList = new ArrayList<>();
+        expectedCrawlingList.addAll(FileUtil.readFile(BENCHMARK_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
+        expectedCrawlingList.addAll(FileUtil.readFile(BENCHMARK_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
+
+        return StringUtil.getComplementList(crawledList, expectedCrawlingList);
     }
 
     /**

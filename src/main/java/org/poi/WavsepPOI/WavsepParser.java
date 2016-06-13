@@ -15,9 +15,7 @@ public class WavsepParser {
     public static final String WAVSEP_TEST_PREFIX = "wavsep_";
     public static final String WAVSEP_TEST_CRAWLED = "crawled_";
 
-    private static final String WAVSEP_RES_PATH = "C:\\gitProjects\\simpleURLParser\\wavsep\\wavsep_res\\";
-    private static final String WAVSEP_TC_PATH = "C:\\gitProjects\\simpleURLParser\\wavsep\\wavsep_tc\\";
-    private static final String WAVSEP_SCORE_PATH = "C:\\gitProjects\\simpleURLParser\\wavsep\\wavsep_score\\";
+    private static final String WAVSEP_TC_PATH = "C:\\scalaProjects\\testPOI\\src\\main\\resources\\WavsepTC\\";
 
     private static final String WAVSEP_CONTAIN_CASE_STRING = "Case";
     private static final String WAVSEP_CONTAIN_URL_EXTENSION_JSP = ".jsp";
@@ -95,11 +93,15 @@ public class WavsepParser {
      * @param targetFile crawled target list
      * @return failed crawled list
      */
-    public static List<String> getFailedCrawlingList(File targetFile) {
+    public static List<String> getFailedCrawlingList(File targetFile, String vulnerability) {
         List<String> crawledList = parseList(FileUtil.readFile(targetFile));
 
-        String tpPath = WAVSEP_TC_PATH + Constant.ALL_TC_FILE_NAME + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(crawledList, FileUtil.readFile(tpPath));
+        List<String> expectedCrawlingList = new ArrayList<>();
+        expectedCrawlingList.addAll(FileUtil.readFile(WAVSEP_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
+        expectedCrawlingList.addAll(FileUtil.readFile(WAVSEP_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
+        expectedCrawlingList.addAll(FileUtil.readFile(WAVSEP_TC_PATH + vulnerability + Constant.EXPERIMENTAL_POSTFIX + Constant.TC_FILE_EXTENSION));
+
+        return StringUtil.getComplementList(crawledList, expectedCrawlingList);
     }
 
     /**

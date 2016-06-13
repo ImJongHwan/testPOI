@@ -640,7 +640,7 @@ public class WavsepTemplate {
                     if(wavsep.toString().equals(vulnerability)){
                         TcSheet tcSheet = this.tcWorkbook.getTcSheet(wavsep.getSheetName());
                         if(crawlFlag){
-                            TcUtil.writeDownListInSheet(WavsepParser.getFailedCrawlingList(tcFile), tcSheet, 7, 'p');
+                            TcUtil.writeDownListInSheet(WavsepParser.getFailedCrawlingList(tcFile, vulnerability), tcSheet, 7, 'p');
                         } else {
                             TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_TRUE_POSITIVE), tcSheet, 7, 'q');
                             TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_FALSE_POSITIVE), tcSheet, 7, 'r');
