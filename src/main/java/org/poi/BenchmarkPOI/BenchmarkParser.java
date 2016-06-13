@@ -108,11 +108,21 @@ public class BenchmarkParser {
      * @return removeTails list
      */
     private static List<String> removeTails(List<String> targetList, List<String> tailList){
+        if(targetList == null){
+            System.err.println("Can't remove tails since targetList is null");
+            return null;
+        }
+
+        if(tailList == null || tailList.isEmpty()){
+            return targetList;
+        }
+
         List<String> removeTailList = new ArrayList<>();
         boolean hasPostfix;
         for(String target : targetList){
             hasPostfix = false;
             for(String tail : tailList){
+
                 if(target.contains(tail)){
                     removeTailList.add(target.substring(0, target.indexOf(tail)));
                     hasPostfix = true;

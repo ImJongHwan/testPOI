@@ -453,11 +453,21 @@ public class WavsepTemplate {
         cell.setCellFormula("AVERAGE(I3:I7,I9:I10)");
     }
 
+    /**
+     * initialize total sheet column default width
+     *
+     * @param sheet total sheet
+     */
     private void initTotalColumnWidth(TcSheet sheet) {
         sheet.getSheet().setDefaultColumnWidth(POIConstant.DEFAULT_COLUMN_WIDTH);
         sheet.setColumnWidth('a', POIConstant.WAVSEP_TEST_CASE_CELL_WIDTH);
     }
 
+    /**
+     * initialize total sheet default style
+     *
+     * @param sheet total sheet
+     */
     private void initTotalSheetStyle(TcSheet sheet) {
         CellStyle boldCenterThickRight = cellStyle.getSimpleCellStyle(true, true, 0, 0, 0, 2);
         CellStyle thickRight = cellStyle.getSimpleCellStyle(false, false, 0, 0, 0, 2);

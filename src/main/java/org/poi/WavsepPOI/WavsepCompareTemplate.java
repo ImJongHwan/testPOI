@@ -3,8 +3,6 @@ package org.poi.WavsepPOI;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFName;
 import org.poi.Constant;
 import org.poi.POIConstant;
 import org.poi.TestCasePOI.TcSheet;
@@ -121,14 +119,6 @@ public class WavsepCompareTemplate {
         // add total sheet, before and after
         compareTotalSheet();
     }
-
-//    /**
-//     * set a Generated Time
-//     */
-//    private void setGeneratedTime(){
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
-//        this.generatedTime = sdf.format(new Date());
-//    }
 
     /**
      * set a wavsep total compare sheet
@@ -265,7 +255,7 @@ public class WavsepCompareTemplate {
      */
     private void setVulnerabilityWidth(TcSheet sheet) {
         sheet.setColumnWidth('a', POIConstant.DEFAULT_COLUMN_WIDTH);
-        sheet.setColumnWidth('b', POIConstant.BENCHMARK_TEST_CASE_CELL_WIDTH);
+        sheet.setColumnWidth('b', POIConstant.WAVSEP_TEST_CASE_CELL_WIDTH);
         for (char i = 'c'; i <= 'n'; i++) {
             sheet.setColumnWidth(i, POIConstant.COMPARE_DEFAULT_COLUMN_WIDTH);
         }
@@ -340,7 +330,7 @@ public class WavsepCompareTemplate {
      */
     private void compareTotalSheet(){
         String totalSheetName = Constant.WavsepSheets.total.getSheetName();
-        writeBeforeAndAfterTotalInCompareTotal(compareWorkbook.getTcSheet(totalSheetName), beforeWorkbook.getTcSheet(totalSheetName), afterWorkbook.getTcSheet(totalSheetName));
+        copyBeforeAndAfterTotalInCompareTotal(compareWorkbook.getTcSheet(totalSheetName), beforeWorkbook.getTcSheet(totalSheetName), afterWorkbook.getTcSheet(totalSheetName));
     }
 
     /**
@@ -444,12 +434,13 @@ public class WavsepCompareTemplate {
     }
 
     /**
-     * write before and after total sheet contents in copmare total sheet
+     * copy before and after total sheet contents in compare total sheet
+     *
      * @param compareTotal compare total sheet
      * @param beforeTotal before total sheet
      * @param afterTotal after total sheet
      */
-    private void writeBeforeAndAfterTotalInCompareTotal(TcSheet compareTotal, TcSheet beforeTotal, TcSheet afterTotal){
+    private void copyBeforeAndAfterTotalInCompareTotal(TcSheet compareTotal, TcSheet beforeTotal, TcSheet afterTotal){
         int compareRow = 16;
 
         compareTotal.getCell(compareRow++, 'a').setCellValue("Before : " + beforeFileName);
