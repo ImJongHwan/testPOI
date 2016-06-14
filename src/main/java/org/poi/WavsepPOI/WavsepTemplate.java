@@ -12,6 +12,7 @@ import org.poi.Util.CellStylesUtil;
 import org.poi.Util.FileUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -639,12 +640,17 @@ public class WavsepTemplate {
                 for(Constant.WavsepSheets wavsep : Constant.WavsepSheets.values()){
                     if(wavsep.toString().equals(vulnerability)){
                         TcSheet tcSheet = this.tcWorkbook.getTcSheet(wavsep.getSheetName());
-                        if(crawlFlag){
-                            TcUtil.writeDownListInSheet(WavsepParser.getFailedCrawlingList(tcFile, vulnerability), tcSheet, 7, 'p');
-                        } else {
-                            TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_TRUE_POSITIVE), tcSheet, 7, 'q');
-                            TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_FALSE_POSITIVE), tcSheet, 7, 'r');
-                            TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_EXPERIMENTAL), tcSheet, 7, 's');
+                        try {
+                            if (crawlFlag) {
+                                TcUtil.writeDownListInSheet(WavsepParser.getFailedCrawlingList(tcFile, vulnerability), tcSheet, 7, 'p');
+                            } else {
+                                TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_TRUE_POSITIVE), tcSheet, 7, 'q');
+                                TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_FALSE_POSITIVE), tcSheet, 7, 'r');
+                                TcUtil.writeDownListInSheet(WavsepParser.getFailedTcList(tcFile, vulnerability, Constant.TEST_SET_FAILED_EXPERIMENTAL), tcSheet, 7, 's');
+                            }
+                        } catch (IOException e){
+                            System.err.println("WavsepTemplate : Occur IOException - " + fileName);
+                            e.printStackTrace();
                         }
                         break;
                     }

@@ -12,6 +12,7 @@ import org.poi.Util.FileUtil;
 import org.poi.WavsepPOI.WavsepParser;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -507,11 +508,16 @@ public class BenchmarkTemplate {
                 for(Constant.BenchmarkSheets benchmark : Constant.BenchmarkSheets.values()){
                     if(benchmark.toString().equals(vulnerability)){
                         TcSheet tcSheet = this.tcWorkbook.getTcSheet(benchmark.getSheetName());
-                        if(crawlFlag){
-                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedCrawlingList(tcFile, vulnerability), tcSheet, 7, 'm');
-                        } else {
-                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedTPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'n');
-                            TcUtil.writeDownListInSheet(BenchmarkParser.getFailedFPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'o');
+                        try {
+                            if (crawlFlag) {
+                                TcUtil.writeDownListInSheet(BenchmarkParser.getFailedCrawlingList(tcFile, vulnerability), tcSheet, 7, 'm');
+                            } else {
+                                TcUtil.writeDownListInSheet(BenchmarkParser.getFailedTPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'n');
+                                TcUtil.writeDownListInSheet(BenchmarkParser.getFailedFPList(tcFile.getAbsolutePath(), vulnerability), tcSheet, 7, 'o');
+                            }
+                        } catch (IOException e) {
+                            System.err.println("BenchmarkTemplate : Occur a IOException - " + fileName);
+                            e.printStackTrace();
                         }
                         break;
                     }

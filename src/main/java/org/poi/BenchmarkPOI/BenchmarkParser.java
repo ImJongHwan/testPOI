@@ -5,6 +5,7 @@ import org.poi.Util.FileUtil;
 import org.poi.Util.StringUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,12 @@ import java.util.List;
  * Created by Hwan on 2016-05-27.
  */
 public class BenchmarkParser {
-    static public String BENCHMARK_TC_PATH = "C:\\scalaProjects\\testPOI\\src\\main\\resources\\BenchmarkTC\\";
+    static public String BENCHMARK_TC_PATH = "BenchmarkTC\\";
 
     public static final String BENCHMARK_HTML_TAIL = ".html";
     public static final String BENCHMARK_QUESTION_TAIL = "?";
     public static final String BENCHMARK_CONTAIN_TEST = "BenchmarkTest";
     public static final String BENCHMARK_START_STRING =  "/benchmark/";
-
-    public static final String BENCHMARK_CONTAIN_STRING = "BenchmarkTest";
 
     public static final String BENCHMARK_TEST_PREFIX = "benchmark_";
     public static final String BENCHMARK_TEST_CRAWLED = "crawled_";
@@ -31,9 +30,9 @@ public class BenchmarkParser {
      * @param vulnerability vulnerability
      * @return failed tp list
      */
-    protected static List<String> getFailedTPList(String targetFilePath, String vulnerability){
+    protected static List<String> getFailedTPList(String targetFilePath, String vulnerability) throws IOException {
         String expectedTPPath = BENCHMARK_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readFile(new File(expectedTPPath)));
+        return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readResourceFile(BenchmarkParser.class, expectedTPPath));
     }
 
     /**
@@ -43,9 +42,9 @@ public class BenchmarkParser {
      * @param vulnerability vulnerability
      * @return failed fp lsit
      */
-    protected static List<String> getFailedFPList(String targetFilePath, String vulnerability){
+    protected static List<String> getFailedFPList(String targetFilePath, String vulnerability) throws IOException {
         String expectedFPPath = BENCHMARK_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readFile(new File(expectedFPPath)));
+        return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readResourceFile(BenchmarkParser.class, expectedFPPath));
     }
 
     /**
@@ -54,12 +53,17 @@ public class BenchmarkParser {
      * @param targetFile target file
      * @return failed crawled list
      */
-    protected static List<String> getFailedCrawlingList(File targetFile, String vulnerability){
+    protected static List<String> getFailedCrawlingList(File targetFile, String vulnerability) throws IOException {
         List<String> crawledList = parseList(FileUtil.readFile(targetFile));
 
         List<String> expectedCrawlingList = new ArrayList<>();
-        expectedCrawlingList.addAll(FileUtil.readFile(BENCHMARK_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
-        expectedCrawlingList.addAll(FileUtil.readFile(BENCHMARK_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
+        List<String> tempList;
+        if((tempList = FileUtil.readResourceFile(BenchmarkParser.class, BENCHMARK_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION)) != null){
+            expectedCrawlingList.addAll(tempList);
+        }
+        if((tempList = FileUtil.readResourceFile(BenchmarkParser.class, BENCHMARK_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION)) != null){
+            expectedCrawlingList.addAll(tempList);
+        }
 
         return StringUtil.getComplementList(crawledList, expectedCrawlingList);
     }

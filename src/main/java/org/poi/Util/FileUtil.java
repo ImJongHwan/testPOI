@@ -183,7 +183,7 @@ public class FileUtil {
      * @throws IOException
      */
     public static List<String> readResourceFile(Class mainClass, String resourceFilePath) throws IOException{
-        InputStream is = mainClass.getResourceAsStream(resourceFilePath);
+        InputStream is = mainClass.getClassLoader().getResourceAsStream(resourceFilePath);
 
         if(is == null){
             System.err.println("FileUtil : Cannot read a resource file since path is wrong - " + resourceFilePath);

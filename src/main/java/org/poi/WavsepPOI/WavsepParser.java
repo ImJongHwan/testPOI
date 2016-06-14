@@ -1,10 +1,12 @@
 package org.poi.WavsepPOI;
 
 import org.poi.Constant;
+import org.poi.Main;
 import org.poi.Util.FileUtil;
 import org.poi.Util.StringUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class WavsepParser {
     public static final String WAVSEP_TEST_PREFIX = "wavsep_";
     public static final String WAVSEP_TEST_CRAWLED = "crawled_";
 
-    private static final String WAVSEP_TC_PATH = "C:\\scalaProjects\\testPOI\\src\\main\\resources\\WavsepTC\\";
+    private static final String WAVSEP_TC_PATH = "WavsepTC\\";
 
     private static final String WAVSEP_CONTAIN_CASE_STRING = "Case";
     private static final String WAVSEP_CONTAIN_URL_EXTENSION_JSP = ".jsp";
@@ -35,7 +37,7 @@ public class WavsepParser {
      * @param testSet       test set - Constant has this constant string.
      * @return filed List
      */
-    public static List<String> getFailedTcList(File targetFile, String vulnerability, String testSet) {
+    public static List<String> getFailedTcList(File targetFile, String vulnerability, String testSet) throws IOException{
         List<String> targetList = parseList(FileUtil.readFile(targetFile));
 
         switch (testSet) {
@@ -58,9 +60,9 @@ public class WavsepParser {
      * @param vulnerability vulnerability name
      * @return failed true positive list
      */
-    private static List<String> getFailedTpList(List<String> targetList, String vulnerability) {
+    private static List<String> getFailedTpList(List<String> targetList, String vulnerability) throws IOException{
         String tpPath = WAVSEP_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(targetList, FileUtil.readFile(tpPath));
+        return StringUtil.getComplementList(targetList, FileUtil.readResourceFile(WavsepParser.class, tpPath));
     }
 
     /**
@@ -70,9 +72,9 @@ public class WavsepParser {
      * @param vulnerability vulnerability name
      * @return failed false positive list
      */
-    private static List<String> getFailedFpList(List<String> targetList, String vulnerability) {
+    private static List<String> getFailedFpList(List<String> targetList, String vulnerability) throws IOException{
         String tpPath = WAVSEP_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(targetList, FileUtil.readFile(tpPath));
+        return StringUtil.getComplementList(targetList, FileUtil.readResourceFile(WavsepParser.class, tpPath));
     }
 
     /**
@@ -82,9 +84,9 @@ public class WavsepParser {
      * @param vulnerability vulnerability name
      * @return failed experimental list
      */
-    private static List<String> getFailedExList(List<String> targetList, String vulnerability) {
+    private static List<String> getFailedExList(List<String> targetList, String vulnerability) throws IOException {
         String tpPath = WAVSEP_TC_PATH + vulnerability + Constant.EXPERIMENTAL_POSTFIX + Constant.TC_FILE_EXTENSION;
-        return StringUtil.getComplementList(targetList, FileUtil.readFile(tpPath));
+        return StringUtil.getComplementList(targetList, FileUtil.readResourceFile(WavsepParser.class, tpPath));
     }
 
     /**
@@ -93,14 +95,20 @@ public class WavsepParser {
      * @param targetFile crawled target list
      * @return failed crawled list
      */
-    public static List<String> getFailedCrawlingList(File targetFile, String vulnerability) {
+    public static List<String> getFailedCrawlingList(File targetFile, String vulnerability) throws IOException{
         List<String> crawledList = parseList(FileUtil.readFile(targetFile));
 
         List<String> expectedCrawlingList = new ArrayList<>();
-        expectedCrawlingList.addAll(FileUtil.readFile(WAVSEP_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
-        expectedCrawlingList.addAll(FileUtil.readFile(WAVSEP_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION));
-        expectedCrawlingList.addAll(FileUtil.readFile(WAVSEP_TC_PATH + vulnerability + Constant.EXPERIMENTAL_POSTFIX + Constant.TC_FILE_EXTENSION));
-
+        List<String> tempList;
+        if ((tempList = FileUtil.readResourceFile(WavsepParser.class, WAVSEP_TC_PATH + vulnerability + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION)) != null) {
+            expectedCrawlingList.addAll(tempList);
+        }
+        if((tempList = FileUtil.readResourceFile(WavsepParser.class, WAVSEP_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION)) != null){
+            expectedCrawlingList.addAll(tempList);
+        }
+        if((tempList = FileUtil.readResourceFile(WavsepParser.class, WAVSEP_TC_PATH + vulnerability + Constant.EXPERIMENTAL_POSTFIX + Constant.TC_FILE_EXTENSION)) != null) {
+            expectedCrawlingList.addAll(tempList);
+        }
         return StringUtil.getComplementList(crawledList, expectedCrawlingList);
     }
 
