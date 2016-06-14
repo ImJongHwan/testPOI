@@ -15,6 +15,7 @@ public class Main {
         } else {
             if(args[0].equals("-b")) {
                 BenchmarkTemplate bt = new BenchmarkTemplate();
+                bt.writeFailedList("C:\\gitProjects\\zap\\results\\160609153221_benchmarktest");
                 bt.writeBenchmark();
             } else if (args[0].equals("-w")) {
                 WavsepTemplate wt = new WavsepTemplate();

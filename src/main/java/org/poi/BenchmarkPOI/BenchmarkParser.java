@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Hwan on 2016-05-27.
  */
 public class BenchmarkParser {
-    static public String BENCHMARK_TC_PATH = "BenchmarkTC\\";
+    static public String BENCHMARK_TC_PATH = "BenchmarkTC/";
 
     public static final String BENCHMARK_HTML_TAIL = ".html";
     public static final String BENCHMARK_QUESTION_TAIL = "?";
