@@ -5,8 +5,6 @@ package org.poi;
  */
 public class Constant {
 
-
-    public static final String TC_BENCHMARK_PATH = "C:\\gitProjects\\simpleURLParser\\benchmark\\benchmark_tc\\";
     public static final String TC_WAVSEP_PATH = "C:\\gitProjects\\simpleURLParser\\wavsep\\wavsep_tc\\";
 
     public static final String TRUE_POSITIVE_POSTFIX = "_tp";

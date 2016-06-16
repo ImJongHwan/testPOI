@@ -17,7 +17,7 @@ public class WavsepParser {
     public static final String WAVSEP_TEST_PREFIX = "wavsep_";
     public static final String WAVSEP_TEST_CRAWLED = "crawled_";
 
-    private static final String WAVSEP_TC_PATH = "WavsepTC/";
+    public static final String WAVSEP_TC_PATH = "WavsepTC/";
 
     private static final String WAVSEP_CONTAIN_CASE_STRING = "Case";
     private static final String WAVSEP_CONTAIN_URL_EXTENSION_JSP = ".jsp";

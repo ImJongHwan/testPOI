@@ -22,6 +22,8 @@ public class BenchmarkTemplate {
     private TcWorkbook tcWorkbook;
     private CellStylesUtil cellStyle;
 
+    private String lastWriteFilePath;
+
     public BenchmarkTemplate() {
         this.tcWorkbook = new TcWorkbook();
         this.cellStyle = new CellStylesUtil(this.tcWorkbook.getWorkbook());
@@ -39,8 +41,13 @@ public class BenchmarkTemplate {
     private void init() {
         for (Constant.BenchmarkSheets benchmarkSheet : Constant.BenchmarkSheets.values()) {
             if (!benchmarkSheet.getSheetName().equals(Constant.BenchmarkSheets.total.getSheetName())) {
-                initVulnerabilitySheet(this.tcWorkbook.getTcSheet(benchmarkSheet.getSheetName()));
-                initVulnerabilityTC(this.tcWorkbook.getTcSheet(benchmarkSheet.getSheetName()), benchmarkSheet.toString());
+                try {
+                    initVulnerabilitySheet(this.tcWorkbook.getTcSheet(benchmarkSheet.getSheetName()));
+                    initVulnerabilityTC(this.tcWorkbook.getTcSheet(benchmarkSheet.getSheetName()), benchmarkSheet.toString());
+                } catch (IOException e){
+                    System.out.println("BenchmarkTemplate : can't write vulnerability Tc since occur a IOException - " + benchmarkSheet.getSheetName());
+                    e.printStackTrace();
+                }
             } else {
                 initTotalSheet(this.tcWorkbook.getTcSheet(benchmarkSheet.getSheetName()));
             }
@@ -222,14 +229,14 @@ public class BenchmarkTemplate {
      *
      * @param tcSheet tcSheet to write
      */
-    private void initVulnerabilityTC(TcSheet tcSheet, String vulnerabilityShortName) {
-        List<String> tpTcList = FileUtil.readFile(Constant.TC_BENCHMARK_PATH + vulnerabilityShortName + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
+    private void initVulnerabilityTC(TcSheet tcSheet, String vulnerabilityShortName) throws IOException {
+        List<String> tpTcList = FileUtil.readResourceFile(BenchmarkTemplate.class, BenchmarkParser.BENCHMARK_TC_PATH + vulnerabilityShortName + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
         int tpRowNum = TcUtil.writeDownListInSheet(tpTcList, tcSheet, 7, 'b');
         tcSheet.setSameValueMultiCells(7, tpRowNum - 1, 'c', 'c', true);
         tcSheet.setSameCellStyle(7, tpRowNum - 1, 'c', 'c', cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         tcSheet.setTpTcEndRowNum(tpRowNum - 1);
 
-        List<String> fpTcList = FileUtil.readFile(Constant.TC_BENCHMARK_PATH + vulnerabilityShortName + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
+        List<String> fpTcList = FileUtil.readResourceFile(BenchmarkTemplate.class, BenchmarkParser.BENCHMARK_TC_PATH + vulnerabilityShortName + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
         int fpRowNum = TcUtil.writeDownListInSheet(fpTcList, tcSheet, tpRowNum, 'b');
         tcSheet.setSameValueMultiCells(tpRowNum, fpRowNum - 1, 'd', 'd', false);
         tcSheet.setSameCellStyle(tpRowNum, fpRowNum - 1, 'd', 'd', cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
@@ -463,7 +470,7 @@ public class BenchmarkTemplate {
      */
     public void writeBenchmark() {
         if (tcWorkbook != null) {
-            tcWorkbook.writeWorkbook(POIConstant.BENCHMARK_NAME);
+            lastWriteFilePath = tcWorkbook.writeWorkbook(POIConstant.BENCHMARK_NAME);
         }
     }
 
@@ -476,10 +483,23 @@ public class BenchmarkTemplate {
      */
     public String writeBenchmark(String outputDir, String fileName){
         if(tcWorkbook != null){
-            return tcWorkbook.writeWorkbook(outputDir, fileName);
+            lastWriteFilePath = tcWorkbook.writeWorkbook(outputDir, fileName);
+            return lastWriteFilePath;
         }
         return null;
     }
+
+//    public String getLastWriteFilePath() {
+//        return lastWriteFilePath;
+//    }
+//
+//    public String appendBenchmarkFailedList(String crawledPath, String scanPath){
+//        if(lastWriteFilePath == null){
+//            System.err.println("BenchmarkTemplate : Append failed list error. First, you must write benchmark to append.");
+//            return null;
+//        }
+//
+//    }
 
     /**
      * write down failed lists

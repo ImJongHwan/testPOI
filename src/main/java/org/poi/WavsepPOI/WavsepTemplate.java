@@ -32,14 +32,19 @@ public class WavsepTemplate {
      * Set a wavsep workbook templates.
      */
     private void init() {
-        for (Constant.WavsepSheets wavsepSheet : Constant.WavsepSheets.values()) {
-            if (!wavsepSheet.getSheetName().equals(Constant.WavsepSheets.total.getSheetName())) {
-                initVulnerabilitySheet(this.tcWorkbook.getTcSheet(wavsepSheet.getSheetName()));
-                initVulnerabilityTC(this.tcWorkbook.getTcSheet(wavsepSheet.getSheetName()), wavsepSheet.toString());
-            } else {
-                initTotalSheet(this.tcWorkbook.getTcSheet(wavsepSheet.getSheetName()));
+            for (Constant.WavsepSheets wavsepSheet : Constant.WavsepSheets.values()) {
+                if (!wavsepSheet.getSheetName().equals(Constant.WavsepSheets.total.getSheetName())) {
+                    try {
+                        initVulnerabilitySheet(this.tcWorkbook.getTcSheet(wavsepSheet.getSheetName()));
+                        initVulnerabilityTC(this.tcWorkbook.getTcSheet(wavsepSheet.getSheetName()), wavsepSheet.toString());
+                    } catch (IOException e) {
+                        System.err.println("WavsepTemplate : can't write vulnerability TC since occur a IOException - " + wavsepSheet.getSheetName());
+                        e.printStackTrace();
+                    }
+                } else {
+                    initTotalSheet(this.tcWorkbook.getTcSheet(wavsepSheet.getSheetName()));
+                }
             }
-        }
     }
 
     /**
@@ -246,20 +251,20 @@ public class WavsepTemplate {
      *
      * @param tcSheet tcSheet to write
      */
-    private void initVulnerabilityTC(TcSheet tcSheet, String vulnerabilityShortName) {
-        List<String> tpTcList = FileUtil.readFile(Constant.TC_WAVSEP_PATH + vulnerabilityShortName + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
+    private void initVulnerabilityTC(TcSheet tcSheet, String vulnerabilityShortName) throws IOException {
+        List<String> tpTcList = FileUtil.readResourceFile(WavsepTemplate.class ,WavsepParser.WAVSEP_TC_PATH+ vulnerabilityShortName + Constant.TRUE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
         int tpRowNum = TcUtil.writeDownListInSheet(tpTcList, tcSheet, 7, 'b');
         tcSheet.setSameCellStyle(7, tpRowNum - 1, 'b', 'b', cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         tcSheet.setSameValueMultiCells(7, tpRowNum - 1, 'c', 'c', true);
         tcSheet.setTpTcEndRowNum(tpRowNum - 1);
 
-        List<String> fpTcList = FileUtil.readFile(Constant.TC_WAVSEP_PATH + vulnerabilityShortName + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
+        List<String> fpTcList = FileUtil.readResourceFile(WavsepTemplate.class, WavsepParser.WAVSEP_TC_PATH + vulnerabilityShortName + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION);
         int fpRowNum = TcUtil.writeDownListInSheet(fpTcList, tcSheet, tpRowNum, 'b');
         tcSheet.setSameCellStyle(tpRowNum, fpRowNum - 1, 'b', 'b', cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         tcSheet.setSameValueMultiCells(tpRowNum, fpRowNum - 1, 'd', 'd', false);
         tcSheet.setFpTcEndRowNum(fpRowNum - 1);
 
-        List<String> exTcList = FileUtil.readFile(Constant.TC_WAVSEP_PATH + vulnerabilityShortName + Constant.EXPERIMENTAL_POSTFIX + Constant.TC_FILE_EXTENSION);
+        List<String> exTcList = FileUtil.readResourceFile(WavsepTemplate.class, WavsepParser.WAVSEP_TC_PATH + vulnerabilityShortName + Constant.EXPERIMENTAL_POSTFIX + Constant.TC_FILE_EXTENSION);
         int exRowNum = TcUtil.writeDownListInSheet(exTcList, tcSheet, fpRowNum, 'b');
         tcSheet.setSameCellStyle(fpRowNum, exRowNum - 1, 'b', 'b', cellStyle.DEFAULT_CENTER_MIDDLE_RIGHT_LEFT);
         tcSheet.setSameValueMultiCells(fpRowNum, exRowNum - 1, 'e', 'e', "EX");

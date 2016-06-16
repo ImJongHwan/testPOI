@@ -12,7 +12,7 @@ public class POIConstant {
     public static final String MAX_COLUMN_STRING = "XFD";
     public static final int MAX_ROW = 1048576;
 
-    public static final String RES_OUTPUT_PATH = "C:\\scalaProjects\\testPOI\\results\\";
+    public static final String RES_OUTPUT_PATH = ".\\results\\";
 
     public static final int BENCHMARK_TEST_CASE_CELL_WIDTH = 30;
     public static final int DEFAULT_COLUMN_WIDTH = 10;
