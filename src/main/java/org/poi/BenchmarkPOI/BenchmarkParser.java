@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Hwan on 2016-05-27.
  */
 public class BenchmarkParser {
-    static public String BENCHMARK_TC_PATH = "BenchmarkTC/";
+    public static String BENCHMARK_TC_PATH = "BenchmarkTC/";
 
     public static final String BENCHMARK_HTML_TAIL = ".html";
     public static final String BENCHMARK_QUESTION_TAIL = "?";
@@ -35,6 +35,8 @@ public class BenchmarkParser {
         return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readResourceFile(BenchmarkParser.class, expectedTPPath));
     }
 
+
+
     /**
      * get failed false positive list
      *
@@ -46,6 +48,8 @@ public class BenchmarkParser {
         String expectedFPPath = BENCHMARK_TC_PATH + vulnerability + Constant.FALSE_POSITIVE_POSTFIX + Constant.TC_FILE_EXTENSION;
         return StringUtil.getComplementList(parseList(FileUtil.readFile(new File(targetFilePath))), FileUtil.readResourceFile(BenchmarkParser.class, expectedFPPath));
     }
+
+
 
     /**
      * get failed crawling list
@@ -66,6 +70,42 @@ public class BenchmarkParser {
         }
 
         return StringUtil.getComplementList(crawledList, expectedCrawlingList);
+    }
+
+    /**
+     * get failed Crawling List
+     *
+     * @param crawledFilePath crawled file path
+     * @param expectedCrawlingList  expected crawling test cases list
+     * @return
+     */
+    public static List<String> getFailedCrawlingList(String crawledFilePath, List<String> expectedCrawlingList){
+        List<String> crawledList = parseList(FileUtil.readFile(crawledFilePath));
+        return StringUtil.getComplementList(crawledList, expectedCrawlingList);
+    }
+
+    /**
+     * get false negative list
+     *
+     * @param scannedFilePath scanned file path
+     * @param expectedScannedList expected scanned list
+     * @return false negative list
+     */
+    public static List<String> getFalseNegativeList(String scannedFilePath, List<String> expectedScannedList){
+        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        return StringUtil.getComplementList(scannedList, expectedScannedList);
+    }
+
+    /**
+     * get true negative list
+     *
+     * @param scannedFilePath scanned file path
+     * @param expectedScannedList expected scanned list
+     * @return true negative list
+     */
+    public static List<String> getFalsePositiveList(String scannedFilePath, List<String> expectedScannedList){
+        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        return StringUtil.getComplementList(scannedList, expectedScannedList);
     }
 
     /**
@@ -114,7 +154,6 @@ public class BenchmarkParser {
      */
     private static List<String> removeTails(List<String> targetList, List<String> tailList){
         if(targetList == null){
-            System.err.println("Can't remove tails since targetList is null");
             return null;
         }
 

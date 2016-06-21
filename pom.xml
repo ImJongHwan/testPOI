@@ -74,7 +74,7 @@
 							<transformers>
 								<transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>org.poi.Main</mainClass>
+									<mainClass>org.poi.BenchmarkPOI.BenchmarkWriter</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

@@ -1,11 +1,11 @@
 package org.poi;
 
+import java.io.File;
+
 /**
  * Created by Hwan on 2016-05-27.
  */
 public class Constant {
-
-    public static final String TC_WAVSEP_PATH = "C:\\gitProjects\\simpleURLParser\\wavsep\\wavsep_tc\\";
 
     public static final String TRUE_POSITIVE_POSTFIX = "_tp";
     public static final String FALSE_POSITIVE_POSTFIX = "_fp";
