@@ -6,6 +6,7 @@ org\poi\Util\TcUtil.class
 org\poi\BenchmarkPOI\BenchmarkCompareTemplate.class
 org\poi\Main.class
 org\poi\Constant$BenchmarkSheets.class
+org\poi\WavsepPOI\WavsepWriter.class
 org\poi\WavsepPOI\WavsepParser.class
 org\poi\Util\CellStylesUtil.class
 org\poi\TestCasePOI\TcRow.class

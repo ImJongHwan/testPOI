@@ -56,7 +56,7 @@
               </filters>
               <transformers>
                 <transformer>
-                  <mainClass>org.poi.BenchmarkPOI.BenchmarkWriter</mainClass>
+                  <mainClass>org.poi.WavsepPOI.WavsepWriter</mainClass>
                 </transformer>
               </transformers>
             </configuration>
