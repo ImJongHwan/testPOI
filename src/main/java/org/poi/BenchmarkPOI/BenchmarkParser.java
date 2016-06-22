@@ -77,7 +77,7 @@ public class BenchmarkParser {
      *
      * @param crawledFilePath crawled file path
      * @param expectedCrawlingList  expected crawling test cases list
-     * @return
+     * @return failed crawling list
      */
     public static List<String> getFailedCrawlingList(String crawledFilePath, List<String> expectedCrawlingList){
         List<String> crawledList = parseList(FileUtil.readFile(crawledFilePath));

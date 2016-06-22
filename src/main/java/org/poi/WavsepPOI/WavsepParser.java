@@ -113,6 +113,54 @@ public class WavsepParser {
     }
 
     /**
+     * get failed crawling list
+     *
+     * @param crawledFilePath crawled file path
+     * @param expectedCrawlingList expected crawling test cases list
+     * @return failed crawling list
+     */
+    public static List<String> getFailedCrawlingList(String crawledFilePath, List<String> expectedCrawlingList){
+        List<String> crawledList = parseList(FileUtil.readFile(crawledFilePath));
+        return StringUtil.getComplementList(crawledList, expectedCrawlingList);
+    }
+
+    /**
+     * get FALSE negative List
+     *
+     * @param scannedFilePath scanned file path
+     * @param expectedScannedList expected scanned list
+     * @return false negative list
+     */
+    public static List<String> getFalseNegativeList(String scannedFilePath, List<String> expectedScannedList){
+        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        return StringUtil.getComplementList(scannedList, expectedScannedList);
+    }
+
+    /**
+     * get true negative list
+     *
+     * @param scannedFilePath scanned file path
+     * @param expectedScannedList expected scanned list
+     * @return true negative list
+     */
+    public static List<String> getTrueNegativeList(String scannedFilePath, List<String> expectedScannedList){
+        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        return StringUtil.getComplementList(scannedList, expectedScannedList);
+    }
+
+    /**
+     * get experimental list
+     *
+     * @param scannedFilePath scanned file path
+     * @param expectedScannedList expected scanned list
+     * @return experimental list
+     */
+    public static List<String> getExperimentalList(String scannedFilePath, List<String> expectedScannedList){
+        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        return StringUtil.getComplementList(scannedList, expectedScannedList);
+    }
+
+    /**
      * parse a urls file
      * alert line form ex) Remote File Inclusion : http://localhost:8080/wavsep/active/Unvalidated-Redirect/Redirect-Detection-Evaluation-GET-302Redirect/Case01-Redirect-RedirectMethod-FilenameContext-Unrestricted-HttpURL-DefaultFullInput-AnyPathReq-Read.jsp?target=http%3A%2F%2Fwww.google.com%2F
      * after parse : Redirect-Detection-Evaluation-GET-302Redirect/Case01-Redirect-RedirectMethod-FilenameContext-Unrestricted-HttpURL-DefaultFullInput-AnyPathReq-Read

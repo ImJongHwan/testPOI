@@ -10,7 +10,6 @@ import org.poi.Util.FileUtil;
 import org.poi.Util.TcUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -23,10 +22,10 @@ public class BenchmarkWriter {
     private static final String FAILED_CRAWLING_START_COLUMN = "M";
     private static final int FAILED_CRAWLING_START_ROW = 7;
 
-    private static final String FALSE_NEGATIVE_START_COLUMN = "N";
+    private static final String FALSE_NEGATIVE_COLUMN = "N";
     private static final int FALSE_NEGATIVE_START_ROW = 7;
 
-    private static final String TRUE_NEGATIVE_START_COLUMN = "O";
+    private static final String TRUE_NEGATIVE_COLUMN = "O";
     private static final int TRUE_NEGATIVE_START_ROW = 7;
 
     private static final String TEST_CASES_COLUMN = "B";
@@ -55,15 +54,14 @@ public class BenchmarkWriter {
      * @param vulnerabilityName vulnerability Name
      * @param crawledFilePath crawled file path
      * @param scannedFilePath scanned file path
-     * @throws IOException
      */
-    public void writeFailedListInSheet(String vulnerabilityName, String crawledFilePath, String scannedFilePath) throws IOException {
+    public void writeFailedListInSheet(String vulnerabilityName, String crawledFilePath, String scannedFilePath){
         TcSheet vulnerabilitySheet = this.benchmarkWorkbook.getTcSheet(vulnerabilityName);
         Map<String, Boolean> testCases = readTestCasesColumn(vulnerabilitySheet);
 
         writeFailedCrawlingList(vulnerabilitySheet, testCases, crawledFilePath);
-        writeFailedScanningFalseNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
-        writeFailedScanningTrueNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
+        writeFalseNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
+        writeTrueNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
     }
 
     /**
@@ -81,24 +79,19 @@ public class BenchmarkWriter {
 
         if(scanResultDirectory.exists() && scanResultDirectory.isDirectory()){
             for(Constant.BenchmarkSheets benchmarkSheet : Constant.BenchmarkSheets.values()){
-                try {
-                    String crawledFilePath = null;
-                    String scannedFilePath = null;
-                    for (File scanResultFile : scanResultDirectory.listFiles()) {
-                        if (scanResultFile.getName().contains(benchmarkSheet.toString())) {
-                            if (crawledFilePath == null && scanResultFile.getName().contains(BenchmarkParser.BENCHMARK_TEST_CRAWLED)) {
-                                crawledFilePath = scanResultFile.getAbsolutePath();
-                            } else {
-                                scannedFilePath = scanResultFile.getAbsolutePath();
-                            }
+                String crawledFilePath = null;
+                String scannedFilePath = null;
+                for (File scanResultFile : scanResultDirectory.listFiles()) {
+                    if (scanResultFile.getName().contains(benchmarkSheet.toString())) {
+                        if (crawledFilePath == null && scanResultFile.getName().contains(BenchmarkParser.BENCHMARK_TEST_CRAWLED)) {
+                            crawledFilePath = scanResultFile.getAbsolutePath();
+                        } else {
+                            scannedFilePath = scanResultFile.getAbsolutePath();
                         }
                     }
-                    if (crawledFilePath != null && scannedFilePath != null) {
-                        writeFailedListInSheet(benchmarkSheet.getSheetName(), crawledFilePath, scannedFilePath);
-                    }
-                } catch (IOException e){
-                    System.err.println("BenchmarkWriter : Writing failed list in sheet is failed since occur IOException - " + benchmarkSheet.getSheetName());
-                    e.printStackTrace();
+                }
+                if (crawledFilePath != null && scannedFilePath != null) {
+                    writeFailedListInSheet(benchmarkSheet.getSheetName(), crawledFilePath, scannedFilePath);
                 }
             }
         }
@@ -112,9 +105,8 @@ public class BenchmarkWriter {
      * @param vulnerabilitySheet vulnerability sheet
      * @param testCases test cases map
      * @param crawledFilePath crawled file path
-     * @throws IOException
      */
-    private void writeFailedCrawlingList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String crawledFilePath) throws IOException {
+    private void writeFailedCrawlingList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String crawledFilePath){
         List<String> expectedCrawlingList = new ArrayList<>();
         expectedCrawlingList.addAll(testCases.keySet());
         List<String> failedCrawlingList = BenchmarkParser.getFailedCrawlingList(crawledFilePath, expectedCrawlingList);
@@ -122,33 +114,31 @@ public class BenchmarkWriter {
     }
 
     /**
-     * write down failed scanning false negative list
+     * write down false negative list(failed scanning true positive list)
      *
      * @param vulnerabilitySheet vulnerability sheet
      * @param testCases test cases map
      * @param scannedFilePath scanned file path
-     * @throws IOException
      */
-    private void writeFailedScanningFalseNegativeList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String scannedFilePath) throws IOException {
-        List<String> expectedScannedFalseNegativeList = new ArrayList<>();
+    private void writeFalseNegativeList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String scannedFilePath){
+        List<String> expectedFalseNegativeList = new ArrayList<>();
         for(String testCase : testCases.keySet()){
             if(testCases.get(testCase)){
-                expectedScannedFalseNegativeList.add(testCase);
+                expectedFalseNegativeList.add(testCase);
             }
         }
-        List<String> failedScanningFalseNegativeList = BenchmarkParser.getFalseNegativeList(scannedFilePath, expectedScannedFalseNegativeList);
-        TcUtil.writeDownListInSheet(failedScanningFalseNegativeList, vulnerabilitySheet, FALSE_NEGATIVE_START_ROW, FALSE_NEGATIVE_START_COLUMN);
+        List<String> falseNegativeList = BenchmarkParser.getFalseNegativeList(scannedFilePath, expectedFalseNegativeList);
+        TcUtil.writeDownListInSheet(falseNegativeList, vulnerabilitySheet, FALSE_NEGATIVE_START_ROW, FALSE_NEGATIVE_COLUMN);
     }
 
     /**
-     * write down failed scanning true negative list
+     * write down true negative list( failed scanning false positive list )
      *
      * @param vulnerabilitySheet vulnerability sheet
      * @param testCases test cases map
      * @param scannedFilePath scanned file path
-     * @throws IOException
      */
-    private void writeFailedScanningTrueNegativeList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String scannedFilePath) throws IOException {
+    private void writeTrueNegativeList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String scannedFilePath){
         List<String> expectedScannedTrueNegativeList = new ArrayList<>();
         for(String testCase : testCases.keySet()){
             if(!testCases.get(testCase)){
@@ -156,7 +146,7 @@ public class BenchmarkWriter {
             }
         }
         List<String> failedScanningTrueNegativeList = BenchmarkParser.getFalsePositiveList(scannedFilePath, expectedScannedTrueNegativeList);
-        TcUtil.writeDownListInSheet(failedScanningTrueNegativeList, vulnerabilitySheet, TRUE_NEGATIVE_START_ROW, TRUE_NEGATIVE_START_COLUMN);
+        TcUtil.writeDownListInSheet(failedScanningTrueNegativeList, vulnerabilitySheet, TRUE_NEGATIVE_START_ROW, TRUE_NEGATIVE_COLUMN);
     }
 
     /**
@@ -191,7 +181,6 @@ public class BenchmarkWriter {
      * @param fileName file name
      */
     public void writeExcelFile(String parentDirectoryPath, String fileName){
-        benchmarkWorkbook.getWorkbook().setForceFormulaRecalculation(true);
         benchmarkWorkbook.writeWorkbook(parentDirectoryPath, fileName);
     }
 
