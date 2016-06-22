@@ -1,6 +1,9 @@
 package org.poi.BenchmarkPOI;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.poi.Constant;
 import org.poi.POIConstant;
@@ -10,6 +13,7 @@ import org.poi.Util.FileUtil;
 import org.poi.Util.TcUtil;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -181,6 +185,18 @@ public class BenchmarkWriter {
      * @param fileName file name
      */
     public void writeExcelFile(String parentDirectoryPath, String fileName){
+        FormulaEvaluator formulaEvaluator = benchmarkWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator();
+
+        for(Sheet sheet : benchmarkWorkbook.getWorkbook()){
+            for(Row row : sheet){
+                for(Cell cell : row){
+                    if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){
+                        formulaEvaluator.evaluateFormulaCell(cell);
+                    }
+                }
+            }
+        }
+
         benchmarkWorkbook.writeWorkbook(parentDirectoryPath, fileName);
     }
 
@@ -194,9 +210,13 @@ public class BenchmarkWriter {
 
     public static void main(String[] args){
         try {
-            BenchmarkWriter benchmarkWriter = new BenchmarkWriter();
+            Date startDate = new Date();
+            BenchmarkWriter benchmarkWriter = new BenchmarkWriter("C:\\scalaProjects\\testPOI\\src\\main\\resources\\Template\\benchmarkTemplate.xlsx");
             benchmarkWriter.writeAllFailedList("C:\\gitProjects\\zap\\results\\160620141843_benchmarktest");
             benchmarkWriter.writeExcelFile("C:\\Users\\Hwan\\Desktop", "test" + POIConstant.EXCEL_FILE_EXTENSION);
+            Date endDate = new Date();
+
+            System.out.println("time : " + (endDate.getTime() - startDate.getTime()));
         } catch (Exception e) {
             e.printStackTrace();
         }

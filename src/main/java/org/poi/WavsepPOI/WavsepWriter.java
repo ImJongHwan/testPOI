@@ -1,6 +1,9 @@
 package org.poi.WavsepPOI;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.poi.Constant;
 import org.poi.TestCasePOI.TcSheet;
@@ -222,14 +225,31 @@ public class WavsepWriter {
      * @param fileName file name
      */
     public void writeExcelFile(String parentDirectoryPath, String fileName){
+        FormulaEvaluator formulaEvaluator = wavsepWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator();
+
+        for(Sheet sheet : wavsepWorkbook.getWorkbook()){
+            for(Row row : sheet){
+                for(Cell cell : row){
+                    if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){
+                        formulaEvaluator.evaluateFormulaCell(cell);
+                    }
+                }
+            }
+        }
+
         wavsepWorkbook.writeWorkbook(parentDirectoryPath, fileName);
     }
 
     public static void main(String[] args){
         try {
+            Date startDate = new Date();
             WavsepWriter wavsepWriter = new WavsepWriter("C:\\scalaProjects\\testPOI\\src\\main\\resources\\Template\\wavsepTemplate.xlsx");
             wavsepWriter.writeAllFailedList("C:\\gitProjects\\zap\\results\\160615155330_wavseptest");
             wavsepWriter.writeExcelFile("C:\\Users\\Hwan\\Desktop", "test.xlsx");
+            Date endDate = new Date();
+
+            System.out.println("time : " + (endDate.getTime() - startDate.getTime()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
