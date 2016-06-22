@@ -13,7 +13,6 @@ import org.poi.Util.FileUtil;
 import org.poi.Util.TcUtil;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -40,6 +39,9 @@ public class BenchmarkWriter {
 
     private static final String DEFAULT_BENCHMARK_TEMPLATE_RESOURCE_FILE_PATH = "Template/benchmarkTemplate.xlsx";
 
+    private static final String GENERATING_TIME_COLUMN = "B";
+    private static final int GENERATING_TIME_ROW = 1;
+
 
     public BenchmarkWriter(String benchmarkTemplateFilePath) throws Exception {
         this.benchmarkTemplateFilePath = benchmarkTemplateFilePath;
@@ -63,9 +65,15 @@ public class BenchmarkWriter {
         TcSheet vulnerabilitySheet = this.benchmarkWorkbook.getTcSheet(vulnerabilityName);
         Map<String, Boolean> testCases = readTestCasesColumn(vulnerabilitySheet);
 
+        setWritingTimeInSheet(vulnerabilitySheet);
+
         writeFailedCrawlingList(vulnerabilitySheet, testCases, crawledFilePath);
         writeFalseNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
         writeTrueNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
+    }
+
+    private void setWritingTimeInSheet(TcSheet vulnerabilitySheet){
+        vulnerabilitySheet.getCell(GENERATING_TIME_ROW, GENERATING_TIME_COLUMN).setCellValue(new Date());
     }
 
     /**
