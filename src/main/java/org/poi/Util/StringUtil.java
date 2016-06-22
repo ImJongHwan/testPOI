@@ -16,7 +16,6 @@ public class StringUtil {
      */
     public static List<String> getComplementList(List<String> targets, List<String> origins){
         if(targets == null || targets.isEmpty()){
-            System.out.println("StringUtil : target is none.");
             return origins;
         }
 
