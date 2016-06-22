@@ -113,7 +113,9 @@ public class WavsepWriter {
                         }
                     }
                 }
-                writeFailedListInSheet(wavsepSheet.getSheetName(), crawledFilePath, scannedFilePath);
+                if(!wavsepSheet.toString().equals("total")) {
+                    writeFailedListInSheet(wavsepSheet.getSheetName(), crawledFilePath, scannedFilePath);
+                }
             }
         }
     }
