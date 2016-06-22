@@ -120,7 +120,10 @@ public class WavsepParser {
      * @return failed crawling list
      */
     public static List<String> getFailedCrawlingList(String crawledFilePath, List<String> expectedCrawlingList){
-        List<String> crawledList = parseList(FileUtil.readFile(crawledFilePath));
+        List<String> crawledList = null;
+        if(crawledFilePath != null){
+            crawledList = parseList(FileUtil.readFile(crawledFilePath));
+        }
         return StringUtil.getComplementList(crawledList, expectedCrawlingList);
     }
 
@@ -132,7 +135,10 @@ public class WavsepParser {
      * @return false negative list
      */
     public static List<String> getFalseNegativeList(String scannedFilePath, List<String> expectedScannedList){
-        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        List<String> scannedList = null;
+        if(scannedFilePath != null){
+            scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        }
         return StringUtil.getComplementList(scannedList, expectedScannedList);
     }
 
@@ -144,7 +150,10 @@ public class WavsepParser {
      * @return true negative list
      */
     public static List<String> getTrueNegativeList(String scannedFilePath, List<String> expectedScannedList){
-        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        List<String> scannedList = null;
+        if(scannedFilePath != null){
+            scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        }
         return StringUtil.getComplementList(scannedList, expectedScannedList);
     }
 
@@ -156,7 +165,10 @@ public class WavsepParser {
      * @return experimental list
      */
     public static List<String> getExperimentalList(String scannedFilePath, List<String> expectedScannedList){
-        List<String> scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        List<String> scannedList = null;
+        if(scannedFilePath != null){
+            scannedList = parseList(FileUtil.readFile(scannedFilePath));
+        }
         return StringUtil.getComplementList(scannedList, expectedScannedList);
     }
 

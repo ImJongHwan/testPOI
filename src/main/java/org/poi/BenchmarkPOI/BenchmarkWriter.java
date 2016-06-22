@@ -90,9 +90,7 @@ public class BenchmarkWriter {
                         }
                     }
                 }
-                if (crawledFilePath != null && scannedFilePath != null) {
-                    writeFailedListInSheet(benchmarkSheet.getSheetName(), crawledFilePath, scannedFilePath);
-                }
+                writeFailedListInSheet(benchmarkSheet.getSheetName(), crawledFilePath, scannedFilePath);
             }
         }
 
