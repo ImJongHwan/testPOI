@@ -90,7 +90,7 @@ public class BenchmarkComparer {
      * @param afterTotalSheet after total sheet
      */
     private void writeExistingTotalsInTotalSheet(TcSheet compareTotalSheet, TcSheet beforeTotalSheet, TcSheet afterTotalSheet){
-
+        // TODO: 2016-06-23
     }
 
     /**
@@ -101,7 +101,7 @@ public class BenchmarkComparer {
      * @param afterVulnerabilitySheet after vulnerability sheet
      */
     private void writeCompareInVulnerabilitySheet(TcSheet compareVulnerabilitySheet, TcSheet beforeVulnerabilitySheet, TcSheet afterVulnerabilitySheet){
-
+        // TODO: 2016-06-23
     }
 
     /**
@@ -112,6 +112,7 @@ public class BenchmarkComparer {
      */
     private Map<String, Boolean> readCrawlingTestCases(TcSheet benchmarkVulnerabilitySheet){
         Map<String, Boolean> crawlingTestCases = new HashMap<>();
+        // TODO: 2016-06-23
         return crawlingTestCases;
     }
 
@@ -123,6 +124,7 @@ public class BenchmarkComparer {
      */
     private Map<String, Boolean> readDetectingTestCases(TcSheet benchmarkVulnerabilitySheet) {
         Map<String, Boolean> detectingTestCases = new HashMap<>();
+        // TODO: 2016-06-23
         return detectingTestCases;
     }
 
@@ -140,5 +142,15 @@ public class BenchmarkComparer {
      */
     public TcWorkbook getBenchmarkCompareWorkbook() {
         return benchmarkCompareWorkbook;
+    }
+
+    /**
+     * write benchmark compare workbook current state in excel file
+     *
+     * @param parentDirectoryPath parent directory path
+     * @param fileName file name
+     */
+    public void writeBenchmarkCompareWorkbookExcelFile(String parentDirectoryPath, String fileName){
+        this.benchmarkCompareWorkbook.writeWorkbook(parentDirectoryPath, fileName);
     }
 }
