@@ -76,8 +76,8 @@ public class WavsepComparer {
         final String AFTER_TITLE_COLUMN = "A";
         final int AFTER_TITLE_ROW = 31;
 
-        compareTotalSheet.getCell(BEFORE_TITLE_ROW, BEFORE_TITLE_COLUMN).setCellValue(getFileNameFromPath(beforeWorkbookPath) + " (Before)");
-        compareTotalSheet.getCell(AFTER_TITLE_ROW, AFTER_TITLE_COLUMN).setCellValue(getFileNameFromPath(afterWorkbookPath) + " (After)");
+        compareTotalSheet.getCell(BEFORE_TITLE_ROW, BEFORE_TITLE_COLUMN).setCellValue(getFileNameFromPath(beforeWorkbookPath) + " (A Case)");
+        compareTotalSheet.getCell(AFTER_TITLE_ROW, AFTER_TITLE_COLUMN).setCellValue(getFileNameFromPath(afterWorkbookPath) + " (B Case)");
     }
 
     /**
@@ -285,7 +285,7 @@ public class WavsepComparer {
 
     public static void main(String[] args){
         try {
-            WavsepComparer wavsepComparer = new WavsepComparer("C:\\scalaProjects\\testPOI\\wavsepCompareTemplate.xlsx");
+            WavsepComparer wavsepComparer = new WavsepComparer("C:\\scalaProjects\\testPOI\\src\\main\\resources\\Template\\wavsepCompareTemplate.xlsx");
             wavsepComparer.writeCompareInWorkbook("C:\\scalaProjects\\testPOI\\Zap_Wavsep_Results_160602140051.xlsx", "C:\\scalaProjects\\testPOI\\Zap_Wavsep_Results_160608161934.xlsx");
             wavsepComparer.writeWavsepCompareWorkbookExcelFile("C:\\Users\\Hwan\\Desktop", "test.xlsx");
         } catch (IOException e) {
