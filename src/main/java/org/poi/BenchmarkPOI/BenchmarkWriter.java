@@ -1,16 +1,13 @@
 package org.poi.BenchmarkPOI;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.poi.Constant;
 import org.poi.POIConstant;
 import org.poi.TestCasePOI.TcSheet;
 import org.poi.TestCasePOI.TcWorkbook;
+import org.poi.Util.CellStylesUtil;
 import org.poi.Util.FileUtil;
-import org.poi.Util.TcUtil;
 
 import java.io.File;
 import java.util.*;
@@ -67,9 +64,53 @@ public class BenchmarkWriter {
 
         setWritingTimeInSheet(vulnerabilitySheet);
 
-        writeFailedCrawlingList(vulnerabilitySheet, testCases, crawledFilePath);
-        writeFalseNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
-        writeTrueNegativeList(vulnerabilitySheet, testCases, scannedFilePath);
+        // get list
+        List<String> failedCrawlingList = getFailedCrawlingList(testCases, crawledFilePath);
+        List<String> falseNegativeList = getFalseNegativeList(testCases, scannedFilePath);
+        List<String> trueNegativeList = getTrueNegativeList(testCases, scannedFilePath);
+
+        int startRow = 7;
+        String testCasesColumn = "B";
+        Cell testCaseCell;
+        CellStyle cellStyle = new CellStylesUtil(this.benchmarkWorkbook.getWorkbook()).getSimpleCellStyle(false, true, 0, 0, 1, 1);
+
+        for(int i = startRow; (testCaseCell = vulnerabilitySheet.getCell(i, testCasesColumn)).getCellType() == Cell.CELL_TYPE_STRING; i++){
+            String testCaseName = testCaseCell.getStringCellValue();
+            Cell crawlingCell;
+            Cell detectingCell = null;
+
+            // url crawl
+            if(failedCrawlingList.contains(testCaseName)){
+                crawlingCell = vulnerabilitySheet.getCell(i, "F");
+                crawlingCell.setCellValue(false);
+            } else {
+                crawlingCell = vulnerabilitySheet.getCell(i, "E");
+                crawlingCell.setCellValue(true);
+            }
+
+            crawlingCell.setCellStyle(cellStyle);
+
+            // detected true vulnerability
+            if(vulnerabilitySheet.getCell(i, "C").getCellType() == Cell.CELL_TYPE_BOOLEAN && vulnerabilitySheet.getCell(i, "C").getBooleanCellValue()){
+                if(falseNegativeList.contains(testCaseName)){
+                    detectingCell = vulnerabilitySheet.getCell(i, "H");
+                    detectingCell.setCellValue(false);
+                } else {
+                    detectingCell = vulnerabilitySheet.getCell(i, "G");
+                    detectingCell.setCellValue(true);
+                }
+                // detected false vulnerability
+            } else if (vulnerabilitySheet.getCell(i, "D").getCellType() == Cell.CELL_TYPE_BOOLEAN && !vulnerabilitySheet.getCell(i, "D").getBooleanCellValue()){
+                if(trueNegativeList.contains(testCaseName)){
+                    detectingCell = vulnerabilitySheet.getCell(i, "I");
+                    detectingCell.setCellValue(true);
+                } else {
+                    detectingCell = vulnerabilitySheet.getCell(i, "J");
+                    detectingCell.setCellValue(false);
+                }
+            }
+            detectingCell.setCellStyle(cellStyle);
+        }
     }
 
     private void setWritingTimeInSheet(TcSheet vulnerabilitySheet){
@@ -112,53 +153,51 @@ public class BenchmarkWriter {
 
 
     /**
-     * write down failed crawling list
+     * get failed crawling list
      *
-     * @param vulnerabilitySheet vulnerability sheet
      * @param testCases test cases map
      * @param crawledFilePath crawled file path
+     * @return failed crawling list
      */
-    private void writeFailedCrawlingList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String crawledFilePath){
+    private List<String> getFailedCrawlingList(Map<String, Boolean> testCases, String crawledFilePath){
         List<String> expectedCrawlingList = new ArrayList<>();
         expectedCrawlingList.addAll(testCases.keySet());
-        List<String> failedCrawlingList = BenchmarkParser.getFailedCrawlingList(crawledFilePath, expectedCrawlingList);
-        TcUtil.writeDownListInSheet(failedCrawlingList, vulnerabilitySheet, FAILED_CRAWLING_START_ROW, FAILED_CRAWLING_START_COLUMN);
+
+        return BenchmarkParser.getFailedCrawlingList(crawledFilePath, expectedCrawlingList);
     }
 
     /**
-     * write down false negative list(failed scanning true positive list)
+     * get false negative list(failed scanning true positive list)
      *
-     * @param vulnerabilitySheet vulnerability sheet
      * @param testCases test cases map
      * @param scannedFilePath scanned file path
+     * @return false negative list
      */
-    private void writeFalseNegativeList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String scannedFilePath){
+    private List<String> getFalseNegativeList(Map<String, Boolean> testCases, String scannedFilePath){
         List<String> expectedFalseNegativeList = new ArrayList<>();
         for(String testCase : testCases.keySet()){
             if(testCases.get(testCase)){
                 expectedFalseNegativeList.add(testCase);
             }
         }
-        List<String> falseNegativeList = BenchmarkParser.getFalseNegativeList(scannedFilePath, expectedFalseNegativeList);
-        TcUtil.writeDownListInSheet(falseNegativeList, vulnerabilitySheet, FALSE_NEGATIVE_START_ROW, FALSE_NEGATIVE_COLUMN);
+        return BenchmarkParser.getFalseNegativeList(scannedFilePath, expectedFalseNegativeList);
     }
 
     /**
-     * write down true negative list( failed scanning false positive list )
+     * get true negative list( failed scanning false positive list )
      *
-     * @param vulnerabilitySheet vulnerability sheet
      * @param testCases test cases map
      * @param scannedFilePath scanned file path
+     * @return true negative list
      */
-    private void writeTrueNegativeList(TcSheet vulnerabilitySheet, Map<String, Boolean> testCases, String scannedFilePath){
+    private List<String> getTrueNegativeList(Map<String, Boolean> testCases, String scannedFilePath){
         List<String> expectedScannedTrueNegativeList = new ArrayList<>();
         for(String testCase : testCases.keySet()){
             if(!testCases.get(testCase)){
                 expectedScannedTrueNegativeList.add(testCase);
             }
         }
-        List<String> failedScanningTrueNegativeList = BenchmarkParser.getFalsePositiveList(scannedFilePath, expectedScannedTrueNegativeList);
-        TcUtil.writeDownListInSheet(failedScanningTrueNegativeList, vulnerabilitySheet, TRUE_NEGATIVE_START_ROW, TRUE_NEGATIVE_COLUMN);
+        return BenchmarkParser.getFalsePositiveList(scannedFilePath, expectedScannedTrueNegativeList);
     }
 
     /**
@@ -220,7 +259,7 @@ public class BenchmarkWriter {
         try {
             Date startDate = new Date();
             BenchmarkWriter benchmarkWriter = new BenchmarkWriter("C:\\scalaProjects\\testPOI\\src\\main\\resources\\Template\\benchmarkTemplate.xlsx");
-            benchmarkWriter.writeAllFailedList("C:\\gitProjects\\zap\\results\\160620141843_benchmarktest");
+            benchmarkWriter.writeAllFailedList("C:\\gitProjects\\zap\\results\\160627144327_benchmarktest");
             benchmarkWriter.writeExcelFile("C:\\Users\\Hwan\\Desktop", "test" + POIConstant.EXCEL_FILE_EXTENSION);
             Date endDate = new Date();
 
