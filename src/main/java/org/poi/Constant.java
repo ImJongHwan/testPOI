@@ -66,4 +66,55 @@ public class Constant {
             return sheetName;
         }
     }
+
+    public static final String TEST_CASES_COLUMN = "B";
+
+    public enum WavsepTypeColumn {
+        typeTruePositive("C"),
+        typeFalsePositive("D"),
+        typeExperimental("E");
+
+        private String column;
+
+        WavsepTypeColumn(String column){
+            this.column = column;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+    }
+
+    public enum WavsepCrawlColumn {
+        urlCrawlTrue("F"),
+        urlCrawlFalse("G");
+        private String column;
+
+        WavsepCrawlColumn(String column){
+            this.column = column;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+    }
+
+    public enum WavsepDetectedColumn {
+        detectedTruePositiveTrue("H"),
+        detectedTruePositiveFalse("I"),
+        detectedFalsePositiveTrue("J"),
+        detectedFalsePositiveFalse("K"),
+        detectedExperimentalTrue("L"),
+        detectedExperimentalFalse("M");
+
+        private String column;
+
+        WavsepDetectedColumn(String column){
+            this.column = column;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+    }
 }

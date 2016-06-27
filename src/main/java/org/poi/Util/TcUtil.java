@@ -100,4 +100,19 @@ public class TcUtil {
 
         return writeDownListInSheet(list, tcSheet, startRow, startColumnString);
     }
+
+    /**
+     * get cell type unwrapping formula
+     * @param cell cell
+     * @return cell type unwrapping formula
+     */
+    public static int getCellTypeUnwrappedFormula(Cell cell){
+        int cellType = cell.getCellType();
+
+        if(cellType == Cell.CELL_TYPE_FORMULA){
+            cellType = cell.getCachedFormulaResultType();
+        }
+
+        return cellType;
+    }
 }
