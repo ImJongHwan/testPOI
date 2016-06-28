@@ -50,7 +50,6 @@ public class BenchmarkParser {
     }
 
 
-
     /**
      * get failed crawling list
      *
@@ -58,7 +57,7 @@ public class BenchmarkParser {
      * @return failed crawled list
      */
     protected static List<String> getFailedCrawlingList(File targetFile, String vulnerability) throws IOException {
-        List<String> crawledList = parseList(FileUtil.readFile(targetFile));
+        List<String> pureCrawledList = FileUtil.readFile(targetFile);
 
         List<String> expectedCrawlingList = new ArrayList<>();
         List<String> tempList;
@@ -69,66 +68,40 @@ public class BenchmarkParser {
             expectedCrawlingList.addAll(tempList);
         }
 
-        return StringUtil.getComplementList(crawledList, expectedCrawlingList);
-    }
-
-    /**
-     * get failed Crawling List
-     *
-     * @param crawledFilePath crawled file path
-     * @param expectedCrawlingList  expected crawling test cases list
-     * @return failed crawling list
-     */
-    public static List<String> getFailedCrawlingList(String crawledFilePath, List<String> expectedCrawlingList){
-        List<String> crawledList = null;
-        if(crawledFilePath != null){
-            crawledList = parseList(FileUtil.readFile(crawledFilePath));
-        }
-        return StringUtil.getComplementList(crawledList, expectedCrawlingList);
-    }
-
-    /**
-     * get false negative list
-     *
-     * @param scannedFilePath scanned file path
-     * @param expectedScannedList expected scanned list
-     * @return false negative list
-     */
-    public static List<String> getFalseNegativeList(String scannedFilePath, List<String> expectedScannedList){
-        List<String> scannedList = null;
-        if(scannedFilePath != null){
-            scannedList = parseList(FileUtil.readFile(scannedFilePath));
-        }
-        return StringUtil.getComplementList(scannedList, expectedScannedList);
-    }
-
-    /**
-     * get true negative list
-     *
-     * @param scannedFilePath scanned file path
-     * @param expectedScannedList expected scanned list
-     * @return true negative list
-     */
-    public static List<String> getFalsePositiveList(String scannedFilePath, List<String> expectedScannedList){
-        List<String> scannedList = null;
-        if(scannedFilePath != null){
-            scannedList = parseList(FileUtil.readFile(scannedFilePath));
-        }
-        return StringUtil.getComplementList(scannedList, expectedScannedList);
+        return getFailedCrawlingList(pureCrawledList, expectedCrawlingList);
     }
 
     /**
      * get failed crawling list
      *
-     * @param targetFilePath target file path
-     * @param originFilePath origin file path
-     * @return failed crawled list
+     * @param pureCrawledList pure crawled list, not parse list
+     * @param expectedCrawlingList expected crawling list
+     * @return failed crawling list
      */
-    protected static List<String> getFailedCrawlingList(String targetFilePath, String originFilePath){
-        File targetFile = new File(targetFilePath);
-        File originFile = new File(originFilePath);
+    public static List<String> getFailedCrawlingList(List<String> pureCrawledList, List<String> expectedCrawlingList){
+        return StringUtil.getComplementList(parseList(pureCrawledList), expectedCrawlingList);
+    }
 
-        return StringUtil.getComplementList(parseList(FileUtil.readFile(targetFile)), FileUtil.readFile(originFile));
+    /**
+     * get false negative list
+     *
+     * @param pureScannedList pure scanned list, not parsing list
+     * @param expectedScannedList expected scanned list
+     * @return false negative list
+     */
+    public static List<String> getFalseNegativeList(List<String> pureScannedList, List<String> expectedScannedList){
+        return StringUtil.getComplementList(parseList(pureScannedList), expectedScannedList);
+    }
+
+    /**
+     * get false positive list
+     *
+     * @param pureScannedList pure scanned list, not parsing list
+     * @param expectedScannedList expected scanned list
+     * @return false positive list
+     */
+    public static List<String> getTrueNegativeList(List<String> pureScannedList, List<String> expectedScannedList){
+        return StringUtil.getComplementList(parseList(pureScannedList), expectedScannedList);
     }
 
     /**

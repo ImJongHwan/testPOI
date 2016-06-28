@@ -84,4 +84,22 @@
 		</plugins>
 	</build>
 
+	<!-- Fasoo.com SPARROW public repository -->
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>Nexus Public Repository</name>
+			<url>http://192.168.100.109:12321/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<!-- Distribution information -->
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://192.168.100.109:12321/nexus/content/repositories/releases/</url>
+		</repository>
+	</distributionManagement>
+
 </project>

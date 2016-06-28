@@ -21,24 +21,7 @@ public class WavsepWriter {
     private String wavsepTemplateFilePath;
     private TcWorkbook wavsepWorkbook;
 
-    private static final String FAILED_CRAWLING_COLUMN = "P";
-    private static final int FAILED_CRAWLING_START_ROW = 7;
-
-    private static final String FALSE_NEGATIVE_COLUMN = "Q";
-    private static final int FALSE_NEGATIVE_START_ROW = 7;
-
-    private static final String TRUE_NEGATIVE_COLUMN = "R";
-    private static final int TRUE_NEGATIVE_START_ROW = 7;
-
-    private static final String EXPERIMENTAL_COLUMN = "S";
-    private static final int EXPERIMENTAL_START_ROW = 7;
-
-    private static final String TEST_CASES_COLUMN = "B";
     private static final int TEST_CASES_START_ROW = 7;
-
-    private static final String TYPE_TRUE_POSITIVE_COLUMN = "C";
-    private static final String TYPE_FALSE_POSITIVE_COLUMN = "D";
-    private static final String TYPE_EXPERIMENTAL_COLUMN = "E";
 
     private static final short TYPE_TRUE_POSITIVE = 11;
     private static final short TYPE_FALSE_POSITIVE = 22;
@@ -61,72 +44,78 @@ public class WavsepWriter {
     }
 
     /**
-     * write failed list in a vulnerability sheet - failed crawling, FALSE Negative, TRUE Negative, Failed Experimental
+     * write vulnerability sheet contents
      *
-     * @param vulnerabilityName vulnerability sheet name
-     * @param crawledFilePath crawled file path
-     * @param scannedFilePath scanned file path
+     * @param vulnerabilitySheetName vulnerability sheet name
+     * @param crawledList pure crawled list
+     * @param detectedList pure detected list
      */
-    public void writeFailedListInSheet(String vulnerabilityName, String crawledFilePath, String scannedFilePath){
-        TcSheet vulnerabilitySheet = this.wavsepWorkbook.getTcSheet(vulnerabilityName);
+    public void writeVulnerabilitySheetContents(String vulnerabilitySheetName, List<String> crawledList, List<String> detectedList){
+        TcSheet vulnerabilitySheet = this.wavsepWorkbook.getTcSheet(vulnerabilitySheetName);
         Map<String, Short> testCases = readTestCasesColumn(vulnerabilitySheet);
 
-        setWritingTimeInSheet(vulnerabilitySheet);
-
-        List<String> failedCrawlingList = getFailedCrawlingList(testCases, crawledFilePath);
-        List<String> falseNegativeList = getFalseNegativeList(testCases, scannedFilePath);
-        List<String> trueNegativeList = getTrueNegativeList(testCases, scannedFilePath);
-        List<String> failedScanningExperimentalList = getFailedScanningExperimentalList(testCases, scannedFilePath);
+        List<String> failedCrawlingList = getFailedCrawlingList(testCases, crawledList);
+        List<String> falseNegativeList = getFalseNegativeList(testCases, detectedList);
+        List<String> trueNegativeList = getTrueNegativeList(testCases, detectedList);
+        List<String> failedScanningExperimentalList = getFailedScanningExperimentalList(testCases, detectedList);
 
         int startRow = 7;
-        String testCasesColumn = "B";
         Cell testCaseCell;
         CellStyle cellStyle = new CellStylesUtil(this.wavsepWorkbook.getWorkbook()).getSimpleCellStyle(false, true, 0, 0, 1, 1);
 
-        for(int i = startRow; (testCaseCell = vulnerabilitySheet.getCell(i, testCasesColumn)).getCellType() == Cell.CELL_TYPE_STRING; i++){
+        setWritingTimeInSheet(vulnerabilitySheet);
+
+        for(int i = startRow; (testCaseCell = vulnerabilitySheet.getCell(i, Constant.TEST_CASES_COLUMN)).getCellType() == Cell.CELL_TYPE_STRING; i++){
             String testCaseName = testCaseCell.getStringCellValue();
             Cell crawlingCell;
             Cell detectingCell = null;
 
             // url crawl
             if(failedCrawlingList.contains(testCaseName)){
-                crawlingCell = vulnerabilitySheet.getCell(i, "G");
+                crawlingCell = vulnerabilitySheet.getCell(i, Constant.WavsepCrawlColumn.urlCrawlFalse.getColumn());
                 crawlingCell.setCellValue(false);
             } else {
-                crawlingCell = vulnerabilitySheet.getCell(i, "F");
+                crawlingCell = vulnerabilitySheet.getCell(i, Constant.WavsepCrawlColumn.urlCrawlTrue.getColumn());
                 crawlingCell.setCellValue(true);
             }
 
             crawlingCell.setCellStyle(cellStyle);
 
-            if(vulnerabilitySheet.getCell(i, "C").getCellType() == Cell.CELL_TYPE_BOOLEAN && vulnerabilitySheet.getCell(i, "C").getBooleanCellValue()){
+            // detected true positive type
+            if(vulnerabilitySheet.getCell(i, Constant.WavsepTypeColumn.typeTruePositive.getColumn()).getCellType() == Cell.CELL_TYPE_BOOLEAN
+                    && vulnerabilitySheet.getCell(i, Constant.WavsepTypeColumn.typeTruePositive.getColumn()).getBooleanCellValue()){
                 if(falseNegativeList.contains(testCaseName)){
-                    detectingCell = vulnerabilitySheet.getCell(i, "I");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.WavsepDetectedColumn.detectedTruePositiveFalse.getColumn());
                     detectingCell.setCellValue(false);
                 } else {
-                    detectingCell = vulnerabilitySheet.getCell(i, "H");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.WavsepDetectedColumn.detectedTruePositiveTrue.getColumn());
                     detectingCell.setCellValue(true);
                 }
-            } else if (vulnerabilitySheet.getCell(i, "D").getCellType() == Cell.CELL_TYPE_BOOLEAN && !vulnerabilitySheet.getCell(i, "D").getBooleanCellValue()){
+                // detected false positive type
+            } else if (vulnerabilitySheet.getCell(i, Constant.WavsepTypeColumn.typeFalsePositive.getColumn()).getCellType() == Cell.CELL_TYPE_BOOLEAN
+                    && !vulnerabilitySheet.getCell(i, Constant.WavsepTypeColumn.typeFalsePositive.getColumn()).getBooleanCellValue()){
                 if(trueNegativeList.contains(testCaseName)){
-                    detectingCell = vulnerabilitySheet.getCell(i, "J");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.WavsepDetectedColumn.detectedFalsePositiveTrue.getColumn());
                     detectingCell.setCellValue(true);
                 } else {
-                    detectingCell = vulnerabilitySheet.getCell(i, "K");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.WavsepDetectedColumn.detectedFalsePositiveFalse.getColumn());
                     detectingCell.setCellValue(false);
                 }
-            } else if (vulnerabilitySheet.getCell(i, "E").getCellType() == Cell.CELL_TYPE_STRING && vulnerabilitySheet.getCell(i, "E").getStringCellValue().equals("EX")){
+                // detected experimental type
+            } else if (vulnerabilitySheet.getCell(i, Constant.WavsepTypeColumn.typeExperimental.getColumn()).getCellType() == Cell.CELL_TYPE_STRING
+                    && vulnerabilitySheet.getCell(i, Constant.WavsepTypeColumn.typeExperimental.getColumn()).getStringCellValue().equals("EX")){
                 if(failedScanningExperimentalList.contains(testCaseName)){
-                    detectingCell = vulnerabilitySheet.getCell(i, "M");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.WavsepDetectedColumn.detectedExperimentalFalse.getColumn());
                     detectingCell.setCellValue(false);
                 } else {
-                    detectingCell = vulnerabilitySheet.getCell(i, "L");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.WavsepDetectedColumn.detectedExperimentalTrue.getColumn());
                     detectingCell.setCellValue(true);
                 }
             }
             detectingCell.setCellStyle(cellStyle);
         }
     }
+
 
     /**
      * set failed list writing time in a vulnerability sheet
@@ -164,8 +153,8 @@ public class WavsepWriter {
                         }
                     }
                 }
-                if(!wavsepSheet.toString().equals("total")) {
-                    writeFailedListInSheet(wavsepSheet.getSheetName(), crawledFilePath, scannedFilePath);
+                if(!wavsepSheet.toString().equals(Constant.WavsepSheets.total.getSheetName())) {
+                    writeVulnerabilitySheetContents(wavsepSheet.getSheetName(), FileUtil.readFile(crawledFilePath), FileUtil.readFile(scannedFilePath));
                 }
             }
         }
@@ -173,66 +162,65 @@ public class WavsepWriter {
 
     /**
      * get failed crawling list in a vulnerability sheet
-     *
      * @param testCases test cases map
-     * @param crawledFilePath crawled file path
+     * @param pureCrawledList pure crawled list, not parsing list
      * @return failed crawling list
      */
-    private List<String> getFailedCrawlingList(Map<String, Short> testCases, String crawledFilePath) {
+    private List<String> getFailedCrawlingList(Map<String, Short> testCases, List<String> pureCrawledList){
         List<String> expectedCrawlingList = new ArrayList<>();
         expectedCrawlingList.addAll(testCases.keySet());
-        return WavsepParser.getFailedCrawlingList(crawledFilePath, expectedCrawlingList);
+        return WavsepParser.getFailedCrawlingList(pureCrawledList, expectedCrawlingList);
     }
 
     /**
-     * write down false negative list( failed scanning true positive list ) in a vulnerability sheet
+     * get false negative list ( failed scanning true positive list ) in a vulnerability sheet
      *
      * @param testCases test cases map
-     * @param scannedFilePath scanned file path
+     * @param pureScannedList pure scanned list, not parsing list
      * @return false negative list
      */
-    private List<String> getFalseNegativeList(Map<String, Short> testCases, String scannedFilePath){
+    private List<String> getFalseNegativeList(Map<String, Short> testCases, List<String> pureScannedList){
         List<String> expectedFalseNegativeList = new ArrayList<>();
         for(String key : testCases.keySet()){
             if(testCases.get(key) == TYPE_TRUE_POSITIVE){
                 expectedFalseNegativeList.add(key);
             }
         }
-        return WavsepParser.getFalseNegativeList(scannedFilePath, expectedFalseNegativeList);
+        return WavsepParser.getFalseNegativeList(pureScannedList, expectedFalseNegativeList);
     }
 
     /**
      * get true negative list ( failed scanning false positive list ) in a vulnerability sheet
      *
      * @param testCases test cases map
-     * @param scannedFilePath scanned file path
+     * @param pureScannedList scanned file path
      * @return true negative list
      */
-    private List<String> getTrueNegativeList(Map<String, Short> testCases, String scannedFilePath){
+    private List<String> getTrueNegativeList(Map<String, Short> testCases, List<String> pureScannedList){
         List<String> expectedTrueNegativeList = new ArrayList<>();
         for(String key : testCases.keySet()){
             if(testCases.get(key) == TYPE_FALSE_POSITIVE){
                 expectedTrueNegativeList.add(key);
             }
         }
-        return WavsepParser.getTrueNegativeList(scannedFilePath, expectedTrueNegativeList);
+        return WavsepParser.getTrueNegativeList(pureScannedList, expectedTrueNegativeList);
     }
 
     /**
      * get failed scanning experimental list
      *
      * @param testCases test cases map
-     * @param scannedFilePath scanned file path
+     * @param pureScannedList pure scanned list, not parsing list
      * @return failed scanning experimental list
      */
-    private List<String> getFailedScanningExperimentalList(Map<String, Short> testCases, String scannedFilePath){
+    private List<String> getFailedScanningExperimentalList(Map<String, Short> testCases, List<String> pureScannedList){
         List<String> expectedScanningExperimentalList = new ArrayList<>();
         for(String key : testCases.keySet()){
             if(testCases.get(key) == TYPE_EXPERIMENTAL){
                 expectedScanningExperimentalList.add(key);
             }
         }
-        return WavsepParser.getExperimentalList(scannedFilePath, expectedScanningExperimentalList);
+        return WavsepParser.getExperimentalList(pureScannedList, expectedScanningExperimentalList);
     }
 
     /**
@@ -247,19 +235,37 @@ public class WavsepWriter {
         int testCaseRow = TEST_CASES_START_ROW;
         Cell testCaseCell;
 
-        while((testCaseCell = vulnerabilitySheet.getCell(testCaseRow, TEST_CASES_COLUMN)).getCellType() != Cell.CELL_TYPE_BLANK){
+        while((testCaseCell = vulnerabilitySheet.getCell(testCaseRow, Constant.TEST_CASES_COLUMN)).getCellType() != Cell.CELL_TYPE_BLANK){
             Cell typeCell;
-            if((typeCell = vulnerabilitySheet.getCell(testCaseRow, TYPE_TRUE_POSITIVE_COLUMN)).getCellType() == Cell.CELL_TYPE_BOOLEAN && typeCell.getBooleanCellValue()){
+            if((typeCell = vulnerabilitySheet.getCell(testCaseRow, Constant.WavsepTypeColumn.typeTruePositive.getColumn())).getCellType() == Cell.CELL_TYPE_BOOLEAN && typeCell.getBooleanCellValue()){
                 testCases.put(testCaseCell.getStringCellValue(), TYPE_TRUE_POSITIVE);
-            } else if ((typeCell = vulnerabilitySheet.getCell(testCaseRow, TYPE_FALSE_POSITIVE_COLUMN)).getCellType() == Cell.CELL_TYPE_BOOLEAN && !typeCell.getBooleanCellValue()){
+            } else if ((typeCell = vulnerabilitySheet.getCell(testCaseRow, Constant.WavsepTypeColumn.typeFalsePositive.getColumn())).getCellType() == Cell.CELL_TYPE_BOOLEAN && !typeCell.getBooleanCellValue()){
                 testCases.put(testCaseCell.getStringCellValue(), TYPE_FALSE_POSITIVE);
-            } else if((typeCell = vulnerabilitySheet.getCell(testCaseRow, TYPE_EXPERIMENTAL_COLUMN)).getCellType() == Cell.CELL_TYPE_STRING && typeCell.getStringCellValue().equals("EX")){
+            } else if((typeCell = vulnerabilitySheet.getCell(testCaseRow, Constant.WavsepTypeColumn.typeExperimental.getColumn())).getCellType() == Cell.CELL_TYPE_STRING && typeCell.getStringCellValue().equals("EX")){
                 testCases.put(testCaseCell.getStringCellValue(), TYPE_EXPERIMENTAL);
             }
             testCaseRow++;
         }
 
         return testCases;
+    }
+
+    /**
+     * get wavsep workbook
+     *
+     * @return wavsep tc workbook
+     */
+    public TcWorkbook getWavsepWorkbook() {
+        return wavsepWorkbook;
+    }
+
+    /**
+     * get wavsep template file path
+     *
+     * @return wavsep template file path
+     */
+    public String getWavsepTemplateFilePath() {
+        return wavsepTemplateFilePath;
     }
 
     /**

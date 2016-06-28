@@ -21,20 +21,7 @@ public class BenchmarkWriter {
     private String benchmarkTemplateFilePath;
     private TcWorkbook benchmarkWorkbook;
 
-    private static final String FAILED_CRAWLING_START_COLUMN = "M";
-    private static final int FAILED_CRAWLING_START_ROW = 7;
-
-    private static final String FALSE_NEGATIVE_COLUMN = "N";
-    private static final int FALSE_NEGATIVE_START_ROW = 7;
-
-    private static final String TRUE_NEGATIVE_COLUMN = "O";
-    private static final int TRUE_NEGATIVE_START_ROW = 7;
-
-    private static final String TEST_CASES_COLUMN = "B";
-    private static final int TEST_CASES_START_ROW = 7;
-
-    private static final String REAL_VULNERABILITY_TRUE_COLUMN = "C";
-    private static final String REAL_VULNERABILITY_FALSE_COLUMN = "D";
+    private static final int CONTENTS_START_ROW = 7;
 
     private static final String DEFAULT_BENCHMARK_TEMPLATE_RESOURCE_FILE_PATH = "Template/benchmarkTemplate.xlsx";
 
@@ -54,60 +41,59 @@ public class BenchmarkWriter {
     }
 
     /**
-     * write failed list in a vulnerability sheet - Failed Crwaling, FALSE Negative, TRUE Negative
+     * write failed crawling list in Vulnerability Sheet
      *
-     * @param vulnerabilityName vulnerability Name
-     * @param crawledFilePath crawled file path
-     * @param scannedFilePath scanned file path
+     * @param vulnerabilityName vulnerability name
+     * @param crawledList pure crawled list, not parsing list
      */
-    public void writeFailedListInSheet(String vulnerabilityName, String crawledFilePath, String scannedFilePath){
+    public void writeVulnerabilitySheetContents(String vulnerabilityName, List<String> crawledList, List<String> detectedList){
         TcSheet vulnerabilitySheet = this.benchmarkWorkbook.getTcSheet(vulnerabilityName);
         Map<String, Boolean> testCases = readTestCasesColumn(vulnerabilitySheet);
 
-        setWritingTimeInSheet(vulnerabilitySheet);
+        List<String> failedCrawlingList = getFailedCrawlingList(testCases, crawledList);
+        List<String> falseNegativeList = getFalseNegativeList(testCases, detectedList);
+        List<String> trueNegativeList = getTrueNegativeList(testCases, detectedList);
 
-        // get list
-        List<String> failedCrawlingList = getFailedCrawlingList(testCases, crawledFilePath);
-        List<String> falseNegativeList = getFalseNegativeList(testCases, scannedFilePath);
-        List<String> trueNegativeList = getTrueNegativeList(testCases, scannedFilePath);
-
-        int startRow = 7;
-        String testCasesColumn = "B";
+        String testCasesColumn = Constant.TEST_CASES_COLUMN;
         Cell testCaseCell;
         CellStyle cellStyle = new CellStylesUtil(this.benchmarkWorkbook.getWorkbook()).getSimpleCellStyle(false, true, 0, 0, 1, 1);
 
-        for(int i = startRow; (testCaseCell = vulnerabilitySheet.getCell(i, testCasesColumn)).getCellType() == Cell.CELL_TYPE_STRING; i++){
+        setWritingTimeInSheet(vulnerabilitySheet);
+
+        for(int i = CONTENTS_START_ROW; (testCaseCell = vulnerabilitySheet.getCell(i, testCasesColumn)).getCellType() == Cell.CELL_TYPE_STRING; i++){
             String testCaseName = testCaseCell.getStringCellValue();
             Cell crawlingCell;
             Cell detectingCell = null;
 
             // url crawl
             if(failedCrawlingList.contains(testCaseName)){
-                crawlingCell = vulnerabilitySheet.getCell(i, "F");
+                crawlingCell = vulnerabilitySheet.getCell(i, Constant.BenchmarkCrawlColumn.urlCrawlFalse.getColumn());
                 crawlingCell.setCellValue(false);
             } else {
-                crawlingCell = vulnerabilitySheet.getCell(i, "E");
+                crawlingCell = vulnerabilitySheet.getCell(i, Constant.BenchmarkCrawlColumn.urlCrawlTrue.getColumn());
                 crawlingCell.setCellValue(true);
             }
 
             crawlingCell.setCellStyle(cellStyle);
 
             // detected true vulnerability
-            if(vulnerabilitySheet.getCell(i, "C").getCellType() == Cell.CELL_TYPE_BOOLEAN && vulnerabilitySheet.getCell(i, "C").getBooleanCellValue()){
+            if(vulnerabilitySheet.getCell(i, Constant.BenchmarkRealVulnerabilityColumn.trueVulnerability.getColumn()).getCellType() == Cell.CELL_TYPE_BOOLEAN
+                    && vulnerabilitySheet.getCell(i, Constant.BenchmarkRealVulnerabilityColumn.trueVulnerability.getColumn()).getBooleanCellValue()){
                 if(falseNegativeList.contains(testCaseName)){
-                    detectingCell = vulnerabilitySheet.getCell(i, "H");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.BenchmarkDetectedColumn.detectedTrueVulnerabilityFalse.getColumn());
                     detectingCell.setCellValue(false);
                 } else {
-                    detectingCell = vulnerabilitySheet.getCell(i, "G");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.BenchmarkDetectedColumn.detectedTrueVulnerabilityTrue.getColumn());
                     detectingCell.setCellValue(true);
                 }
                 // detected false vulnerability
-            } else if (vulnerabilitySheet.getCell(i, "D").getCellType() == Cell.CELL_TYPE_BOOLEAN && !vulnerabilitySheet.getCell(i, "D").getBooleanCellValue()){
+            } else if (vulnerabilitySheet.getCell(i, Constant.BenchmarkRealVulnerabilityColumn.falseVulnerability.getColumn()).getCellType() == Cell.CELL_TYPE_BOOLEAN
+                    && !vulnerabilitySheet.getCell(i, Constant.BenchmarkRealVulnerabilityColumn.falseVulnerability.getColumn()).getBooleanCellValue()){
                 if(trueNegativeList.contains(testCaseName)){
-                    detectingCell = vulnerabilitySheet.getCell(i, "I");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.BenchmarkDetectedColumn.detectedFalseVulnerabilityTrue.getColumn());
                     detectingCell.setCellValue(true);
                 } else {
-                    detectingCell = vulnerabilitySheet.getCell(i, "J");
+                    detectingCell = vulnerabilitySheet.getCell(i, Constant.BenchmarkDetectedColumn.detectedFalseVulnerabilityFalse.getColumn());
                     detectingCell.setCellValue(false);
                 }
             }
@@ -115,6 +101,11 @@ public class BenchmarkWriter {
         }
     }
 
+    /**
+     * set time writing data in sheet
+     *
+     * @param vulnerabilitySheet vulnerability sheet
+     */
     private void setWritingTimeInSheet(TcSheet vulnerabilitySheet){
         vulnerabilitySheet.getCell(GENERATING_TIME_ROW, GENERATING_TIME_COLUMN).setCellValue(new Date());
     }
@@ -145,61 +136,60 @@ public class BenchmarkWriter {
                         }
                     }
                 }
-                if(!benchmarkSheet.toString().equals("total")) {
-                    writeFailedListInSheet(benchmarkSheet.getSheetName(), crawledFilePath, scannedFilePath);
+                if(!benchmarkSheet.toString().equals(Constant.BenchmarkSheets.total.getSheetName())) {
+                    writeVulnerabilitySheetContents(benchmarkSheet.getSheetName(), FileUtil.readFile(crawledFilePath), FileUtil.readFile(scannedFilePath));
                 }
             }
         }
 
     }
 
-
     /**
      * get failed crawling list
      *
      * @param testCases test cases map
-     * @param crawledFilePath crawled file path
+     * @param pureCrawledList pure crawled list, not parsing list
      * @return failed crawling list
      */
-    private List<String> getFailedCrawlingList(Map<String, Boolean> testCases, String crawledFilePath){
+    private List<String> getFailedCrawlingList(Map<String, Boolean> testCases, List<String> pureCrawledList){
         List<String> expectedCrawlingList = new ArrayList<>();
         expectedCrawlingList.addAll(testCases.keySet());
 
-        return BenchmarkParser.getFailedCrawlingList(crawledFilePath, expectedCrawlingList);
+        return BenchmarkParser.getFailedCrawlingList(pureCrawledList, expectedCrawlingList);
     }
 
     /**
-     * get false negative list(failed scanning true positive list)
+     * get FALSE negative list ( failed scanning true positive list ) in a vulnerability sheet
      *
      * @param testCases test cases map
-     * @param scannedFilePath scanned file path
+     * @param pureScannedList pure scanned list, not parsing
      * @return false negative list
      */
-    private List<String> getFalseNegativeList(Map<String, Boolean> testCases, String scannedFilePath){
+    private List<String> getFalseNegativeList(Map<String, Boolean> testCases, List<String> pureScannedList){
         List<String> expectedFalseNegativeList = new ArrayList<>();
         for(String testCase : testCases.keySet()){
             if(testCases.get(testCase)){
                 expectedFalseNegativeList.add(testCase);
             }
         }
-        return BenchmarkParser.getFalseNegativeList(scannedFilePath, expectedFalseNegativeList);
+        return BenchmarkParser.getFalseNegativeList(pureScannedList, expectedFalseNegativeList);
     }
 
     /**
-     * get true negative list( failed scanning false positive list )
+     * get TRUE negative list ( failed scanning false positive list ) in a vulnerability sheet
      *
      * @param testCases test cases map
-     * @param scannedFilePath scanned file path
+     * @param pureScannedList pure scanned list
      * @return true negative list
      */
-    private List<String> getTrueNegativeList(Map<String, Boolean> testCases, String scannedFilePath){
+    private List<String> getTrueNegativeList(Map<String, Boolean> testCases, List<String> pureScannedList){
         List<String> expectedScannedTrueNegativeList = new ArrayList<>();
         for(String testCase : testCases.keySet()){
             if(!testCases.get(testCase)){
                 expectedScannedTrueNegativeList.add(testCase);
             }
         }
-        return BenchmarkParser.getFalsePositiveList(scannedFilePath, expectedScannedTrueNegativeList);
+        return BenchmarkParser.getTrueNegativeList(pureScannedList, expectedScannedTrueNegativeList);
     }
 
     /**
@@ -211,15 +201,15 @@ public class BenchmarkWriter {
     private Map<String, Boolean> readTestCasesColumn(TcSheet vulnerabilitySheet){
         Map<String, Boolean> testCases = new HashMap<>();
 
-        int testCaseRow = TEST_CASES_START_ROW;
+        int testCaseRow = CONTENTS_START_ROW;
         Cell testCaseCell;
 
-        while((testCaseCell = vulnerabilitySheet.getCell(testCaseRow, TEST_CASES_COLUMN)).getCellType() != Cell.CELL_TYPE_BLANK){
-            Cell realVulnerabilityTrueCell = vulnerabilitySheet.getCell(testCaseRow, REAL_VULNERABILITY_TRUE_COLUMN);
+        while((testCaseCell = vulnerabilitySheet.getCell(testCaseRow, Constant.TEST_CASES_COLUMN)).getCellType() != Cell.CELL_TYPE_BLANK){
+            Cell realVulnerabilityTrueCell = vulnerabilitySheet.getCell(testCaseRow, Constant.BenchmarkRealVulnerabilityColumn.trueVulnerability.getColumn());
             if(realVulnerabilityTrueCell.getCellType() == Cell.CELL_TYPE_BOOLEAN && realVulnerabilityTrueCell.getBooleanCellValue()){
                 testCases.put(testCaseCell.getStringCellValue(), realVulnerabilityTrueCell.getBooleanCellValue());
             } else {
-                testCases.put(testCaseCell.getStringCellValue(), vulnerabilitySheet.getCell(testCaseRow, REAL_VULNERABILITY_FALSE_COLUMN).getBooleanCellValue());
+                testCases.put(testCaseCell.getStringCellValue(), vulnerabilitySheet.getCell(testCaseRow, Constant.BenchmarkRealVulnerabilityColumn.falseVulnerability.getColumn()).getBooleanCellValue());
             }
             testCaseRow++;
         }
@@ -237,14 +227,28 @@ public class BenchmarkWriter {
         TcUtil.writeTcWorkbook(parentDirectoryPath, fileName, this.benchmarkWorkbook);
     }
 
+    /**
+     * get benchmark template file path
+     *
+     * @return benchmark template file path
+     */
     public String getBenchmarkTemplateFilePath() {
         return benchmarkTemplateFilePath;
     }
 
+    /**
+     * get benchmark TcWorkbook
+     *
+     * @return benchmark TcWorkbook
+     */
     public TcWorkbook getBenchmarkWorkbook() {
         return benchmarkWorkbook;
     }
 
+    /**
+     * testing
+     * @param args empty
+     */
     public static void main(String[] args){
         try {
             Date startDate = new Date();

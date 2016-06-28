@@ -2,6 +2,7 @@ org\poi\POIConstant.class
 org\poi\WavsepPOI\WavsepWriter.class
 org\poi\WavsepPOI\WavsepComparer.class
 org\poi\Constant$WavsepDetectedColumn.class
+org\poi\Constant$BenchmarkCrawlColumn.class
 org\poi\Util\TcUtil.class
 org\poi\Util\FileUtil.class
 org\poi\Util\StringUtil.class
@@ -19,7 +20,9 @@ org\poi\Main.class
 org\poi\BenchmarkPOI\BenchmarkTemplate.class
 org\poi\TestCasePOI\TcWorkbook.class
 org\poi\Constant$BenchmarkSheets.class
+org\poi\Constant$BenchmarkDetectedColumn.class
 org\poi\Constant.class
 org\poi\Constant$WavsepCrawlColumn.class
+org\poi\Constant$BenchmarkRealVulnerabilityColumn.class
 org\poi\WavsepPOI\WavsepParser.class
 org\poi\BenchmarkPOI\BenchmarkCompareTemplate.class
