@@ -1,11 +1,10 @@
 package org.poi.WavsepPOI;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.poi.Constant;
 import org.poi.TestCasePOI.TcSheet;
 import org.poi.TestCasePOI.TcWorkbook;
-import org.poi.Util.CellStylesUtil;
 import org.poi.Util.FileUtil;
 import org.poi.Util.TcUtil;
 
@@ -159,7 +158,6 @@ public class WavsepComparer {
      * @param afterVulnerabilitySheet after vulnerability sheet
      */
     private void writeCompareInVulnerabilitySheet(TcSheet compareVulnerabilitySheet, TcSheet beforeVulnerabilitySheet, TcSheet afterVulnerabilitySheet){
-        // TODO: 2016-06-23
         Map<String, Boolean> beforeCrawlingMap = readCrawlingTestCases(beforeVulnerabilitySheet);
         Map<String, Boolean> afterCrawlingMap = readCrawlingTestCases(afterVulnerabilitySheet);
         Map<String, Boolean> beforeDetectingMap = readDetectingTestCases(beforeVulnerabilitySheet);
@@ -169,45 +167,32 @@ public class WavsepComparer {
 
         for(int i = COMPARE_VULNERABILITY_START_ROW; (testCaseCell = compareVulnerabilitySheet.getCell(i, TEST_CASES_COLUMN)).getCellType() == Cell.CELL_TYPE_STRING; i++){
             String testCaseName = testCaseCell.getStringCellValue();
-            CellStylesUtil cellStyle = new CellStylesUtil(this.wavsepCompareWorkbook.getWorkbook());
-            CellStyle simpleStyle = cellStyle.getSimpleCellStyle(false, true, 0, 0, 1, 1);
-            Cell compareCell;
             short flagDiff = 0;
 
             if(beforeCrawlingMap.get(testCaseName)){
-                compareCell  = compareVulnerabilitySheet.getCell(i, "F");
-                compareCell.setCellValue(true);
-                compareCell.setCellStyle(simpleStyle);
+                compareVulnerabilitySheet.getCell(i, "F").setCellValue(true);
             }
 
             if(afterCrawlingMap.get(testCaseName)){
-                compareCell  = compareVulnerabilitySheet.getCell(i, "G");
-                compareCell.setCellValue(true);
-                compareCell.setCellStyle(simpleStyle);
+                compareVulnerabilitySheet.getCell(i, "G").setCellValue(true);
             }
 
             if(beforeDetectingMap.get(testCaseName)){
-                compareCell  = compareVulnerabilitySheet.getCell(i, "H");
-                compareCell.setCellValue(true);
-                compareCell.setCellStyle(simpleStyle);
+                compareVulnerabilitySheet.getCell(i, "H").setCellValue(true);
                 flagDiff++;
             }
 
             if(afterDetectingMap.get(testCaseName)){
-                compareCell  = compareVulnerabilitySheet.getCell(i, "I");
-                compareCell.setCellValue(true);
-                compareCell.setCellStyle(simpleStyle);
+                compareVulnerabilitySheet.getCell(i, "I").setCellValue(true);
                 flagDiff++;
             }
 
             if(flagDiff == 1){
                 if(beforeDetectingMap.get(testCaseName)){
-                    compareCell = compareVulnerabilitySheet.getCell(i, "J");
+                    compareVulnerabilitySheet.getCell(i, "J").setCellValue(true);
                 } else {
-                    compareCell = compareVulnerabilitySheet.getCell(i, "K");
+                    compareVulnerabilitySheet.getCell(i, "K").setCellValue(true);
                 }
-                compareCell.setCellValue(true);
-                compareCell.setCellStyle(simpleStyle);
             }
         }
     }
@@ -280,7 +265,7 @@ public class WavsepComparer {
      * @param fileName file name
      */
     public void writeWavsepCompareWorkbookExcelFile(String parentDirectoryPath, String fileName){
-        this.wavsepCompareWorkbook.writeWorkbook(parentDirectoryPath, fileName);
+        TcUtil.writeTcWorkbook(parentDirectoryPath, fileName, this.wavsepCompareWorkbook);
     }
 
     public static void main(String[] args){

@@ -1,6 +1,7 @@
 package org.poi.WavsepPOI;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.poi.Constant;
 import org.poi.TestCasePOI.TcSheet;
@@ -215,8 +216,6 @@ public class WavsepWriter {
             }
         }
         return WavsepParser.getTrueNegativeList(scannedFilePath, expectedTrueNegativeList);
-//        List<String> trueNegativeList = WavsepParser.getTrueNegativeList(scannedFilePath, expectedTrueNegativeList);
-//        TcUtil.writeDownListInSheet(trueNegativeList, vulnerabilitySheet, TRUE_NEGATIVE_START_ROW, TRUE_NEGATIVE_COLUMN);
     }
 
     /**
@@ -270,19 +269,7 @@ public class WavsepWriter {
      * @param fileName file name
      */
     public void writeExcelFile(String parentDirectoryPath, String fileName){
-        FormulaEvaluator formulaEvaluator = wavsepWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator();
-
-        for(Sheet sheet : wavsepWorkbook.getWorkbook()){
-            for(Row row : sheet){
-                for(Cell cell : row){
-                    if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){
-                        formulaEvaluator.evaluateFormulaCell(cell);
-                    }
-                }
-            }
-        }
-
-        wavsepWorkbook.writeWorkbook(parentDirectoryPath, fileName);
+        TcUtil.writeTcWorkbook(parentDirectoryPath, fileName, this.wavsepWorkbook);
     }
 
     public static void main(String[] args){

@@ -50,6 +50,53 @@ public class Constant {
         }
     }
 
+    public enum BenchmarkRealVulnerabilityColumn {
+        trueVulnerability("C"),
+        falseVulnerability("D");
+
+        private String column;
+
+        BenchmarkRealVulnerabilityColumn(String column){
+            this.column = column;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+    }
+
+    public enum BenchmarkCrawlColumn {
+        urlCrawlTrue("E"),
+        urlCrawlFalse("F");
+
+        private String column;
+
+        BenchmarkCrawlColumn(String column){
+            this.column = column;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+    }
+
+    public enum BenchmarkDetectedColumn{
+        detectedTrueVulnerabilityTrue("G"),
+        detectedTrueVulnerabilityFalse("H"),
+        detectedFalseVulnerabilityTrue("I"),
+        detectedFalseVulnerabilityFalse("J");
+
+        private String column;
+
+        BenchmarkDetectedColumn(String column){
+            this.column = column;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+    }
+
     public enum WavsepSheets {
         total("Total"),
         lfi("Path Traversal(LFI)"),

@@ -1,6 +1,7 @@
 package org.poi.BenchmarkPOI;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.poi.Constant;
 import org.poi.POIConstant;
@@ -8,6 +9,7 @@ import org.poi.TestCasePOI.TcSheet;
 import org.poi.TestCasePOI.TcWorkbook;
 import org.poi.Util.CellStylesUtil;
 import org.poi.Util.FileUtil;
+import org.poi.Util.TcUtil;
 
 import java.io.File;
 import java.util.*;
@@ -232,19 +234,7 @@ public class BenchmarkWriter {
      * @param fileName file name
      */
     public void writeExcelFile(String parentDirectoryPath, String fileName){
-        FormulaEvaluator formulaEvaluator = benchmarkWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator();
-
-        for(Sheet sheet : benchmarkWorkbook.getWorkbook()){
-            for(Row row : sheet){
-                for(Cell cell : row){
-                    if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){
-                        formulaEvaluator.evaluateFormulaCell(cell);
-                    }
-                }
-            }
-        }
-
-        benchmarkWorkbook.writeWorkbook(parentDirectoryPath, fileName);
+        TcUtil.writeTcWorkbook(parentDirectoryPath, fileName, this.benchmarkWorkbook);
     }
 
     public String getBenchmarkTemplateFilePath() {

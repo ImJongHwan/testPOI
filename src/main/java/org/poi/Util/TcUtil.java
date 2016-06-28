@@ -1,11 +1,13 @@
 package org.poi.Util;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.*;
 import org.poi.POIConstant;
 import org.poi.TestCasePOI.TcSheet;
+import org.poi.TestCasePOI.TcWorkbook;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Hwan on 2016-05-26.
@@ -114,5 +116,32 @@ public class TcUtil {
         }
 
         return cellType;
+    }
+
+    /**
+     * write TcWorkbook in excel file
+     *
+     * @param parentDirectoryPath   parent directory path
+     * @param fileName              file name
+     * @param tcWorkbook            TcWorkbook
+     */
+    public static void writeTcWorkbook(String parentDirectoryPath, String fileName, TcWorkbook tcWorkbook){
+        FormulaEvaluator formulaEvaluator = tcWorkbook.getWorkbook().getCreationHelper().createFormulaEvaluator();
+
+        for(Sheet sheet : tcWorkbook.getWorkbook()){
+            for(Row row : sheet){
+                for(Cell cell : row){
+                    if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){
+                        try {
+                            formulaEvaluator.evaluateFormulaCell(cell);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+        tcWorkbook.writeWorkbook(parentDirectoryPath, fileName);
     }
 }
